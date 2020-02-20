@@ -4,10 +4,10 @@ import {AppComponent} from './app.component';
 
 const appRoutes: Routes = [
   {path: '', component: AppComponent},
-  // {path: 'exhibits', },
-  // {path: 'login', },
-  // {path: 'signUp', },
-  // {path: 'about', }
+  {path: 'exhibits', component: AppComponent},
+  {path: 'login', component: AppComponent},
+  {path: 'signUp', component: AppComponent},
+  {path: 'about', component: AppComponent}
 ];
 
 @NgModule({

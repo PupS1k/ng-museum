@@ -1,1 +1,24 @@
-<p>header works!</p>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a routerLink="/" class="navbar-brand">Museum</a>
+    </div>
+    <div class="collaps navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li routerLinkActive="active"><a routerLink="/exhibits">Exhibits</a></li>
+        <li routerLinkActive="active"><a routerLink="/about" >About Us</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="" *ngIf="isAuthenticated">
+<!--          <a style="cursor: pointer" (click)="onLogout()">Logout</a>-->
+        </li>
+        <li routerLinkActive="active" *ngIf="isAuthenticated">
+          <a routerLink="/login" style="cursor: pointer">Login</a>
+        </li>
+        <li routerLinkActive="active" *ngIf="isAuthenticated">
+          <a routerLink="/signUp" style="cursor: pointer">Sign Up</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
