@@ -11,9 +11,13 @@ import { ExhibitListComponent } from './exhibits/components/exhibit-list/exhibit
 import { ExhibitItemComponent } from './exhibits/components/exhibit-item/exhibit-item.component';
 import { ExhibitsService } from './exhibits/services/exhibits.service';
 import { LoginComponent } from './login/components/login.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
+import { SignUpComponent } from './sign-up/components/sign-up.component';
 import { ExhibitListPresentationComponent } from './exhibits/components/exhibit-list-presentation/exhibit-list-presentation.component';
 import { LoginPresentationComponent } from './login/components/login-presentation/login-presentation.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {LoginService} from './login/services/login.service';
+import { SignUpPresentationComponent } from './sign-up/components/sign-up-presentation/sign-up-presentation.component';
+// import {LoginInterceptorService} from './login/services/login.interceptor';
 
 @NgModule({
   declarations: [
@@ -26,14 +30,16 @@ import { LoginPresentationComponent } from './login/components/login-presentatio
     LoginComponent,
     SignUpComponent,
     ExhibitListPresentationComponent,
-    LoginPresentationComponent
+    LoginPresentationComponent,
+    SignUpPresentationComponent
   ],
   imports: [
+    HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserModule
   ],
-  providers: [ExhibitsService],
+  providers: [ExhibitsService, LoginService/*, {provide: HTTP_INTERCEPTORS, useClass: LoginInterceptorService, multi: true}*/],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
