@@ -1,4 +1,4 @@
-import {Tour} from './exhibit-list/tour.model';
+import {Tour} from './tour.model';
 
 export class Exhibit {
    exhibitId: number;

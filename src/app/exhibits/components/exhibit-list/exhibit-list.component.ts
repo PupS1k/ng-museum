@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Exhibit} from '../exhibit.model';
-import {ExhibitsService} from '../exhibits.service';
+import {Exhibit} from '../../models/exhibit.model';
+import {ExhibitsService} from '../../services/exhibits.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-exhibit-list',
@@ -8,12 +9,12 @@ import {ExhibitsService} from '../exhibits.service';
   styleUrls: ['./exhibit-list.component.css']
 })
 export class ExhibitListComponent implements OnInit {
-  exhibits: Exhibit[];
+  exhibits$: Observable<Exhibit[]>;
 
   constructor(private exhibitsService: ExhibitsService) { }
 
   ngOnInit(): void {
-    this.exhibits = this.exhibitsService.exhibits;
+    this.exhibits$ = this.exhibitsService.getExhibits();
   }
 
 }
