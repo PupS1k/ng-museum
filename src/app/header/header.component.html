@@ -1,21 +1,42 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a routerLink="/" class="navbar-brand">Museum</a>
-    </div>
-    <div class="collaps navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li routerLinkActive="active"><a routerLink="/exhibits">Exhibits</a></li>
-        <li routerLinkActive="active"><a routerLink="/about" >About Us</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="" *ngIf="isAuthenticated">
-          <a style="cursor: pointer" (click)="onLogout()">Logout</a>
-        </li>
-        <li routerLinkActive="active" *ngIf="!isAuthenticated">
-          <a routerLink="/login" style="cursor: pointer">Login</a>
-        </li>
-      </ul>
-    </div>
+<nav class="navbar-fixed-left navbar-default navbar navbar-dropdown">
+  <div class="navbar_arrow"></div>
+  <div class="navbar-header navbar_header">
+    <a href="#" routerLinkActive="active" class="museum-img"></a>
   </div>
+  <ul class="nav navbar-nav navbar_group-item">
+            <li routerLinkActive="active">
+              <a routerLink="/exhibits">
+                <div class="exhibit-img"></div>
+                <span>Exhibits</span>
+              </a>
+            </li>
+<!--            <li routerLinkActive="active">-->
+<!--              <a routerLink="/visitors">-->
+<!--                <div class="visitor-img"></div>-->
+<!--                <span>Visitors</span>-->
+<!--              </a>-->
+<!--            </li>-->
+<!--    <li routerLinkActive="active">-->
+<!--      <a routerLink="/tours">-->
+<!--        <div class="tour-img"></div>-->
+<!--        <span>Tour</span>-->
+<!--      </a>-->
+<!--    </li>-->
+<!--    <li routerLinkActive="active">-->
+<!--      <a routerLink="/exhibits">-->
+<!--        <div class="guide-img"></div>-->
+<!--        <span>Guides</span>-->
+<!--      </a>-->
+<!--    </li>-->
+  </ul>
+  <ul class="nav navbar-nav navbar_group-item navbar_group-item__bottom">
+    <li class="navbar_item" *ngIf="isAuthenticated">
+      <a routerLink="/exhibits" (click)="onLogout()">
+        <div class="logout-img navbar_img"></div>
+      </a>
+    </li>
+    <li routerLinkActive="active" *ngIf="!isAuthenticated">
+      <a routerLink="/login">Login</a>
+    </li>
+  </ul>
 </nav>

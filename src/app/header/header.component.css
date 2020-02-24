@@ -1,0 +1,160 @@
+a {
+  color: black;
+  font-weight: bold;
+}
+
+.navbar_arrow {
+  position: absolute;
+  bottom: 50vh;
+  left: 100px;
+  background: url("src/assets/images/fast-forward.svg") no-repeat;
+  background-size: 20px 20px;
+  border-radius: 50%;
+  width: 40px;
+  height: 20px;
+  z-index: 60;
+}
+
+.navbar-fixed-left {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100px;
+  border-radius: 0 5px 5px 0;
+  height: 100vh;
+  position: fixed;
+  margin: 0;
+  background-color: #e9e9e9;
+  z-index: 50;
+}
+
+.navbar_icon {
+  width: 71px;
+  height: 71px;
+}
+
+.navbar_group-item__bottom {
+  width: inherit;
+  position: fixed;
+  bottom: 5px;
+}
+
+.navbar_group-item, .navbar_group-item a {
+  display: flex;
+  font-size: 16px;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navbar_header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  border-bottom: 1px solid black;
+}
+
+.museum-img {
+  background: url("src/assets/images/art_gallery_museum-512.png") no-repeat;
+  background-size: 80px 80px;
+  height: 80px;
+  width: 80px;
+}
+
+.exhibit-img {
+  background: url("src/assets/images/museum-art-512.png") no-repeat;
+  background-size: 60px 60px;
+  height: 60px;
+  width: 60px;
+}
+
+.logout-img {
+  background: url("src/assets/images/logout.svg") no-repeat;
+  background-size: 60px 60px;
+  height: 60px;
+  width: 60px;
+}
+
+.guide-img {
+  background: url("src/assets/images/tour-guide.svg") no-repeat;
+  background-size: 60px 60px;
+  height: 60px;
+  width: 60px;
+}
+
+.tour-img {
+  background: url("src/assets/images/tour.svg") no-repeat;
+  background-size: 60px 60px;
+  height: 60px;
+  width: 60px;
+}
+
+.navbar-dropdown {
+  left: -99px;
+  animation-duration: 500ms;
+  animation-name: navbar-non-active;
+}
+
+.navbar-dropdown:hover {
+  left: 0;
+  animation-duration: 500ms;
+  animation-name: navbar-active;
+}
+
+.visitor-img {
+  background: url("src/assets/images/2028-512.png") no-repeat;
+  background-size: 60px 60px;
+  height: 60px;
+  width: 60px;
+}
+
+.visitor-img {
+  background: url("src/assets/images/2028-512.png") no-repeat;
+  background-size: 60px 60px;
+  height: 60px;
+  width: 60px;
+}
+
+@keyframes navbar-active {
+  from {
+    left: -99px;
+  }
+
+  to {
+    left: 0;
+  }
+}
+
+@keyframes navbar-non-active {
+  from {
+    left: 0;
+  }
+
+  to {
+    left: -99px;
+  }
+}
+
+.navbar-default .navbar-nav > .active > a {
+  background: #fbffbc;
+  border-radius: 30%;
+  color: black;
+}
+
+.navbar-default .navbar-nav > .active > a {
+  animation-duration: 400ms;
+  animation-name: nav_item-active;
+}
+
+@keyframes nav_item-active {
+  from {
+    background: #ececec;
+    border-radius: 10%;
+  }
+
+  to {
+    background: #fbffbc;
+    border-radius: 30%;
+  }
+}
