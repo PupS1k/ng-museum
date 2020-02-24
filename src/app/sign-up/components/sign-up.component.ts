@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {confirmPassword} from '../utils/validators';
+import {confirmPassword} from '../validators';
+import {SignUpService} from '../services/sign-up.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -8,27 +9,30 @@ import {confirmPassword} from '../utils/validators';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
-  password = new FormControl('', [Validators.required, Validators.minLength(5)]);
-
   signUpForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(5)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     age: new FormControl('', [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]),
-    password: this.password,
+    password: new FormControl('', [Validators.required, Validators.minLength(5)]),
     confirmPassword: new FormControl('', [
       Validators.required,
       Validators.minLength(5),
-      confirmPassword(this.password.value)
+      confirmPassword()
     ]),
   });
 
-  constructor() { }
+  constructor(private signUpService: SignUpService) { }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
-    console.log(this.signUpForm.value);
+    const name = this.signUpForm.value.name;
+    const password = this.signUpForm.value.password;
+    const age = this.signUpForm.value.age;
+    const email = this.signUpForm.value.email;
+
+    this.signUpService.signUp(name, password, age, email);
   }
 
 }

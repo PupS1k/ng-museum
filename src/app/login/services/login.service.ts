@@ -1,8 +1,10 @@
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {catchError, map, take, tap} from 'rxjs/operators';
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
+import {catchError, tap} from 'rxjs/operators';
 import {User} from '../models/user.model';
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, of, throwError} from 'rxjs';
+import {BehaviorSubject, throwError} from 'rxjs';
+
+import {handleError} from '../../shared/handleResponse';
 
 export interface LoginResponseData {
   access_token: string;
@@ -19,28 +21,43 @@ export class LoginService {
 
   constructor(
     private http: HttpClient,
-  ) {}
+  ) {
+  }
+
+
 
   login(name, password) {
+
+    // let body = new HttpParams();
+    // body = body.set("username", username);
+    // body = body.set("password", password);
+    // body = body.set("grant_type", "password");
+
     return this.http.post<LoginResponseData>(
-      '/api/oauth/token',
+      'oauth/token',
       {
         username: name,
         password,
         grant_type: 'password'
-      }).pipe(
-        catchError(this.handleError),
-        tap(resData => {
-          // console.log(resData);
-          // const user = new User(name, resData.access_token);
-          // this.user.next(user);
-          // localStorage.setItem('access_token', resData.access_token);
-        }),
+      },
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: 'Basic ' + btoa('Client' + ':' + 'Secret'),
+        })
+      }
+    ).pipe(
+      catchError(this.handleError),
+      tap(resData => {
+        // console.log(resData);
+        // const user = new User(name, resData.access_token);
+        // this.user.next(user);
+        // localStorage.setItem('access_token', resData.access_token);
+      }),
     );
   }
 
   handleError(errorRes: HttpErrorResponse) {
-    console.log(errorRes);
     let errorMessage = 'An unknown error occurred!';
 
     if (!errorRes.error || !errorRes.error.error) {

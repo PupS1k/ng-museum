@@ -1,7 +1,26 @@
 {
-  "/api": {
+  "/oauth/*": {
     "target": "http://192.168.0.133:8090",
     "secure": false,
-    "logLevel": "debug"
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/exhibit/*": {
+    "target": "http://192.168.0.133:8090",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/visitor/*": {
+    "target": "http://192.168.0.133:8090",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/guide/*": {
+    "target": "http://192.168.0.133:8090",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
   }
 }

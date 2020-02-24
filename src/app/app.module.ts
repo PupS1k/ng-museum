@@ -17,6 +17,7 @@ import { LoginPresentationComponent } from './login/components/login-presentatio
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {LoginService} from './login/services/login.service';
 import { SignUpPresentationComponent } from './sign-up/components/sign-up-presentation/sign-up-presentation.component';
+import {SignUpService} from './sign-up/services/sign-up.service';
 // import {LoginInterceptorService} from './login/services/login.interceptor';
 
 @NgModule({
@@ -31,7 +32,7 @@ import { SignUpPresentationComponent } from './sign-up/components/sign-up-presen
     SignUpComponent,
     ExhibitListPresentationComponent,
     LoginPresentationComponent,
-    SignUpPresentationComponent
+    SignUpPresentationComponent,
   ],
   imports: [
     HttpClientModule,
@@ -39,7 +40,7 @@ import { SignUpPresentationComponent } from './sign-up/components/sign-up-presen
     ReactiveFormsModule,
     BrowserModule
   ],
-  providers: [ExhibitsService, LoginService/*, {provide: HTTP_INTERCEPTORS, useClass: LoginInterceptorService, multi: true}*/],
+  providers: [ExhibitsService, LoginService, SignUpService/*, {provide: HTTP_INTERCEPTORS, useClass: LoginInterceptorService, multi: true}*/],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

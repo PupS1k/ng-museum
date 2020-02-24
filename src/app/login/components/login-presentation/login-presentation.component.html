@@ -19,11 +19,14 @@
       formControlName="password"
     >
   </div>
-  <button
-    class="btn btn-primary"
-    type="submit"
-    [disabled]="loginForm.invalid"
-  >
-    Sign In
-  </button>
+
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="loginForm.invalid"
+    >
+      Sign In
+    </button>
+  &nbsp;
+   <a class="btn btn-default" routerLink="/signUp" style="cursor: pointer">Sign Up</a>
 </form>
