@@ -10,9 +10,9 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="" *ngIf="isAuthenticated">
-<!--          <a style="cursor: pointer" (click)="onLogout()">Logout</a>-->
+          <a style="cursor: pointer" (click)="onLogout()">Logout</a>
         </li>
-        <li routerLinkActive="active" *ngIf="isAuthenticated">
+        <li routerLinkActive="active" *ngIf="!isAuthenticated">
           <a routerLink="/login" style="cursor: pointer">Login</a>
         </li>
       </ul>
