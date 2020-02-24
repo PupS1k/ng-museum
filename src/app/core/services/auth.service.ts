@@ -69,7 +69,7 @@ export class AuthService {
 
   signUp(name, password, age, email) {
     return this.http.post<LoginResponseData>(
-      '/exhibit/exhibits/add',
+      '/visitor/visitors/add',
       {
         visitorId: '',
         username: name,
@@ -77,13 +77,7 @@ export class AuthService {
         fio: name,
         age,
         email
-      },
-      // {
-      //   headers: new HttpHeaders({
-      //     'Content-Type': 'application/json',
-      //     Authorization: 'my-auth-token',
-      //   })
-      // }
+      }
     ).pipe(
       catchError(this.handleError),
       tap(resData => this.handleAuthentication(name, resData.access_token, resData.expires_in))
