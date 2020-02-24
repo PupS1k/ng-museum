@@ -1,0 +1,8 @@
+.card-item {
+  height: 500px;
+  cursor: pointer;
+}
+
+.exhibit-img {
+  max-height: 300px;
+}

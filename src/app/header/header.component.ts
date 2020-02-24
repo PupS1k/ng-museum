@@ -15,7 +15,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private exhibitsService: ExhibitsService
   ) { }
 
   ngOnInit(): void {
@@ -26,11 +25,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onLogout() {
     this.authService.logout();
-  }
-
-  fetchExhibits() {
-    // this.exhibitsService.fetchExhibits()
-    //   .subscribe();
   }
 
   ngOnDestroy(): void {

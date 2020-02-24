@@ -1,13 +1,12 @@
 <div style="cursor: pointer">
-  <div class="col-xs-4 list-group-item">
+  <div class="col-xs-4 list-group-item card-item">
     <div class="list-group-item-heading text-center">
       <span>{{ exhibit.title }}</span>
     </div>
     <img
-      class="img-responsive center-block"
+      class="img-responsive center-block exhibit-img"
       src="{{ exhibit.imageUrl }}"
       alt="{{ exhibit.title }}"
-      style="cursor: pointer; max-height: 300px"
     >
     <br>
     <span>{{ exhibit.description }}</span>
