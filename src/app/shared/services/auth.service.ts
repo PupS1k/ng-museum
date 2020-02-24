@@ -68,19 +68,23 @@ export class AuthService {
   }
 
   signUp(name, password, age, email) {
-    let body = new HttpParams();
-    body = body.set('username', name);
-    body = body.set('password', password);
-    body = body.set('grant_type', 'password');
-
     return this.http.post<LoginResponseData>(
-      'https://jsonplaceholder.typicacode.com/todos',
+      '/exhibit/exhibits/add',
       {
-        name,
+        visitorId: '',
+        username: name,
         password,
+        fio: name,
         age,
         email
-      }).pipe(
+      },
+      // {
+      //   headers: new HttpHeaders({
+      //     'Content-Type': 'application/json',
+      //     Authorization: 'my-auth-token',
+      //   })
+      // }
+    ).pipe(
       catchError(this.handleError),
       tap(resData => this.handleAuthentication(name, resData.access_token, resData.expires_in))
     );

@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../shared/services/auth.service';
 import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
+import {ExhibitsService} from '../exhibits/services/exhibits.service';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +15,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
+    private exhibitsService: ExhibitsService
   ) { }
 
   ngOnInit(): void {
@@ -24,6 +26,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onLogout() {
     this.authService.logout();
+  }
+
+  fetchExhibits() {
+    // this.exhibitsService.fetchExhibits()
+    //   .subscribe();
   }
 
   ngOnDestroy(): void {

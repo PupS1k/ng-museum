@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from './shared/services/auth.service';
+import {ExhibitsService} from './exhibits/services/exhibits.service';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +9,12 @@ import {AuthService} from './shared/services/auth.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,
+              private exhibitsService: ExhibitsService) {}
 
 
   ngOnInit(): void {
     this.authService.autoLogin();
+    // this.exhibitsService.fetchExhibits().subscribe();
   }
 }
