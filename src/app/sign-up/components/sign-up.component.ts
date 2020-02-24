@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {confirmPassword} from '../validators';
-import {SignUpService} from '../services/sign-up.service';
+import {AuthServices} from '../../shared/services/auth.services';
 
 @Component({
   selector: 'app-sign-up',
@@ -21,7 +21,7 @@ export class SignUpComponent implements OnInit {
     ]),
   });
 
-  constructor(private signUpService: SignUpService) { }
+  constructor(private authServices: AuthServices) { }
 
   ngOnInit(): void {
   }
@@ -32,7 +32,7 @@ export class SignUpComponent implements OnInit {
     const age = this.signUpForm.value.age;
     const email = this.signUpForm.value.email;
 
-    this.signUpService.signUp(name, password, age, email);
+    this.authServices.signUp(name, password, age, email);
   }
 
 }

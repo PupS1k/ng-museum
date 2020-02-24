@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
-import {Router, RouterModule} from '@angular/router';
-import {LoginService} from '../services/login.service';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
+import {AuthServices} from '../../shared/services/auth.services';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private loginService: LoginService
+    private authService: AuthServices
   ) {
   }
 
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
 
 
     // this.router.navigate(['/exhibits']);
-    this.loginService.login(name, password)
+    this.authService.login(name, password)
       .subscribe(resData => {
           console.log(resData);
 

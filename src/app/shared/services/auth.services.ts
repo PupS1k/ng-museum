@@ -1,10 +1,9 @@
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
-import {catchError, tap} from 'rxjs/operators';
-import {User} from '../models/user.model';
-import {Injectable} from '@angular/core';
 import {BehaviorSubject, throwError} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {catchError, tap} from 'rxjs/operators';
 
-import {handleError} from '../../shared/handleResponse';
+import {User} from '../../login/models/user.model';
 
 export interface LoginResponseData {
   access_token: string;
@@ -16,30 +15,19 @@ export interface LoginResponseData {
 }
 
 @Injectable()
-export class LoginService {
+export class AuthServices {
   user = new BehaviorSubject<User>(null);
-
-  constructor(
-    private http: HttpClient,
-  ) {
-  }
-
-
 
   login(name, password) {
 
-    // let body = new HttpParams();
-    // body = body.set("username", username);
-    // body = body.set("password", password);
-    // body = body.set("grant_type", "password");
+    let body = new HttpParams();
+    body = body.set('username', name);
+    body = body.set('password', password);
+    body = body.set('grant_type', 'password');
 
     return this.http.post<LoginResponseData>(
       'oauth/token',
-      {
-        username: name,
-        password,
-        grant_type: 'password'
-      },
+      body,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -55,6 +43,29 @@ export class LoginService {
         // localStorage.setItem('access_token', resData.access_token);
       }),
     );
+  }
+
+  signUp(name, password, age, email) {
+    return this.http.post(
+      'https://jsonplaceholder.typicode.com/todos',
+      {
+        name,
+        password,
+        age,
+        email
+      }).pipe(
+      catchError(this.handleError),
+      tap(resData => {
+        // console.log(resData);
+      })
+    );
+  }
+
+
+  handleAuthentication(name: string, token: string, ) {
+    const user = new User(name, token);
+    this.user.next(user);
+    localStorage.setItem('access_token', token);
   }
 
   handleError(errorRes: HttpErrorResponse) {
@@ -76,5 +87,9 @@ export class LoginService {
 
     return throwError(errorMessage);
   }
+
+  constructor(
+    private http: HttpClient,
+  ) {}
 
 }

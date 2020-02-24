@@ -5,7 +5,6 @@ export function confirmPassword(): ValidatorFn {
     if (control.parent) {
       return control.value === control.parent.value.password ? null : control.value;
     } else {
-      console.log('tut');
       return true;
     }
   };
