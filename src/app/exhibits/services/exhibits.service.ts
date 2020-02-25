@@ -8,11 +8,17 @@ import {tap} from 'rxjs/operators';
 @Injectable()
 export class ExhibitsService {
 
+  private exhibits$: Observable<Exhibit[]>;
+
   constructor(private http: HttpClient) {
   }
 
+  fetchExhibits() {
+    this.exhibits$ = this.http.get<Exhibit[]>('/exhibit/exhibits');
+  }
+
   getExhibits() {
-    return this.http.get<Exhibit[]>('/exhibit/exhibits');
+    return this.exhibits$;
   }
 
 }

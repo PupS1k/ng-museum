@@ -1,11 +1,11 @@
-.card-item {
+.list-item {
   cursor: pointer;
   border: 1px solid #9d9d9d;
   border-radius: 10px;
   margin: 10px 0;
 }
 
-.card-item_header {
+.list-item_header {
   font-size: 16px;
   color: black;
   font-weight: bold;
@@ -18,7 +18,7 @@
   max-height: 150px;
 }
 
-.card-item_body {
+.list-item_body {
   display: flex;
   margin: 10px;
 }

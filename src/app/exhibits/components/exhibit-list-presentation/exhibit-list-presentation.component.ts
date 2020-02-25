@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Exhibit} from '../../models/exhibit.model';
 
 @Component({
@@ -10,11 +10,17 @@ export class ExhibitListPresentationComponent implements OnInit {
 
   constructor() { }
 
-  @Input()
-  exhibits: Exhibit[];
+  @Input() exhibits: Exhibit[];
+  @Input() isHomePage: boolean;
+
+  @Output() moveExhibits = new EventEmitter<void>();
 
   ngOnInit(): void {
 
+  }
+
+  onMoveExhibits() {
+    this.moveExhibits.emit();
   }
 
 }
