@@ -3,8 +3,9 @@ import {BehaviorSubject, throwError} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {catchError, tap} from 'rxjs/operators';
 
-import {User} from '../../login/models/user.model';
+import {User} from '../models/user.model';
 import {Router} from '@angular/router';
+import {Role} from '../models/role.model';
 
 export interface LoginResponseData {
   access_token: string;
@@ -14,6 +15,7 @@ export interface LoginResponseData {
   scope: string;
   jti: string;
 }
+
 
 @Injectable()
 export class AuthService {
@@ -48,6 +50,7 @@ export class AuthService {
       name: string,
       _token: string,
       _tokenExpirationDate: string;
+      role: Role[]
     } = JSON.parse(localStorage.getItem('userData'));
 
     if (!userData) {
@@ -57,7 +60,8 @@ export class AuthService {
     const loadedUser = new User(
       userData.name,
       userData._token,
-      new Date(userData._tokenExpirationDate)
+      new Date(userData._tokenExpirationDate),
+      userData.role
     );
 
     if (loadedUser.token) {
@@ -65,6 +69,17 @@ export class AuthService {
       const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
       this.autoLogout(expirationDuration);
     }
+  }
+
+  getRole(token) {
+    return this.http.get<Role[]>(
+      '/abo/whoiam',
+      {
+        headers: new HttpHeaders({
+          Authorization: 'Bearer ' + token,
+        })
+      })
+      .pipe(catchError(this.handleError));
   }
 
   signUp(name, password, age, email) {
@@ -109,10 +124,11 @@ export class AuthService {
     const expirationDate = new Date(new Date().getTime() + +expiresIn);
     this.autoLogout(expiresIn * 1000);
 
-    const user = new User(name, token, expirationDate);
-    this.user.next(user);
-
-    localStorage.setItem('userData', JSON.stringify(user));
+    this.getRole(token).subscribe(role => {
+      const user = new User(name, token, expirationDate, role);
+      this.user.next(user);
+      localStorage.setItem('userData', JSON.stringify(user));
+    });
   }
 
   handleError(errorRes: HttpErrorResponse) {
