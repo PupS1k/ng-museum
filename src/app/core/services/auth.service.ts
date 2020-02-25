@@ -71,7 +71,7 @@ export class AuthService {
     }
   }
 
-  getRole(token) {
+  fetchRole(token) {
     return this.http.get<Role[]>(
       '/abo/whoiam',
       {
@@ -102,7 +102,6 @@ export class AuthService {
 
   logout() {
     this.user.next(null);
-
     this.router.navigate(['/']);
 
     localStorage.removeItem('userData');
@@ -124,8 +123,8 @@ export class AuthService {
     const expirationDate = new Date(new Date().getTime() + +expiresIn);
     this.autoLogout(expiresIn * 1000);
 
-    this.getRole(token).subscribe(role => {
-      const user = new User(name, token, expirationDate, role);
+    this.fetchRole(token).subscribe(roles => {
+      const user = new User(name, token, expirationDate, roles);
       this.user.next(user);
       localStorage.setItem('userData', JSON.stringify(user));
     });

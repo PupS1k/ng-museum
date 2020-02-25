@@ -18,6 +18,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { SignUpPresentationComponent } from './sign-up/components/sign-up-presentation/sign-up-presentation.component';
 import {AuthService} from './core/services/auth.service';
 import { ExhibitCardComponent } from './exhibits/components/exhibit-card/exhibit-card.component';
+import {RoleDirective} from './core/directives/role.directive';
 // import {LoginInterceptorService} from './login/services/login.interceptor';
 
 @NgModule({
@@ -34,6 +35,7 @@ import { ExhibitCardComponent } from './exhibits/components/exhibit-card/exhibit
     LoginPresentationComponent,
     SignUpPresentationComponent,
     ExhibitCardComponent,
+    RoleDirective
   ],
   imports: [
     HttpClientModule,

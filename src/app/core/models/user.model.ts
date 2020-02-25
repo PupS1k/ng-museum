@@ -4,13 +4,13 @@ export class User {
   public name: string;
   private _token: string;
   private readonly _tokenExpirationDate: Date;
-  public role: Role[];
+  public roles: Role[];
 
-  constructor(name: string, token: string, expirationDate: Date, role: Role[]) {
+  constructor(name: string, token: string, expirationDate: Date, roles: Role[]) {
     this.name = name;
     this._token = token;
     this._tokenExpirationDate = expirationDate;
-    this.role = role;
+    this.roles = roles;
   }
 
   get token() {

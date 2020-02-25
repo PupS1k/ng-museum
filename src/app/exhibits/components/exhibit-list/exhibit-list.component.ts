@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Exhibit} from '../../models/exhibit.model';
 import {ExhibitsService} from '../../services/exhibits.service';
 import {Observable} from 'rxjs';
@@ -10,8 +10,9 @@ import {Router} from '@angular/router';
   styleUrls: ['./exhibit-list.component.css']
 })
 export class ExhibitListComponent implements OnInit {
+
   exhibits$: Observable<Exhibit[]>;
-  isHomePage = true;
+  @Input() showMode: string;
 
   constructor(
     private exhibitsService: ExhibitsService,
@@ -21,7 +22,6 @@ export class ExhibitListComponent implements OnInit {
 
   ngOnInit(): void {
     this.exhibits$ = this.exhibitsService.getExhibits();
-    this.isHomePage = this.router.url === '/';
   }
 
   onNavigateExhibits() {

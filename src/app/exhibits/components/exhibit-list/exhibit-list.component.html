@@ -1,5 +1,5 @@
 <app-exhibit-list-presentation
   [exhibits]="(exhibits$ | async) || []"
-  [isHomePage]="isHomePage"
+  [showMode]="showMode"
   (moveExhibits)="onNavigateExhibits()"
 ></app-exhibit-list-presentation>

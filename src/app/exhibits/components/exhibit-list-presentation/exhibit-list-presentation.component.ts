@@ -11,7 +11,7 @@ export class ExhibitListPresentationComponent implements OnInit {
   constructor() { }
 
   @Input() exhibits: Exhibit[];
-  @Input() isHomePage: boolean;
+  @Input() showMode: string;
 
   @Output() moveExhibits = new EventEmitter<void>();
 
