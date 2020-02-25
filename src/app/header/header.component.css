@@ -7,10 +7,10 @@ a {
   position: absolute;
   bottom: 50vh;
   left: 100px;
-  background: url("src/assets/images/fast-forward.svg") no-repeat;
+  background: url("../../assets/img/fast-forward.svg") no-repeat;
   background-size: 20px 20px;
   border-radius: 50%;
-  width: 40px;
+  width: 20px;
   height: 20px;
   z-index: 60;
 }
@@ -56,35 +56,35 @@ a {
 }
 
 .museum-img {
-  background: url("src/assets/images/art_gallery_museum-512.png") no-repeat;
+  background: url("../../assets/img/art_gallery_museum-512.png") no-repeat;
   background-size: 80px 80px;
   height: 80px;
   width: 80px;
 }
 
 .exhibit-img {
-  background: url("src/assets/images/museum-art-512.png") no-repeat;
+  background: url("../../assets/img/museum-art-512.png") no-repeat;
   background-size: 60px 60px;
   height: 60px;
   width: 60px;
 }
 
 .logout-img {
-  background: url("src/assets/images/logout.svg") no-repeat;
+  background: url("../../assets/img/logout.svg") no-repeat;
   background-size: 60px 60px;
   height: 60px;
   width: 60px;
 }
 
 .guide-img {
-  background: url("src/assets/images/tour-guide.svg") no-repeat;
+  background: url("../../assets/img/tour-guide.svg") no-repeat;
   background-size: 60px 60px;
   height: 60px;
   width: 60px;
 }
 
 .tour-img {
-  background: url("src/assets/images/tour.svg") no-repeat;
+  background: url("../../assets/img/tour.svg") no-repeat;
   background-size: 60px 60px;
   height: 60px;
   width: 60px;
@@ -103,14 +103,14 @@ a {
 }
 
 .visitor-img {
-  background: url("src/assets/images/2028-512.png") no-repeat;
+  background: url("../../assets/img/2028-512.png") no-repeat;
   background-size: 60px 60px;
   height: 60px;
   width: 60px;
 }
 
 .visitor-img {
-  background: url("src/assets/images/2028-512.png") no-repeat;
+  background: url("../../assets/img/2028-512.png") no-repeat;
   background-size: 60px 60px;
   height: 60px;
   width: 60px;

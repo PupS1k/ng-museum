@@ -1,14 +1,15 @@
 <div style="cursor: pointer">
-  <div class="col-xs-4 list-group-item card-item">
-    <div class="list-group-item-heading text-center">
+  <div class="col-xs-12 card-item">
+    <div class="card-item_header text-center">
       <span>{{ exhibit.title }}</span>
     </div>
-    <img
-      class="img-responsive center-block exhibit-img"
-      src="{{ exhibit.imageUrl }}"
-      alt="{{ exhibit.title }}"
-    >
-    <br>
-    <span>{{ exhibit.description }}</span>
+    <div class="card-item_body">
+      <img
+        class="exhibit-img"
+        src="{{ exhibit.imageUrl }}"
+        alt="{{ exhibit.title }}"
+      >
+      <p class="description">{{ exhibit.description }}</p>
+    </div>
   </div>
 </div>
