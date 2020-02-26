@@ -19,6 +19,7 @@ import { SignUpPresentationComponent } from './auth/components/sign-up-presentat
 import {AuthService} from './auth/services/auth.service';
 import { ExhibitCardComponent } from './exhibits/components/exhibit-card/exhibit-card.component';
 import {RoleDirective} from './core/directives/role.directive';
+import { FooterComponent } from './footer/footer.component';
 // import {LoginInterceptorService} from './login/services/login.interceptor';
 
 @NgModule({
@@ -36,7 +37,8 @@ import {RoleDirective} from './core/directives/role.directive';
     SignUpPresentationComponent,
     ExhibitCardComponent,
     RoleDirective,
-    RoleDirective
+    RoleDirective,
+    FooterComponent
   ],
   imports: [
     HttpClientModule,
