@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {confirmPassword} from '../../validators';
 import {AuthService} from '../../services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -22,8 +23,12 @@ export class SignUpComponent implements OnInit {
   });
 
   isLoading = false;
+  error = '';
 
-  constructor(private authServices: AuthService) {
+  constructor(
+    private authServices: AuthService,
+    private router: Router,
+  ) {
   }
 
   ngOnInit(): void {
@@ -40,10 +45,16 @@ export class SignUpComponent implements OnInit {
     this.authServices.signUp(name, password, age, email)
       .subscribe(() => {
           this.isLoading = false;
+          this.router.navigate(['/']);
         },
         errorMessage => {
-          console.log(errorMessage);
+          this.error = errorMessage;
         });
+  }
+
+  onCloseAlert() {
+    this.error = '';
+    this.isLoading = false;
   }
 
 }

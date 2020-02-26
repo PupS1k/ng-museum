@@ -1,3 +1,4 @@
+<app-alert *ngIf="error" [message]="error" (close)="onCloseAlert()"></app-alert>
 <div class="row">
   <div *ngIf="isLoading">
     <app-spinner></app-spinner>

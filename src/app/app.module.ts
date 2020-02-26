@@ -21,6 +21,7 @@ import { ExhibitCardComponent } from './exhibits/components/exhibit-card/exhibit
 import {RoleDirective} from './core/directives/role.directive';
 import { FooterComponent } from './footer/footer.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { AlertComponent } from './shared/alert/alert.component';
 // import {LoginInterceptorService} from './login/services/login.interceptor';
 
 @NgModule({
@@ -38,9 +39,9 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
     SignUpPresentationComponent,
     ExhibitCardComponent,
     RoleDirective,
-    RoleDirective,
     FooterComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    AlertComponent
   ],
   imports: [
     HttpClientModule,
@@ -48,7 +49,10 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
     ReactiveFormsModule,
     BrowserModule
   ],
-  providers: [ExhibitsService, AuthService/*, {provide: HTTP_INTERCEPTORS, useClass: LoginInterceptorService, multi: true}*/],
+  providers: [
+    ExhibitsService,
+    AuthService,
+    /*, {provide: HTTP_INTERCEPTORS, useClass: LoginInterceptorService, multi: true}*/],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
