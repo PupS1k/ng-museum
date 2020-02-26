@@ -1,4 +1,8 @@
+<div *ngIf="isLoading">
+  <app-spinner></app-spinner>
+</div>
 <app-exhibit-list-presentation
+  *ngIf="!isLoading"
   [exhibits]="(exhibits$ | async) || []"
   [showMode]="showMode"
   (moveExhibits)="onNavigateExhibits()"

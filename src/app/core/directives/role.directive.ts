@@ -11,8 +11,7 @@ export class RoleDirective implements OnInit, OnDestroy {
     private templateRef: TemplateRef<any>,
     private vcr: ViewContainerRef,
     private authService: AuthService
-  ) {
-  }
+  ) {}
 
   @Input('appRoleUser') roleUser: string;
 

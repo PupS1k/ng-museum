@@ -20,6 +20,7 @@ import {AuthService} from './auth/services/auth.service';
 import { ExhibitCardComponent } from './exhibits/components/exhibit-card/exhibit-card.component';
 import {RoleDirective} from './core/directives/role.directive';
 import { FooterComponent } from './footer/footer.component';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
 // import {LoginInterceptorService} from './login/services/login.interceptor';
 
 @NgModule({
@@ -38,7 +39,8 @@ import { FooterComponent } from './footer/footer.component';
     ExhibitCardComponent,
     RoleDirective,
     RoleDirective,
-    FooterComponent
+    FooterComponent,
+    SpinnerComponent
   ],
   imports: [
     HttpClientModule,

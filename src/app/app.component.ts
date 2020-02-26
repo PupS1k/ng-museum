@@ -10,7 +10,8 @@ import {ExhibitsService} from './exhibits/services/exhibits.service';
 export class AppComponent implements OnInit {
 
   constructor(private authService: AuthService,
-              private exhibitsService: ExhibitsService) {}
+              private exhibitsService: ExhibitsService) {
+  }
 
 
   ngOnInit(): void {

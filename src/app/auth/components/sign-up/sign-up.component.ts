@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {confirmPassword} from '../../validators';
 import {AuthService} from '../../services/auth.service';
@@ -21,23 +21,28 @@ export class SignUpComponent implements OnInit {
     ]),
   });
 
-  constructor(private authServices: AuthService) { }
+  isLoading = false;
+
+  constructor(private authServices: AuthService) {
+  }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
+    this.isLoading = true;
+
     const name = this.signUpForm.value.name;
     const password = this.signUpForm.value.password;
     const age = this.signUpForm.value.age;
     const email = this.signUpForm.value.email;
 
     this.authServices.signUp(name, password, age, email)
-      .subscribe(resData => {
-        console.log(resData);
-      },
+      .subscribe(() => {
+          this.isLoading = false;
+        },
         errorMessage => {
-        console.log(errorMessage);
+          console.log(errorMessage);
         });
   }
 
