@@ -2,10 +2,9 @@ import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/c
 import {BehaviorSubject, throwError} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {catchError, tap} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 import {User} from '../models/user.model';
-import {Router} from '@angular/router';
-import {Role} from '../models/role.model';
 
 export interface LoginResponseData {
   access_token: string;
@@ -14,6 +13,10 @@ export interface LoginResponseData {
   expires_in: number;
   scope: string;
   jti: string;
+}
+
+export interface WhoiamResData {
+  authority: string;
 }
 
 
@@ -50,7 +53,7 @@ export class AuthService {
       name: string,
       _token: string,
       _tokenExpirationDate: string;
-      role: Role[]
+      role: string[]
     } = JSON.parse(localStorage.getItem('userData'));
 
     if (!userData) {
@@ -72,14 +75,13 @@ export class AuthService {
   }
 
   fetchRole(token) {
-    return this.http.get<Role[]>(
+    return this.http.get<WhoiamResData[]>(
       '/abo/whoiam',
       {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
         })
-      })
-      .pipe(catchError(this.handleError));
+      });
   }
 
   signUp(name, password, age, email) {
@@ -120,10 +122,12 @@ export class AuthService {
 
 
   handleAuthentication(name: string, token: string, expiresIn: number) {
-    const expirationDate = new Date(new Date().getTime() + +expiresIn);
+    const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000);
+
     this.autoLogout(expiresIn * 1000);
 
-    this.fetchRole(token).subscribe(roles => {
+    this.fetchRole(token).subscribe(resData => {
+      const roles = resData.map((role: WhoiamResData) => role.authority);
       const user = new User(name, token, expirationDate, roles);
       this.user.next(user);
       localStorage.setItem('userData', JSON.stringify(user));

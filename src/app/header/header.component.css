@@ -3,6 +3,12 @@ a {
   font-weight: bold;
 }
 
+button {
+  border: none;
+  outline: none;
+  background: none;
+}
+
 .navbar_arrow {
   position: absolute;
   bottom: 50vh;
@@ -64,11 +70,20 @@ a {
   width: 40px;
 }
 
-.logout-img {
-  background: url("../../assets/img/logout.svg") no-repeat;
+.user-img {
+  background: url("../../assets/img/user.svg") no-repeat;
   background-size: 40px 40px;
   height: 40px;
   width: 40px;
+}
+
+.username {
+  font-size: 17px;
+  color: black;
+}
+
+.menu {
+  min-width: 70px;
 }
 
 .guide-img {

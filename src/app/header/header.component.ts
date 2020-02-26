@@ -12,6 +12,7 @@ import {ExhibitsService} from '../exhibits/services/exhibits.service';
 export class HeaderComponent implements OnInit, OnDestroy {
   isAuthenticated = false;
   private userSub: Subscription;
+  username = '';
 
   constructor(
     private authService: AuthService,
@@ -20,11 +21,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.userSub = this.authService.user.subscribe(user => {
       this.isAuthenticated = !!user;
+      if (user) {
+        this.username = user.name;
+      }
     });
   }
 
   onLogout() {
     this.authService.logout();
+    this.username = '';
   }
 
   ngOnDestroy(): void {

@@ -1,12 +1,10 @@
-import {Role} from './role.model';
-
 export class User {
   public name: string;
   private _token: string;
   private readonly _tokenExpirationDate: Date;
-  public roles: Role[];
+  public roles: string[];
 
-  constructor(name: string, token: string, expirationDate: Date, roles: Role[]) {
+  constructor(name: string, token: string, expirationDate: Date, roles: string[]) {
     this.name = name;
     this._token = token;
     this._tokenExpirationDate = expirationDate;

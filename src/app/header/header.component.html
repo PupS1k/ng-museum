@@ -30,10 +30,19 @@
 <!--    </li>-->
   </ul>
   <ul class="nav navbar-nav navbar_group-item navbar_group-item__bottom">
-    <li class="navbar_item" *ngIf="isAuthenticated">
-      <a routerLink="/exhibits" (click)="onLogout()">
-        <div class="logout-img navbar_img"></div>
-      </a>
+    <li class="dropup" *ngIf="isAuthenticated">
+      <button
+        class="btn btn-default dropdown-toggle navbar_group-item"
+        type="button" data-toggle="dropdown"
+      >
+        <div class="user-img navbar_img"></div>
+        <span class="username">{{ username }}</span>
+      </button>
+      <ul class="menu dropdown-menu">
+        <li>
+          <button class="btn btn-default" (click)="onLogout()">Logout</button>
+        </li>
+      </ul>
     </li>
     <li routerLinkActive="active" *ngIf="!isAuthenticated">
       <a routerLink="/login">Login</a>

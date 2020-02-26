@@ -35,6 +35,7 @@ import {RoleDirective} from './core/directives/role.directive';
     LoginPresentationComponent,
     SignUpPresentationComponent,
     ExhibitCardComponent,
+    RoleDirective,
     RoleDirective
   ],
   imports: [
