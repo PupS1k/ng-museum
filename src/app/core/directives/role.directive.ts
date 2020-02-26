@@ -1,5 +1,5 @@
 import {Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
-import {AuthService} from '../services/auth.service';
+import {AuthService} from '../../auth/services/auth.service';
 import {Subscription} from 'rxjs';
 
 @Directive({selector: '[appRoleUser]'})
@@ -17,7 +17,6 @@ export class RoleDirective implements OnInit, OnDestroy {
   @Input('appRoleUser') roleUser: string;
 
   ngOnInit() {
-
    this.userSub = this.authService.user.subscribe(userData => {
      if (userData) {
         const isShowEl = userData.roles.includes(this.roleUser);

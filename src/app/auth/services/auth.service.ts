@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
 import {catchError, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 
-import {User} from '../models/user.model';
+import {User} from '../../core/models/user.model';
 
 export interface LoginResponseData {
   access_token: string;
