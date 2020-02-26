@@ -53,7 +53,7 @@ export class AuthService {
       name: string,
       _token: string,
       _tokenExpirationDate: string;
-      role: string[]
+      roles: string[]
     } = JSON.parse(localStorage.getItem('userData'));
 
     if (!userData) {
@@ -64,7 +64,7 @@ export class AuthService {
       userData.name,
       userData._token,
       new Date(userData._tokenExpirationDate),
-      userData.role
+      userData.roles
     );
 
     if (loadedUser.token) {
@@ -81,7 +81,8 @@ export class AuthService {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
         })
-      });
+      })
+      .pipe(catchError(this.handleError));
   }
 
   signUp(name, password, age, email) {
@@ -104,6 +105,7 @@ export class AuthService {
 
   logout() {
     this.user.next(null);
+
     this.router.navigate(['/']);
 
     localStorage.removeItem('userData');
@@ -127,11 +129,13 @@ export class AuthService {
     this.autoLogout(expiresIn * 1000);
 
     this.fetchRole(token).subscribe(resData => {
-      const roles = resData.map((role: WhoiamResData) => role.authority);
-      const user = new User(name, token, expirationDate, roles);
-      this.user.next(user);
-      localStorage.setItem('userData', JSON.stringify(user));
-    });
+        const roles = resData.map((role: WhoiamResData) => role.authority);
+        const user = new User(name, token, expirationDate, roles);
+        this.user.next(user);
+        localStorage.setItem('userData', JSON.stringify(user));
+      },
+      (error => console.log(error))
+    );
   }
 
   handleError(errorRes: HttpErrorResponse) {
@@ -157,6 +161,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router
-  ) {}
+  ) {
+  }
 
 }
