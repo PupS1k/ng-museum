@@ -1,0 +1,12 @@
+<div class="col-xs-4 list-group-item card-item">
+  <div class="list-group-item-heading card-item_header text-center">
+    <span>{{ exhibit.title }}</span>
+  </div>
+  <img
+    class="exhibit-img img-responsive center-block"
+    src="{{ exhibit.imageUrl }}"
+    alt="{{ exhibit.title }}"
+  >
+  <p class="description">{{ exhibit.description }}</p>
+  <a style="cursor: pointer" [routerLink]="'/exhibits/' + exhibit.exhibitId">View</a>
+</div>

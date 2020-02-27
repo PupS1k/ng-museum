@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Exhibit} from '../../models/exhibit.model';
+import {Exhibit} from '../../../exhibits/models/exhibit.model';
 
 @Component({
   selector: 'app-exhibit-list-presentation',
