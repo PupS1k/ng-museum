@@ -22,6 +22,8 @@ import {RoleDirective} from './core/directives/role.directive';
 import { FooterComponent } from './footer/footer.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { AlertComponent } from './shared/alert/alert.component';
+import {ExhibitDetailsComponent} from './exhibits/components/exhibit-details/exhibit-details.component';
+import {ExhibitsStartComponent} from './exhibits/components/exhibits-start/exhibits-start.component';
 // import {LoginInterceptorService} from './login/services/login.interceptor';
 
 @NgModule({
@@ -32,6 +34,8 @@ import { AlertComponent } from './shared/alert/alert.component';
     ExhibitsComponent,
     ExhibitListComponent,
     ExhibitItemComponent,
+    ExhibitDetailsComponent,
+    ExhibitsStartComponent,
     LoginComponent,
     SignUpComponent,
     ExhibitListPresentationComponent,

@@ -3,7 +3,7 @@
 </div>
 <app-exhibit-list-presentation
   *ngIf="!isLoading"
-  [exhibits]="(exhibits$ | async) || []"
+  [exhibits]="exhibits"
   [showMode]="showMode"
   (moveExhibits)="onNavigateExhibits()"
 ></app-exhibit-list-presentation>

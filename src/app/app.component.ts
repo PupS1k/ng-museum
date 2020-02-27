@@ -9,13 +9,11 @@ import {ExhibitsService} from './exhibits/services/exhibits.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private authService: AuthService,
-              private exhibitsService: ExhibitsService) {
-  }
+  constructor(private authService: AuthService) {}
+
 
 
   ngOnInit(): void {
-    this.exhibitsService.fetchExhibits();
     this.authService.autoLogin();
   }
 }

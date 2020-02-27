@@ -38,13 +38,13 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/']);
         },
         errorMessage => {
+          this.isLoading = false;
           this.error = errorMessage;
         });
   }
 
   onCloseAlert() {
     this.error = '';
-    this.isLoading = false;
   }
 
 }

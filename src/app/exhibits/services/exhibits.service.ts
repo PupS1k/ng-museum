@@ -1,23 +1,22 @@
 import {Exhibit} from '../models/exhibit.model';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {tap} from 'rxjs/operators';
 
 @Injectable()
 export class ExhibitsService {
 
-  private exhibits$: Observable<Exhibit[]>;
+  isLoading = false;
 
   constructor(private http: HttpClient) {
   }
 
   fetchExhibits() {
-    this.exhibits$ = this.http.get<Exhibit[]>('/exhibit/exhibits');
+    return this.http.get<Exhibit[]>('/exhibit/exhibits');
   }
 
-  getExhibits() {
-    return this.exhibits$;
+  fetchExhibit(id) {
+    return this.http.get<Exhibit[]>(`/exhibit/exhibits/${id}`);
   }
 
 }
