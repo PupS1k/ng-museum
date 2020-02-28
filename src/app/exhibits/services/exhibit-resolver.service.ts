@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {ActivatedRoute, ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
 
-import {ExhibitsService} from './exhibits.service';
+import {ExhibitsService} from '../../exhibits-shared/services/exhibits.service';
 import {Exhibit} from '../models/exhibit.model';
 
 

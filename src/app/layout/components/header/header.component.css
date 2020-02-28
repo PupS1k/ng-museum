@@ -14,7 +14,7 @@ button {
   position: absolute;
   bottom: 50vh;
   left: 100px;
-  background: url("../../assets/img/fast-forward.svg") no-repeat;
+  background: url("../../../../assets/img/fast-forward.svg") no-repeat;
   background-size: 20px 20px;
   border-radius: 50%;
   width: 20px;
@@ -58,21 +58,21 @@ button {
 }
 
 .museum-img {
-  background: url("../../assets/img/art_gallery_museum-512.png") no-repeat;
+  background: url("../../../../assets/img/art_gallery_museum-512.png") no-repeat;
   background-size: 70px 70px;
   height: 70px;
   width: 70px;
 }
 
 .exhibit-img {
-  background: url("../../assets/img/museum-art-512.png") no-repeat;
+  background: url("../../../../assets/img/museum-art-512.png") no-repeat;
   background-size: 40px 40px;
   height: 40px;
   width: 40px;
 }
 
 .user-img {
-  background: url("../../assets/img/user.svg") no-repeat;
+  background: url("../../../../assets/img/user.svg") no-repeat;
   background-size: 40px 40px;
   height: 40px;
   width: 40px;
@@ -88,14 +88,14 @@ button {
 }
 
 .guide-img {
-  background: url("../../assets/img/tour-guide.svg") no-repeat;
+  background: url("../../../../assets/img/tour-guide.svg") no-repeat;
   background-size: 40px 40px;
   height: 40px;
   width: 40px;
 }
 
 .tour-img {
-  background: url("../../assets/img/tour.svg") no-repeat;
+  background: url("../../../../assets/img/tour.svg") no-repeat;
   background-size: 40px 40px;
   height: 40px;
   width: 40px;
@@ -114,14 +114,14 @@ button {
 }
 
 .visitor-img {
-  background: url("../../assets/img/2028-512.png") no-repeat;
+  background: url("../../../../assets/img/2028-512.png") no-repeat;
   background-size: 40px 40px;
   height: 40px;
   width: 40px;
 }
 
 .visitor-img {
-  background: url("../../assets/img/2028-512.png") no-repeat;
+  background: url("../../../../assets/img/2028-512.png") no-repeat;
   background-size: 40px 40px;
   height: 40px;
   width: 40px;

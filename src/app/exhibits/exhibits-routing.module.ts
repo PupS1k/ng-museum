@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {ExhibitDetailsComponent} from './components/exhibit-details/exhibit-details.component';
 import {ExhibitsStartComponent} from './components/exhibits-start/exhibits-start.component';
-import {ExhibitsResolverService} from '../exhibits-shared/exhibits-resolver.service';
+import {ExhibitsResolverService} from '../exhibits-shared/services/exhibits-resolver.service';
 import {ExhibitResolverService} from './services/exhibit-resolver.service';
 import {ExhibitsComponent} from './components/exhibits.component';
 

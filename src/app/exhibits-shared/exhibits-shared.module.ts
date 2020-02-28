@@ -6,6 +6,7 @@ import {ExhibitListPresentationComponent} from './components/exhibit-list-presen
 import {ExhibitCardComponent} from './components/exhibit-card/exhibit-card.component';
 import {ExhibitItemComponent} from './components/exhibit-item/exhibit-item.component';
 import {RouterModule} from '@angular/router';
+import {ExhibitsService} from './services/exhibits.service';
 
 
 @NgModule({
@@ -25,6 +26,9 @@ import {RouterModule} from '@angular/router';
     ExhibitListPresentationComponent,
     ExhibitCardComponent,
     ExhibitItemComponent
-  ]
+  ],
+  providers: [
+    ExhibitsService,
+  ],
 })
 export class ExhibitsSharedModule {}

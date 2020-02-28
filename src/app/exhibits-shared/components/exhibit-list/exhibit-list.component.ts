@@ -1,6 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Exhibit} from '../../../exhibits/models/exhibit.model';
-import {ExhibitsService} from '../../../exhibits/services/exhibits.service';
+import {ExhibitsService} from '../../services/exhibits.service';
 import {Observable, of, Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import set = Reflect.set;

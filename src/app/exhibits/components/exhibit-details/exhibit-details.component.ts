@@ -1,7 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Exhibit} from '../../models/exhibit.model';
 import {ActivatedRoute} from '@angular/router';
-import {ExhibitsService} from '../../services/exhibits.service';
+import {ExhibitsService} from '../../../exhibits-shared/services/exhibits.service';
 import {Observable, Subscription} from 'rxjs';
 
 @Component({

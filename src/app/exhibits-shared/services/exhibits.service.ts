@@ -1,4 +1,4 @@
-import {Exhibit} from '../models/exhibit.model';
+import {Exhibit} from '../../exhibits/models/exhibit.model';
 import {Observable, of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
