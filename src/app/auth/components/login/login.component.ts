@@ -34,8 +34,8 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(name, password)
       .subscribe(() => {
-          this.isLoading = false;
           this.router.navigate(['/']);
+          this.isLoading = false;
         },
         errorMessage => {
           this.isLoading = false;
