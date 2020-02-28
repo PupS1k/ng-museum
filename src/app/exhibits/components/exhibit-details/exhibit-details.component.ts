@@ -1,8 +1,6 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Exhibit} from '../../models/exhibit.model';
 import {ActivatedRoute} from '@angular/router';
-import {ExhibitsService} from '../../../exhibits-shared/services/exhibits.service';
-import {Observable, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-exhibit-details',
@@ -13,12 +11,12 @@ export class ExhibitDetailsComponent implements OnInit {
   exhibit: Exhibit;
 
   constructor(private route: ActivatedRoute) {
-    this.route.data.subscribe(data => {
-      this.exhibit = data.exhibit;
-    });
   }
 
   ngOnInit(): void {
+    this.route.data.subscribe(data => {
+      this.exhibit = data.exhibit;
+    });
   }
 
 }

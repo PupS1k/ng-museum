@@ -8,7 +8,7 @@ import {LoginPresentationComponent} from './components/login-presentation/login-
 import {SignUpPresentationComponent} from './components/sign-up-presentation/sign-up-presentation.component';
 import {RouterModule} from '@angular/router';
 import {AuthRoutingModule} from './auth-routing.module';
-import {ExhibitsSharedModule} from '../exhibits-shared/exhibits-shared.module';
+import {ExhibitsSharedModule} from '../exhibits/exhibits-shared.module';
 
 
 @NgModule({

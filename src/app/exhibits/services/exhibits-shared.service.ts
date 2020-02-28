@@ -1,9 +1,9 @@
-import {Exhibit} from '../../exhibits/models/exhibit.model';
+import {Exhibit} from '../models/exhibit.model';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 
 @Injectable()
-export class ExhibitsService {
+export class ExhibitsSharedService {
 
   isLoading = false;
 
@@ -14,9 +14,4 @@ export class ExhibitsService {
     this.isLoading = true;
     return this.http.get<Exhibit[]>('/exhibit/exhibits');
   }
-
-  fetchExhibit(id) {
-    return this.http.get<Exhibit[]>(`/exhibit/exhibits/${id}`);
-  }
-
 }

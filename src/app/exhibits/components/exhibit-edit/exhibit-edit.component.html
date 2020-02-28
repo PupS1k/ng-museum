@@ -1,0 +1,9 @@
+<div class="container" style="margin: 20px 0">
+  <div class="col-md-8 col-md-offset-2">
+    <app-exhibit-edit-presentation
+      [exhibitForm]="exhibitForm"
+      [tours]="exhibit.tourEntitySet"
+      (edit)="onSubmit()"
+    ></app-exhibit-edit-presentation>
+  </div>
+</div>

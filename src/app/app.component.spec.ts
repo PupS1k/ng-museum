@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  // it(`should have as title 'Museum'`, () => {
+  // it(`should have as title 'museum'`, () => {
   //   const fixture = TestBed.createComponent(AppComponent);
   //   const app = fixture.componentInstance;
-  //   expect(app.title).toEqual('Museum');
+  //   expect(app.title).toEqual('museum');
   // });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('Museum app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('museum app is running!');
   });
 });

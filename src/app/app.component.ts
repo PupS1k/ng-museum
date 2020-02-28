@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from './auth/services/auth.service';
-import {ExhibitsService} from './exhibits-shared/services/exhibits.service';
 
 @Component({
   selector: 'app-root',

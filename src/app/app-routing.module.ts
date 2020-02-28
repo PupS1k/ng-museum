@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
-import {ExhibitsResolverService} from './exhibits-shared/services/exhibits-resolver.service';
+import {ExhibitsResolverService} from './exhibits/services/exhibits-resolver.service';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, resolve: {exhibits: ExhibitsResolverService}},
