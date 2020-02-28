@@ -14,7 +14,8 @@ import {ToursComponent} from './tours/components/tours.component';
 import {ToursPresentationComponent} from './tours/components/tours-presentation/tours-presentation.component';
 import {TourItemComponent} from './tours/components/tour-item/tour-item.component';
 import {ExhibitsService} from './exhibits/services/exhibits.service';
-import {AuthInterceptorService} from './core/services/auth.interceptor.service';
+import {AuthInterceptorService} from './core/services/auth-interceptor.service';
+import {CoreModule} from './core/core.module';
 
 
 @NgModule({
@@ -32,13 +33,12 @@ import {AuthInterceptorService} from './core/services/auth.interceptor.service';
     BrowserModule,
     SharedModule,
     ExhibitsSharedModule,
-    LayoutModule
+    LayoutModule,
+    CoreModule
   ],
   providers: [
-    AuthService,
-    ExhibitsService,
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
-    ],
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

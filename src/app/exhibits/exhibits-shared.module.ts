@@ -7,6 +7,7 @@ import {ExhibitCardComponent} from './components/exhibit-card/exhibit-card.compo
 import {ExhibitItemComponent} from './components/exhibit-item/exhibit-item.component';
 import {RouterModule} from '@angular/router';
 import {ExhibitsSharedService} from './services/exhibits-shared.service';
+import {ExhibitsService} from './services/exhibits.service';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import {ExhibitsSharedService} from './services/exhibits-shared.service';
   ],
   providers: [
     ExhibitsSharedService,
+    ExhibitsService
   ],
 })
 export class ExhibitsSharedModule {}
