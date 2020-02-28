@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
 import {catchError, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 
-import {User} from '../models/user.model';
+import {UserData} from '../models/user-data.model';
 
 export interface LoginResponseData {
   access_token: string;
@@ -22,7 +22,7 @@ export interface WhoiamResData {
 
 @Injectable()
 export class AuthService {
-  user = new BehaviorSubject<User>(null);
+  user = new BehaviorSubject<UserData>(null);
 
   private tokenExpirationTimer: any;
 
@@ -49,39 +49,23 @@ export class AuthService {
   }
 
   autoLogin() {
-    const userData: {
-      name: string,
-      _token: string,
-      _tokenExpirationDate: string;
-      roles: string[]
-    } = JSON.parse(localStorage.getItem('userData'));
+    const userData: UserData = JSON.parse(localStorage.getItem('userData'));
 
     if (!userData) {
       return;
     }
 
-    const loadedUser = new User(
-      userData.name,
-      userData._token,
-      new Date(userData._tokenExpirationDate),
-      userData.roles
-    );
+    const loadedUser: UserData = {...userData, tokenExpirationDate: new Date(userData.tokenExpirationDate)};
 
-    if (loadedUser.token) {
+    if (this.getToken(loadedUser)) {
       this.user.next(loadedUser);
-      const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
+      const expirationDuration = new Date(userData.tokenExpirationDate).getTime() - new Date().getTime();
       this.autoLogout(expirationDuration);
     }
   }
 
-  fetchRole(token) {
-    return this.http.get<WhoiamResData[]>(
-      '/abo/whoiam',
-      {
-        headers: new HttpHeaders({
-          Authorization: 'Bearer ' + token,
-        })
-      })
+  fetchRole() {
+    return this.http.get<WhoiamResData[]>('/abo/whoiam')
       .pipe(catchError(this.handleError));
   }
 
@@ -128,9 +112,9 @@ export class AuthService {
 
     this.autoLogout(expiresIn * 1000);
 
-    this.fetchRole(token).subscribe(resData => {
+    this.fetchRole().subscribe(resData => {
         const roles = resData.map((role: WhoiamResData) => role.authority);
-        const user = new User(name, token, expirationDate, roles);
+        const user: UserData = {name, token, tokenExpirationDate: expirationDate, roles};
         this.user.next(user);
         localStorage.setItem('userData', JSON.stringify(user));
       },
@@ -156,6 +140,13 @@ export class AuthService {
     }
 
     return throwError(errorMessage);
+  }
+
+  getToken(userData) {
+    if (!userData.tokenExpirationDate || new Date() > userData.tokenExpirationDate) {
+      return null;
+    }
+    return userData.token;
   }
 
   constructor(

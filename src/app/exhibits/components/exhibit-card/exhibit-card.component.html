@@ -9,21 +9,19 @@
   >
   <p class="description">{{ exhibit.description }}</p>
   <div class="btn-group card-item_btn-group text-center bottom">
-    <button
+    <a
       class="btn btn-primary"
-      role="link"
       style="cursor: pointer"
       [routerLink]="['/exhibits', exhibit.exhibitId]"
     >
       View
-    </button>
-    <button
+    </a>
+    <a
       class="btn btn-primary"
-      role="link"
       style="cursor: pointer"
       [routerLink]="['/exhibits', exhibit.exhibitId, 'edit']"
     >
       Edit
-    </button>
+    </a>
   </div>
 </div>
