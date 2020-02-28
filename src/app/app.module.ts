@@ -11,6 +11,9 @@ import {AuthService} from './auth/services/auth.service';
 import {SharedModule} from './shared/shared.module';
 import {ExhibitsSharedModule} from './exhibits-shared/exhibits-shared.module';
 import {LayoutModule} from './layout/layout.module';
+import { ToursComponent } from './tours/components/tours.component';
+import { ToursPresentationComponent } from './tours/components/tours-presentation/tours-presentation.component';
+import { TourItemComponent } from './tours/components/tour-item/tour-item.component';
 // import {LoginInterceptorService} from './login/services/login.interceptor';
 
 
@@ -18,6 +21,9 @@ import {LayoutModule} from './layout/layout.module';
   declarations: [
     AppComponent,
     HomeComponent,
+    ToursComponent,
+    ToursPresentationComponent,
+    TourItemComponent,
   ],
   imports: [
     HttpClientModule,

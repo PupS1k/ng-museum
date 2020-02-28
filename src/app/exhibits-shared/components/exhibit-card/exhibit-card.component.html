@@ -8,5 +8,22 @@
     alt="{{ exhibit.title }}"
   >
   <p class="description">{{ exhibit.description }}</p>
-  <a style="cursor: pointer" [routerLink]="'/exhibits/' + exhibit.exhibitId">View</a>
+  <div class="btn-group card-item_btn-group text-center bottom">
+    <button
+      class="btn btn-primary"
+      role="link"
+      style="cursor: pointer"
+      [routerLink]="['/exhibits', exhibit.exhibitId]"
+    >
+      View
+    </button>
+    <button
+      class="btn btn-primary"
+      role="link"
+      style="cursor: pointer"
+      [routerLink]="['/exhibits', exhibit.exhibitId]"
+    >
+      Edit
+    </button>
+  </div>
 </div>

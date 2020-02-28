@@ -3,7 +3,14 @@
 }
 
 .card-item {
-  height: 250px;
+  height: 300px;
+}
+
+.card-item_btn-group {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+
 }
 
 .card-item_header {
