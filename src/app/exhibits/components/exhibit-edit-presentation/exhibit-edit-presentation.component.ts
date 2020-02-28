@@ -13,9 +13,12 @@ export class ExhibitEditPresentationComponent implements OnInit {
   @Input() tours: Tour[];
   @Output() edit = new EventEmitter<void>();
 
+  imageUrl = '';
+
   constructor() { }
 
   ngOnInit(): void {
+    this.imageUrl = this.exhibitForm.value.imageUrl;
   }
 
   onSubmit() {

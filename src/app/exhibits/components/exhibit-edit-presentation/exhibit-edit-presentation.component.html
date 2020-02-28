@@ -60,7 +60,14 @@
       formControlName="imageUrl"
     >
   </div>
-<!--  <img src="{{ exhibitForm.get('imageUrl').value }}">-->
+  <div class="no-image">
+    <img
+      class="img-responsive"
+      style="height: 300px"
+      src="{{ exhibitForm.get('imageUrl').value }}"
+      alt=""
+    >
+  </div>
   <button
     class="btn btn-primary"
     type="submit"
