@@ -11,6 +11,7 @@ export class ExhibitsResolverService implements Resolve<Observable<Exhibit[]>> {
   constructor(private exhibitsService: ExhibitsService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any>|Promise<any>|any {
+    this.exhibitsService.isLoading = true;
     return this.exhibitsService.fetchExhibits();
   }
 }

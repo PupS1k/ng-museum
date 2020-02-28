@@ -1,9 +1,8 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Exhibit} from '../../../exhibits/models/exhibit.model';
 import {ExhibitsService} from '../../services/exhibits.service';
-import {Observable, of, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
-import set = Reflect.set;
 
 @Component({
   selector: 'app-exhibit-list',
@@ -20,14 +19,14 @@ export class ExhibitListComponent implements OnInit, OnDestroy {
     private exhibitsService: ExhibitsService,
     private router: Router,
     private route: ActivatedRoute
-  ) {
-    this.sub = this.route.data.subscribe(data => {
-      this.exhibits = data.exhibits;
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
-
+    this.isLoading = true;
+    this.sub = this.route.data.subscribe(data => {
+      this.exhibits = data.exhibits;
+      this.isLoading = false;
+    });
   }
 
   onNavigateExhibits() {

@@ -1,5 +1,4 @@
 import {Exhibit} from '../../exhibits/models/exhibit.model';
-import {Observable, of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 
@@ -12,6 +11,7 @@ export class ExhibitsService {
   }
 
   fetchExhibits() {
+    this.isLoading = true;
     return this.http.get<Exhibit[]>('/exhibit/exhibits');
   }
 
