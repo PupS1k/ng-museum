@@ -1,10 +1,8 @@
 import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from './home/home.component';
-import {ExhibitsResolverService} from './exhibits/services/exhibits-resolver.service';
 
 const appRoutes: Routes = [
-  {path: '', component: HomeComponent, resolve: {exhibits: ExhibitsResolverService}},
+  {path: '',  loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
   {path: 'exhibits',  loadChildren: () => import('./exhibits/exhibits.module').then(m => m.ExhibitsModule) },
   {path: 'auth',  loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
 ];

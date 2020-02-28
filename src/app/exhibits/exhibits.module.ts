@@ -10,7 +10,6 @@ import {ExhibitsSharedModule} from './exhibits-shared.module';
 import {SharedModule} from '../shared/shared.module';
 import {ExhibitEditComponent} from './components/exhibit-edit/exhibit-edit.component';
 import {ExhibitEditPresentationComponent} from './components/exhibit-edit-presentation/exhibit-edit-presentation.component';
-import {ExhibitsService} from './services/exhibits.service';
 
 
 @NgModule({
