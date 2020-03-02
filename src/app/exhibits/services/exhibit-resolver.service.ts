@@ -3,7 +3,7 @@ import {ActivatedRoute, ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} fr
 import {Observable} from 'rxjs';
 
 import {ExhibitsService} from './exhibits.service';
-import {Exhibit} from '../models/exhibit.model';
+import {Exhibit} from '../../core/models/exhibit.model';
 
 
 @Injectable({ providedIn: 'root' })

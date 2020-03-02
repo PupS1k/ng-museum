@@ -1,26 +1,22 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
-import {AppRoutingModule} from './app-routing.module';
+import {HttpClientModule} from '@angular/common/http';
 
+import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthService} from './auth/services/auth.service';
 import {SharedModule} from './shared/shared.module';
 import {ExhibitsSharedModule} from './exhibits/exhibits-shared.module';
 import {LayoutModule} from './layout/layout.module';
-import {ToursComponent} from './tours/components/tours.component';
-import {ToursPresentationComponent} from './tours/components/tours-presentation/tours-presentation.component';
-import {TourItemComponent} from './tours/components/tour-item/tour-item.component';
 import {CoreModule} from './core/core.module';
+import {ToursService} from './tours/service/tours.service';
+import {ToursSharedModule} from './tours/tours-shared.module';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ToursComponent,
-    ToursPresentationComponent,
-    TourItemComponent,
+    AppComponent
   ],
   imports: [
     HttpClientModule,
@@ -29,6 +25,7 @@ import {CoreModule} from './core/core.module';
     BrowserModule,
     SharedModule,
     ExhibitsSharedModule,
+    ToursSharedModule,
     LayoutModule,
     CoreModule
   ],

@@ -1,1 +1,33 @@
-<p>tour-item works!</p>
+<div class="col-xs-12 list-item">
+  <div class="list-item_header text-center">
+    <span>{{ tour.theme }}</span>
+  </div>
+  <div class="list-item_body">
+    <img
+      class="tour-img"
+      src="{{ tour.imageUrl }}"
+      alt="{{ tour.theme }}"
+    >
+    <p class="">{{ tour.typeOfExhibits }}</p>
+    <p class="">{{ tour.cost }}</p>
+  </div>
+  <div class="btn-group card-item_btn-group text-center bottom">
+    <a
+      class="btn btn-primary"
+      role="link"
+      style="cursor: pointer"
+      [routerLink]="['/tours', tour.tourId]"
+    >
+      View
+    </a>
+    <a
+      class="btn btn-primary"
+      role="link"
+      style="cursor: pointer"
+      [routerLink]="['/exhibits', tour.tourId, 'edit']"
+    >
+      Edit
+    </a>
+  </div>
+</div>
+

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {Tour} from '../../models/tour.model';
+import {Tour} from '../../../core/models/tour.model';
 
 @Component({
   selector: 'app-exhibit-edit-presentation',

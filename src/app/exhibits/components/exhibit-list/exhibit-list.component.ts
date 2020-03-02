@@ -2,7 +2,7 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 
-import {Exhibit} from '../../models/exhibit.model';
+import {Exhibit} from '../../../core/models/exhibit.model';
 
 @Component({
   selector: 'app-exhibit-list',

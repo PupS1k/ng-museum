@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Exhibit} from '../../models/exhibit.model';
+import {Exhibit} from '../../../core/models/exhibit.model';
 
 @Component({
   selector: 'app-exhibit-card',

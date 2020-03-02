@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Exhibit} from '../../models/exhibit.model';
+import {Exhibit} from '../../../core/models/exhibit.model';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({

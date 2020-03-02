@@ -11,6 +11,7 @@ import {SharedModule} from '../shared/shared.module';
 import {ExhibitEditComponent} from './components/exhibit-edit/exhibit-edit.component';
 import {ExhibitEditPresentationComponent} from './components/exhibit-edit-presentation/exhibit-edit-presentation.component';
 import {ExhibitComponent} from './components/exhibit/exhibit.component';
+import {ToursSharedModule} from '../tours/tours-shared.module';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import {ExhibitComponent} from './components/exhibit/exhibit.component';
     RouterModule,
     ExhibitsRoutingModule,
     ExhibitsSharedModule,
+    ToursSharedModule,
     SharedModule
   ],
   declarations: [
