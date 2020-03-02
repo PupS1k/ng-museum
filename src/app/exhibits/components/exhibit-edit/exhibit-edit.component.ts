@@ -23,7 +23,7 @@ export class ExhibitEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.data.subscribe(data => {
+    this.route.parent.data.subscribe(data => {
       this.exhibit = data.exhibit;
       this.exhibitForm = new FormGroup({
         title: new FormControl(this.exhibit.title, [Validators.required, Validators.minLength(3)]),

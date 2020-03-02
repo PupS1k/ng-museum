@@ -6,14 +6,16 @@ import {ExhibitsResolverService} from './services/exhibits-resolver.service';
 import {ExhibitResolverService} from './services/exhibit-resolver.service';
 import {ExhibitsComponent} from './components/exhibits.component';
 import {ExhibitEditComponent} from './components/exhibit-edit/exhibit-edit.component';
+import {ExhibitComponent} from './components/exhibit/exhibit.component';
 
 const exhibitsRoutes: Routes = [
   {path: '', component: ExhibitsComponent, children: [
       {path: '', component: ExhibitsStartComponent, resolve: {exhibits: ExhibitsResolverService}},
-      {path: ':id', component: ExhibitDetailsComponent, resolve: {exhibit: ExhibitResolverService}},
-      {path: ':id/edit', component: ExhibitEditComponent, resolve: {exhibit: ExhibitResolverService}},
-    ]
-  },
+      {path: ':id', component: ExhibitComponent, resolve: {exhibit: ExhibitResolverService}, children: [
+          {path: '', component: ExhibitDetailsComponent},
+          {path: 'edit', component: ExhibitEditComponent},
+        ]},
+    ]}
 ];
 
 @NgModule({

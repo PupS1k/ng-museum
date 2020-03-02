@@ -14,7 +14,7 @@ export class ExhibitDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.data.subscribe(data => {
+    this.route.parent.data.subscribe(data => {
       this.exhibit = data.exhibit;
     });
   }
