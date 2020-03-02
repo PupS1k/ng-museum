@@ -3,7 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {ExhibitDetailsComponent} from './components/exhibit-details/exhibit-details.component';
 import {ExhibitsResolverService} from './services/exhibits-resolver.service';
 import {ExhibitResolverService} from './services/exhibit-resolver.service';
-import {ExhibitsComponent} from './components/exhibits.component';
+import {ExhibitsComponent} from './components/exhibits/exhibits.component';
 import {ExhibitEditComponent} from './components/exhibit-edit/exhibit-edit.component';
 import {ExhibitComponent} from './components/exhibit/exhibit.component';
 

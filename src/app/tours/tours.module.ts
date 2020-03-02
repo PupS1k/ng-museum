@@ -8,7 +8,6 @@ import {ToursRoutingModule} from './tours-routing.module';
 import {TourComponent} from './components/tour/tour.component';
 import {TourDetailsComponent} from './components/tour-details/tour-details.component';
 import {TourEditComponent} from './components/tour-edit/tour-edit.component';
-import {ToursComponent} from './components/tours.component';
 import {ToursSharedModule} from './tours-shared.module';
 import {TourEditPresentationComponent} from './components/tour-edit-presentation/tour-edit-presentation.component';
 import {ToursService} from './service/tours.service';
@@ -27,7 +26,6 @@ import {ToursService} from './service/tours.service';
     TourComponent,
     TourDetailsComponent,
     TourEditComponent,
-    ToursComponent,
     TourEditPresentationComponent
   ],
   providers: [

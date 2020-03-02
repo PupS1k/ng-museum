@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {ExhibitsSharedModule} from '../exhibits/exhibits-shared.module';
 import {SharedModule} from '../shared/shared.module';
-import {HomeComponent} from './home.component';
+import {HomeComponent} from './components/home/home.component';
 import {ExhibitsResolverService} from '../exhibits/services/exhibits-resolver.service';
 
 
