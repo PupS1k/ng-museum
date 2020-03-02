@@ -10,7 +10,6 @@ import {SharedModule} from './shared/shared.module';
 import {ExhibitsSharedModule} from './exhibits/exhibits-shared.module';
 import {LayoutModule} from './layout/layout.module';
 import {CoreModule} from './core/core.module';
-import {ToursService} from './tours/service/tours.service';
 import {ToursSharedModule} from './tours/tours-shared.module';
 
 

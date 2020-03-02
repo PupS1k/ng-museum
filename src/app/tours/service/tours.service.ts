@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
 
 import {Tour} from '../../core/models/tour.model';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class ToursService {
   constructor(private http: HttpClient) {}
 
@@ -32,6 +32,13 @@ export class ToursService {
       imageUrl: 'as'
     });
     // return this.http.get<Tour>(`tour/tours/${tourId}`);
+  }
+
+  updateTour(tourId, theme, duration, typeOfExhibits, cost, imageUrl) {
+    return this.http.put(`tour/tours/${tourId}/update`,
+      {
+        tourId, theme, duration, typeOfExhibits, cost, imageUrl
+      });
   }
 
 }

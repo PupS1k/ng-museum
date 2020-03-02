@@ -10,6 +10,8 @@ import {TourDetailsComponent} from './components/tour-details/tour-details.compo
 import {TourEditComponent} from './components/tour-edit/tour-edit.component';
 import {ToursComponent} from './components/tours.component';
 import {ToursSharedModule} from './tours-shared.module';
+import {TourEditPresentationComponent} from './components/tour-edit-presentation/tour-edit-presentation.component';
+import {ToursService} from './service/tours.service';
 
 
 @NgModule({
@@ -25,10 +27,11 @@ import {ToursSharedModule} from './tours-shared.module';
     TourComponent,
     TourDetailsComponent,
     TourEditComponent,
-    ToursComponent
+    ToursComponent,
+    TourEditPresentationComponent
   ],
   providers: [
-
+    ToursService
   ]
 })
 export class ToursModule {

@@ -1,1 +1,8 @@
-<p>tour-edit works!</p>
+<div class="container" style="margin: 20px 0">
+  <div class="col-md-8 col-md-offset-2">
+    <app-tour-edit-presentation
+      [tourForm]="tourForm"
+      (edit)="onSubmit()"
+    ></app-tour-edit-presentation>
+  </div>
+</div>
