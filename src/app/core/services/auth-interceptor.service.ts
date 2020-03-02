@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import {Observable} from 'rxjs';
 
-import { AuthService } from '../../auth/services/auth.service';
+import { AuthService } from './auth.service';
 import {UserData} from '../../auth/models/user-data.model';
 
 

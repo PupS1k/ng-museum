@@ -1,5 +1,5 @@
 import {Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
-import {AuthService} from '../../auth/services/auth.service';
+import {AuthService} from '../../core/services/auth.service';
 import {Subscription} from 'rxjs';
 
 @Directive({selector: '[appRoleUser]'})

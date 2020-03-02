@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Exhibit} from '../../models/exhibit.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from '../../../auth/services/auth.service';
+import {AuthService} from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-exhibit-edit',

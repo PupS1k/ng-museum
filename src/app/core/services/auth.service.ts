@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
 import {catchError, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 
-import {UserData} from '../models/user-data.model';
+import {UserData} from '../../auth/models/user-data.model';
 
 export interface LoginResponseData {
   access_token: string;
@@ -20,14 +20,13 @@ export interface WhoiamResData {
 }
 
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AuthService {
   user = new BehaviorSubject<UserData>(null);
 
   private tokenExpirationTimer: any;
 
   login(name, password) {
-
     let body = new HttpParams();
     body = body.set('username', name);
     body = body.set('password', password);
@@ -106,6 +105,11 @@ export class AuthService {
     }, expirationDate);
   }
 
+  checkRole(role) {
+    const userData: UserData = JSON.parse(localStorage.getItem('userData'));
+
+    return userData.roles.includes(role);
+  }
 
   handleAuthentication(name: string, token: string, expiresIn: number) {
     const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000);
