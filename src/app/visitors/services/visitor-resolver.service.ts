@@ -2,17 +2,17 @@ import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
 
-import {ExhibitsService} from './exhibits.service';
-import {Exhibit} from '../../core/models/exhibit.model';
+import {VisitorsService} from './visitors.service';
+import {Visitor} from '../models/visitor.model';
 
 
 @Injectable({ providedIn: 'root' })
-export class ExhibitResolverService implements Resolve<Observable<Exhibit>> {
-  constructor(private exhibitsService: ExhibitsService) {
+export class VisitorResolverService implements Resolve<Observable<Visitor>> {
+  constructor(private visitorsService: VisitorsService) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     const id = +route.params.id;
-    return this.exhibitsService.fetchExhibit(id);
+    return this.visitorsService.fetchVisitor(id);
   }
 }

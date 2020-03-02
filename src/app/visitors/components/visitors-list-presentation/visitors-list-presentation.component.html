@@ -1,0 +1,13 @@
+<ul class="list-group">
+  <li class="list-group-item list-group-item-info col-xs-12">
+    <div class="col-xs-2"><span>Username</span></div>
+    <div class="col-xs-2"><span>Password</span></div>
+    <div class="col-xs-2"><span>FIO</span></div>
+    <div class="col-xs-2"><span>Age</span></div>
+    <div class="col-xs-2"><span>E-mail</span></div>
+  </li>
+  <app-visitor-item
+    *ngFor="let visitor of visitors"
+    [visitor]="visitor"
+  ></app-visitor-item>
+</ul>

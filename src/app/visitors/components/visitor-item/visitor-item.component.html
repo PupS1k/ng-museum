@@ -1,0 +1,12 @@
+<li class="list-group-item col-xs-12" style="display: flex; align-items: center">
+  <div class="col-xs-2"><span>{{ visitor.username }}</span></div>
+  <div class="col-xs-2"><span>{{ visitor.password }}</span></div>
+  <div class="col-xs-2"><span>{{ visitor.fio }}</span></div>
+  <div class="col-xs-2"><span>{{ visitor.age }}</span></div>
+  <div class="col-xs-2"><span>{{ visitor.email }}</span></div>
+  <div class="col-xs-2 btn-group">
+    <a class="btn btn-primary" [routerLink]="[visitor.visitorId, 'edit']" >Edit</a>
+    <button class="btn btn-danger">X</button>
+  </div>
+</li>
+

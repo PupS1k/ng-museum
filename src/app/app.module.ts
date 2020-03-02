@@ -15,7 +15,7 @@ import {ToursSharedModule} from './tours/tours-shared.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     HttpClientModule,
