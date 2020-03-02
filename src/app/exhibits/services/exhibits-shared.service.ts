@@ -1,7 +1,7 @@
-import {Exhibit} from '../../core/models/exhibit.model';
+import {Exhibit} from '../models/exhibit.model';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Tour} from '../../core/models/tour.model';
+import {Tour} from '../../tours/models/tour.model';
 import {of} from 'rxjs';
 
 @Injectable()

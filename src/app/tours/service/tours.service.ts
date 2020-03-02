@@ -2,7 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {of} from 'rxjs';
 import {Injectable} from '@angular/core';
 
-import {Tour} from '../../core/models/tour.model';
+import {Tour} from '../models/tour.model';
 
 @Injectable({providedIn: 'root'})
 export class ToursService {

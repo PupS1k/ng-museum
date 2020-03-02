@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
 
-import {Tour} from '../../core/models/tour.model';
+import {Tour} from '../models/tour.model';
 import {ToursService} from './tours.service';
 
 

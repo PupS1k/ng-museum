@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Exhibit} from '../../../core/models/exhibit.model';
+import {Exhibit} from '../../models/exhibit.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../auth/services/auth.service';
