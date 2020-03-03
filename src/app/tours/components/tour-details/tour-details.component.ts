@@ -14,6 +14,7 @@ export class TourDetailsComponent implements OnInit, OnDestroy {
   tour: Tour;
   sub: Subscription;
   exhibits$: Observable<Exhibit[]>;
+  isFavouriteTour$: Observable<boolean>;
 
   constructor(private route: ActivatedRoute, private toursService: ToursService) {
   }
@@ -24,9 +25,22 @@ export class TourDetailsComponent implements OnInit, OnDestroy {
     });
 
     this.exhibits$ = this.toursService.fetchTourExhibits(this.tour.tourId);
+    this.isFavouriteTour$ = this.toursService.checkFavouriteTour(this.tour.tourId, 3);
+  }
+
+  onDeleteTourFromFavourites() {
+    this.toursService.deleteFavouriteTour(this.tour.tourId, 3).subscribe(() => {
+      this.isFavouriteTour$ = this.toursService.checkFavouriteTour(this.tour.tourId, 3);
+    });
+  }
+
+  onAddTourIntoFavourites() {
+    this.toursService.addFavouriteTour(this.tour.tourId, 3).subscribe(() => {
+      this.isFavouriteTour$ = this.toursService.checkFavouriteTour(this.tour.tourId, 3);
+    });
   }
 
   ngOnDestroy(): void {
-
+    this.sub.unsubscribe();
   }
 }

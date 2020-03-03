@@ -1,4 +1,7 @@
 <app-tour-details-presentation
   [tour]="tour"
   [exhibits]="exhibits$ | async"
+  [isFavouriteTour]="isFavouriteTour$ | async"
+  (delete)="onDeleteTourFromFavourites()"
+  (add)="onAddTourIntoFavourites()"
 ></app-tour-details-presentation>

@@ -10,6 +10,7 @@ import {ExhibitsSharedService} from './services/exhibits-shared.service';
 import {ExhibitsService} from './services/exhibits.service';
 import {ExhibitsResolverService} from './services/exhibits-resolver.service';
 import {ToursSharedModule} from '../tours/tours-shared.module';
+import {CoreModule} from '../core/core.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import {ToursSharedModule} from '../tours/tours-shared.module';
     CommonModule,
     RouterModule,
     SharedModule,
-    ToursSharedModule
+    ToursSharedModule,
+    CoreModule
   ],
   declarations: [
     ExhibitListComponent,

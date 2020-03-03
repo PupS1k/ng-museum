@@ -19,10 +19,19 @@
         </div>
       </div>
     </div>
-    <a routerLink="edit" class="btn btn-primary" style="float: right">Edit</a>
+    <div class="col-xs-12" style="display: flex; align-items: center; justify-content: space-between">
+      <div *ngIf="isFavouriteTour" style="margin: 5px; display: flex; align-items: center; justify-content: space-between">
+        <span style="font-size: 24px">Tour already in favorites</span>
+        <button class="btn btn-danger" (click)="onDeleteFavouriteTour()">Delete from favourites</button>
+      </div>
+      <div *ngIf="!isFavouriteTour" style="margin: 5px">
+        <button class="btn btn-primary" (click)="onAddIntoFavourites()">Add into favourites</button>
+      </div>
+      <a routerLink="edit" class="btn btn-primary">Edit</a>
+    </div>
   </div>
-  <div class="container text-center col-xs-12" *ngIf="exhibitsIsExist">
-    <span style="font-size: 24px">Exhibits in tour</span>
+  <div class="container text-center col-xs-12" *ngIf="exhibits">
+    <span style="font-size: 24px" *ngIf="exhibits.length">Exhibits in tour</span>
     <app-exhibit-item
       *ngFor="let exhibit of exhibits"
       [exhibit]="exhibit"

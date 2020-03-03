@@ -14,13 +14,13 @@ const appRoutes: Routes = [
   },
   {
     path: 'visitors',
-    canActivate: [AuthGuard, AdminGuard],
+    canActivate: [AuthGuard, GuideGuard],
     loadChildren: () => import('./visitors/visitors.module').then(m => m.VisitorsModule)
   },
   {path: 'auth',  loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
   // {
   // path: 'guides',
-  // canActivate: [AuthGuard, GuideGuard],
+  // canActivate: [AuthGuard, AdminGuard],
   // loadChildren: () => import('./guides/guides.module').then(m => m.GuidesModule)
   // }
 ];

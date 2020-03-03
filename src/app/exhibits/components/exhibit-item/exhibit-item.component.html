@@ -10,7 +10,7 @@
     >
     <p class="description">{{ exhibit.description }}</p>
   </div>
-  <div class="btn-group card-item_btn-group text-center bottom">
+  <div class="btn-group text-center" style="display: flex; justify-content: flex-end; margin-bottom: 10px">
     <a
       class="btn btn-primary"
       role="link"
@@ -20,6 +20,7 @@
       View
     </a>
     <a
+      *appRoleUser="'ROLE_GUIDE'"
       class="btn btn-primary"
       role="link"
       style="cursor: pointer"

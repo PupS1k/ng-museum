@@ -5,6 +5,7 @@ import {SharedModule} from '../shared/shared.module';
 import {ToursListComponent} from './components/tours-list/tours-list.component';
 import {TourItemComponent} from './components/tour-item/tour-item.component';
 import {ToursListPresentationComponent} from './components/tours-list-presentation/tours-list-presentation.component';
+import {CoreModule} from '../core/core.module';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import {ToursListPresentationComponent} from './components/tours-list-presentati
     RouterModule,
     CommonModule,
     SharedModule,
+    CoreModule,
 
   ],
   declarations: [

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Tour} from '../../models/tour.model';
 import {Exhibit} from '../../../exhibits/models/exhibit.model';
 
@@ -7,14 +7,19 @@ import {Exhibit} from '../../../exhibits/models/exhibit.model';
   templateUrl: './tour-details-presentation.component.html',
   styleUrls: ['./tour-details-presentation.component.css']
 })
-export class TourDetailsPresentationComponent implements OnInit {
+export class TourDetailsPresentationComponent {
   @Input() tour: Tour;
-  @Input() exhibits: Exhibit[];
-  exhibitsIsExist = true;
+  @Input() exhibits: Exhibit[] = null;
+  @Input() isFavouriteTour: boolean;
 
-  ngOnInit(): void {
-    if (this.exhibits) {
-      this.exhibitsIsExist = !this.exhibits.length;
-    }
+  @Output() delete = new EventEmitter<void>();
+  @Output() add = new EventEmitter<void>();
+
+  onDeleteFavouriteTour() {
+    this.delete.emit();
+  }
+
+  onAddIntoFavourites() {
+    this.add.emit();
   }
 }

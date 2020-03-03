@@ -4,13 +4,15 @@ import {CommonModule} from '@angular/common';
 import {HeaderComponent} from './components/header/header.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {RouterModule} from '@angular/router';
+import {CoreModule} from '../core/core.module';
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        CoreModule
+    ],
   declarations: [
     HeaderComponent,
     FooterComponent

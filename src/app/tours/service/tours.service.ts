@@ -20,6 +20,18 @@ export class ToursService {
     return this.http.get<Exhibit[]>(`tour/exhibits/${tourId}`);
   }
 
+  checkFavouriteTour(tourId, visitorId) {
+    return this.http.post<boolean>(`visitor/toursCheck`, {tourId, visitorId});
+  }
+
+  deleteFavouriteTour(tourId, visitorId) {
+    return this.http.post(`visitor/visitors/removeTour`, {tourId, visitorId});
+  }
+
+  addFavouriteTour(tourId, visitorId) {
+    return this.http.post(`visitor/visitors/addTour`, {tourId, visitorId});
+  }
+
   updateTour(tourId, theme, duration, typeOfExhibits, cost, imageUrl) {
     return this.http.put(`tour/tours/${tourId}/update`,
       {
