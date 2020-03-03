@@ -8,8 +8,16 @@
       src="{{ tour.imageUrl }}"
       alt="{{ tour.theme }}"
     >
-    <p class="">{{ tour.typeOfExhibits }}</p>
-    <p class="">{{ tour.cost }}</p>
+    <div class="list-group">
+      <div class="list-group-item">
+        <span style="font-weight: bold; font-size: 14px">Duration: </span>
+        <span>{{ tour.duration }}</span>
+      </div>
+      <div class="list-group-item">
+        <span style="font-weight: bold; font-size: 14px">Cost: </span>
+        <span>{{ tour.cost }}</span>
+      </div>
+    </div>
   </div>
   <div class="btn-group card-item_btn-group text-center bottom">
     <a

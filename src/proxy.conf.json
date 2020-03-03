@@ -19,6 +19,11 @@
     "secure": false,
     "logLevel": "debug"
   },
+  "/tour/exhibits/*": {
+    "target": "http://192.168.0.133:8090",
+    "secure": false,
+    "logLevel": "debug"
+  },
   "/exhibit/exhibits/*":   {
     "target": "http://192.168.0.133:8090",
     "secure": false,

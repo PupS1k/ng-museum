@@ -9,13 +9,15 @@ import {RouterModule} from '@angular/router';
 import {ExhibitsSharedService} from './services/exhibits-shared.service';
 import {ExhibitsService} from './services/exhibits.service';
 import {ExhibitsResolverService} from './services/exhibits-resolver.service';
+import {ToursSharedModule} from '../tours/tours-shared.module';
 
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    SharedModule
+    SharedModule,
+    ToursSharedModule
   ],
   declarations: [
     ExhibitListComponent,

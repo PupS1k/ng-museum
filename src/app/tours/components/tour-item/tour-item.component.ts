@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Tour} from '../../models/tour.model';
 
 @Component({
@@ -6,12 +6,6 @@ import {Tour} from '../../models/tour.model';
   templateUrl: './tour-item.component.html',
   styleUrls: ['./tour-item.component.css']
 })
-export class TourItemComponent implements OnInit {
+export class TourItemComponent {
   @Input() tour: Tour;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

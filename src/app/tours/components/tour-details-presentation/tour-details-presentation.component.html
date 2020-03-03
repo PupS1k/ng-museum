@@ -1,0 +1,31 @@
+<div class="col-xs-12">
+  <div class="col-xs-12" style="border: 1px solid #bebebe; border-radius: 10px; padding: 5px">
+    <h1 class="text-center">{{ tour.theme }}</h1>
+    <div class="container-fluid">
+      <div class="col-xs-4">
+        <img class="img-responsive" src="{{ tour.imageUrl }}" alt="Tour">
+      </div>
+      <div class="col-xs-8">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <span class="heading">Duration: </span> <span>{{ tour.duration }}</span>
+          </div>
+          <div class="panel-body" style="border-bottom: 1px solid #e4e4e4; border-top: 1px solid #e4e4e4">
+            <span class="heading">Type Of Exhibits: </span> <span>{{ tour.typeOfExhibits }}</span>
+          </div>
+          <div class="panel-body">
+            <span class="heading">Cost: </span> <span>{{ tour.cost }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a routerLink="edit" class="btn btn-primary" style="float: right">Edit</a>
+  </div>
+  <div class="container text-center col-xs-12" *ngIf="exhibitsIsExist">
+    <span style="font-size: 24px">Exhibits in tour</span>
+    <app-exhibit-item
+      *ngFor="let exhibit of exhibits"
+      [exhibit]="exhibit"
+    ></app-exhibit-item>
+  </div>
+</div>

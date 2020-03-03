@@ -11,16 +11,18 @@ import {ToursListPresentationComponent} from './components/tours-list-presentati
   imports: [
     RouterModule,
     CommonModule,
-    SharedModule
+    SharedModule,
+
   ],
   declarations: [
     ToursListComponent,
     ToursListPresentationComponent,
-    TourItemComponent
+    TourItemComponent,
   ],
   exports: [
     ToursListComponent,
-    ToursListPresentationComponent
+    ToursListPresentationComponent,
+    TourItemComponent
   ]
 })
 export class ToursSharedModule {}

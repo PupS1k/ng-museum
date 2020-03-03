@@ -13,6 +13,8 @@ import {TourEditPresentationComponent} from './components/tour-edit-presentation
 import {ToursService} from './service/tours.service';
 import {ToursResolverService} from './service/tours-resolver.service';
 import {TourResolverService} from './service/tour-resolver.service';
+import {TourDetailsPresentationComponent} from './components/tour-details-presentation/tour-details-presentation.component';
+import {ExhibitsSharedModule} from '../exhibits/exhibits-shared.module';
 
 
 @NgModule({
@@ -22,13 +24,15 @@ import {TourResolverService} from './service/tour-resolver.service';
     RouterModule,
     ToursRoutingModule,
     ToursSharedModule,
-    SharedModule
+    SharedModule,
+    ExhibitsSharedModule
   ],
   declarations: [
     TourComponent,
     TourDetailsComponent,
+    TourDetailsPresentationComponent,
     TourEditComponent,
-    TourEditPresentationComponent
+    TourEditPresentationComponent,
   ],
   providers: [
     ToursService,

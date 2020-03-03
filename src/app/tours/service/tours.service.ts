@@ -2,6 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 
 import {Tour} from '../models/tour.model';
+import {Exhibit} from '../../exhibits/models/exhibit.model';
 
 @Injectable()
 export class ToursService {
@@ -13,6 +14,10 @@ export class ToursService {
 
   fetchTour(tourId) {
     return this.http.get<Tour>(`tour/tours/${tourId}`);
+  }
+
+  fetchTourExhibits(tourId) {
+    return this.http.get<Exhibit[]>(`tour/exhibits/${tourId}`);
   }
 
   updateTour(tourId, theme, duration, typeOfExhibits, cost, imageUrl) {
