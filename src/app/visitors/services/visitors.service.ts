@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Visitor} from '../models/visitor.model';
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class VisitorsService {
 
   constructor(private http: HttpClient) {

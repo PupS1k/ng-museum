@@ -19,8 +19,7 @@ export interface WhoiamResData {
   authority: string;
 }
 
-
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class AuthService {
   user = new BehaviorSubject<UserData>(null);
 

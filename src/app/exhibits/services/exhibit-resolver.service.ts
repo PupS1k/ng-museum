@@ -6,7 +6,7 @@ import {ExhibitsService} from './exhibits.service';
 import {Exhibit} from '../models/exhibit.model';
 
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class ExhibitResolverService implements Resolve<Observable<Exhibit>> {
   constructor(private exhibitsService: ExhibitsService) {
   }

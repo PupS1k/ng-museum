@@ -11,6 +11,8 @@ import {ExhibitEditComponent} from './components/exhibit-edit/exhibit-edit.compo
 import {ExhibitEditPresentationComponent} from './components/exhibit-edit-presentation/exhibit-edit-presentation.component';
 import {ExhibitComponent} from './components/exhibit/exhibit.component';
 import {ToursSharedModule} from '../tours/tours-shared.module';
+import {ExhibitsService} from './services/exhibits.service';
+import {ExhibitResolverService} from './services/exhibit-resolver.service';
 
 
 @NgModule({
@@ -29,6 +31,10 @@ import {ToursSharedModule} from '../tours/tours-shared.module';
     ExhibitEditComponent,
     ExhibitEditPresentationComponent,
     ExhibitComponent
+  ],
+  providers: [
+    ExhibitsService,
+    ExhibitResolverService
   ]
 })
 export class ExhibitsModule {

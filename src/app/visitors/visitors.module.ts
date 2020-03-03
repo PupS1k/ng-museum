@@ -9,6 +9,8 @@ import {VisitorsService} from './services/visitors.service';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
 import {VisitorEditComponent} from './components/visitor-edit/visitor-edit.component';
+import {VisitorsResolverService} from './services/visitors-resolver.service';
+import {VisitorResolverService} from './services/visitor-resolver.service';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import {VisitorEditComponent} from './components/visitor-edit/visitor-edit.compo
     VisitorEditComponent
   ],
   providers: [
-    VisitorsService
+    VisitorsService,
+    VisitorsResolverService,
+    VisitorResolverService
   ]
 })
 export class VisitorsModule {}

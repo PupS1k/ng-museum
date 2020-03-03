@@ -8,6 +8,7 @@ import {ExhibitItemComponent} from './components/exhibit-item/exhibit-item.compo
 import {RouterModule} from '@angular/router';
 import {ExhibitsSharedService} from './services/exhibits-shared.service';
 import {ExhibitsService} from './services/exhibits.service';
+import {ExhibitsResolverService} from './services/exhibits-resolver.service';
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import {ExhibitsService} from './services/exhibits.service';
   ],
   providers: [
     ExhibitsSharedService,
-    ExhibitsService
+    ExhibitsResolverService
   ],
 })
 export class ExhibitsSharedModule {}

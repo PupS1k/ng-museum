@@ -11,6 +11,8 @@ import {TourEditComponent} from './components/tour-edit/tour-edit.component';
 import {ToursSharedModule} from './tours-shared.module';
 import {TourEditPresentationComponent} from './components/tour-edit-presentation/tour-edit-presentation.component';
 import {ToursService} from './service/tours.service';
+import {ToursResolverService} from './service/tours-resolver.service';
+import {TourResolverService} from './service/tour-resolver.service';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import {ToursService} from './service/tours.service';
     TourEditPresentationComponent
   ],
   providers: [
-    ToursService
+    ToursService,
+    ToursResolverService,
+    TourResolverService
   ]
 })
 export class ToursModule {

@@ -11,7 +11,7 @@ import { AuthService } from './auth.service';
 import {UserData} from '../../auth/models/user-data.model';
 
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
   constructor(public authService: AuthService) {}
 

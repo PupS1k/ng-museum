@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from './core/services/auth-guard.service';
-import {AdminGuardService} from './core/services/admin-guard.service';
-import {GuideGuardService} from './core/services/guide-guard.service';
+import {AdminGuard} from './core/services/admin-guard.service';
+import {GuideGuard} from './core/services/guide-guard.service';
 
 const appRoutes: Routes = [
   {path: '', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
@@ -14,13 +14,13 @@ const appRoutes: Routes = [
   },
   {
     path: 'visitors',
-    canActivate: [AuthGuard, AdminGuardService],
+    canActivate: [AuthGuard, AdminGuard],
     loadChildren: () => import('./visitors/visitors.module').then(m => m.VisitorsModule)
   },
   {path: 'auth',  loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
   // {
   // path: 'guides',
-  // canActivate: [AuthGuard, GuideGuardService],
+  // canActivate: [AuthGuard, GuideGuard],
   // loadChildren: () => import('./guides/guides.module').then(m => m.GuidesModule)
   // }
 ];

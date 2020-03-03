@@ -7,7 +7,7 @@ import {ToursService} from './tours.service';
 
 
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class ToursResolverService implements Resolve<Observable<Tour[]>> {
   constructor(private toursService: ToursService) {}
 

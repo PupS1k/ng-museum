@@ -6,7 +6,7 @@ import {VisitorsService} from './visitors.service';
 import {Visitor} from '../models/visitor.model';
 
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class VisitorsResolverService implements Resolve<Observable<Visitor[]>> {
   constructor(private visitorsService: VisitorsService) {
   }

@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 
 import {Tour} from '../models/tour.model';
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class ToursService {
   constructor(private http: HttpClient) {}
 
