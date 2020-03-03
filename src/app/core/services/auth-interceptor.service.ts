@@ -11,22 +11,25 @@ import { AuthService } from './auth.service';
 import {UserData} from '../../auth/models/user-data.model';
 
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AuthInterceptorService implements HttpInterceptor {
   constructor(public authService: AuthService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const userData: UserData = JSON.parse(localStorage.getItem('userData'));
 
-    const token = this.authService.getToken(userData);
+    const token = userData ? this.authService.getToken(userData) : '';
 
-    const headers = {
-      Authorization: token ? `Bearer ${token}` : 'my-auth-token'
-    };
+    const basicAuth = request.headers.get('Authorization');
 
-    request = request.clone({
-      setHeaders: headers
-    });
+    if (!basicAuth) {
+      request = request.clone({
+        setHeaders: {
+          Authorization: token ? `Bearer ${token}` : 'my-auth-token'
+        }
+      });
+    }
+
     return next.handle(request);
   }
 }

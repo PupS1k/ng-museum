@@ -1,27 +1,23 @@
 {
   "/oauth/*": {
     "target": "http://192.168.0.133:8090",
-    "secure": false,
-    "logLevel": "debug",
-    "changeOrigin": true
+    "secure": true,
+    "logLevel": "debug"
   },
   "/visitor/visitors*": {
     "target": "http://192.168.0.133:8090",
     "secure": false,
-    "logLevel": "debug",
-    "changeOrigin": true
+    "logLevel": "debug"
   },
   "/guide/guides*": {
     "target": "http://192.168.0.133:8090",
     "secure": false,
-    "logLevel": "debug",
-    "changeOrigin": true
+    "logLevel": "debug"
   },
   "/tour/tours/*": {
     "target": "http://192.168.0.133:8090",
     "secure": false,
-    "logLevel": "debug",
-    "changeOrigin": true
+    "logLevel": "debug"
   },
   "/exhibit/exhibits/*":   {
     "target": "http://192.168.0.133:8090",

@@ -116,10 +116,15 @@ export class AuthService {
 
     this.autoLogout(expiresIn * 1000);
 
+    localStorage.setItem('userData', JSON.stringify({name, token, tokenExpirationDate: expirationDate}));
+
     this.fetchRole().subscribe(resData => {
         const roles = resData.map((role: WhoiamResData) => role.authority);
+
         const user: UserData = {name, token, tokenExpirationDate: expirationDate, roles};
+
         this.user.next(user);
+
         localStorage.setItem('userData', JSON.stringify(user));
       },
       (error => console.log(error))
