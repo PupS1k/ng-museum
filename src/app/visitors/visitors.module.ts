@@ -11,6 +11,7 @@ import {SharedModule} from '../shared/shared.module';
 import {VisitorEditComponent} from './components/visitor-edit/visitor-edit.component';
 import {VisitorsResolverService} from './services/visitors-resolver.service';
 import {VisitorResolverService} from './services/visitor-resolver.service';
+import {VisitorItemPresentationComponent} from './components/visitor-item-presentation/visitor-item-presentation.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import {VisitorResolverService} from './services/visitor-resolver.service';
   declarations: [
     VisitorsListComponent,
     VisitorsListPresentationComponent,
+    VisitorItemPresentationComponent,
     VisitorItemComponent,
     VisitorEditComponent
   ],

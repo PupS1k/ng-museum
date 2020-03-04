@@ -9,5 +9,6 @@
   <app-visitor-item
     *ngFor="let visitor of visitors"
     [visitor]="visitor"
+    (updateVisitors)="onUpdateVisitors()"
   ></app-visitor-item>
 </ul>

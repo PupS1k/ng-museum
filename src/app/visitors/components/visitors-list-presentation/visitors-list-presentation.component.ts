@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Visitor} from '../../models/visitor.model';
 
 @Component({
@@ -6,12 +6,11 @@ import {Visitor} from '../../models/visitor.model';
   templateUrl: './visitors-list-presentation.component.html',
   styleUrls: ['./visitors-list-presentation.component.css']
 })
-export class VisitorsListPresentationComponent implements OnInit {
+export class VisitorsListPresentationComponent {
   @Input() visitors: Visitor[];
+  @Output() updateVisitors = new EventEmitter<void>();
 
-  constructor() { }
-
-  ngOnInit(): void {
+  onUpdateVisitors() {
+    this.updateVisitors.emit();
   }
-
 }

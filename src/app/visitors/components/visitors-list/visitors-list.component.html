@@ -1,3 +1,4 @@
 <app-visitors-list-presentation
-  [visitors]="visitors"
+  [visitors]="visitors$ | async"
+  (updateVisitors)="onUpdateVisitors()"
 ></app-visitors-list-presentation>

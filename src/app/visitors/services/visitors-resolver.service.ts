@@ -14,4 +14,5 @@ export class VisitorsResolverService implements Resolve<Observable<Visitor[]>> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     return this.visitorsService.fetchVisitors();
   }
+
 }

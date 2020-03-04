@@ -16,6 +16,10 @@ export class VisitorsService {
     return this.http.get<Visitor>(`visitor/visitors/${visitorId}`);
   }
 
+  deleteVisitor(visitor) {
+    return this.http.post<Visitor>(`visitor/visitors/delete/${visitor.visitorId}`, visitor);
+  }
+
   updateVisitor(visitorId, username, password, fio, email, age) {
     return this.http.put(
       `visitor/visitors/${visitorId}/update`,
