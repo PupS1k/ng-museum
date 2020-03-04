@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Tour} from '../../models/tour.model';
 
 @Component({
@@ -6,12 +6,7 @@ import {Tour} from '../../models/tour.model';
   templateUrl: './tours-list-presentation.component.html',
   styleUrls: ['./tours-list-presentation.component.css']
 })
-export class ToursListPresentationComponent implements OnInit {
+export class ToursListPresentationComponent {
   @Input() tours: Tour[];
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  @Input() isGuide: boolean;
 }

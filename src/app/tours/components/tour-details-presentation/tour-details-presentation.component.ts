@@ -11,6 +11,7 @@ export class TourDetailsPresentationComponent {
   @Input() tour: Tour;
   @Input() exhibits: Exhibit[] = null;
   @Input() isFavouriteTour: boolean;
+  @Input() isGuide: boolean;
 
   @Output() delete = new EventEmitter<void>();
   @Output() add = new EventEmitter<void>();

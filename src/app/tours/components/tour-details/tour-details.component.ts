@@ -5,6 +5,7 @@ import {Observable, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {Exhibit} from '../../../exhibits/models/exhibit.model';
 import {ToursService} from '../../service/tours.service';
+import {AuthService} from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-tour-details',
@@ -15,9 +16,14 @@ export class TourDetailsComponent implements OnInit, OnDestroy {
   private obsDestroyed = new Subject();
   tour: Tour;
   exhibits$: Observable<Exhibit[]>;
+  isGuide$: Observable<boolean>;
   isFavouriteTour: boolean;
 
-  constructor(private route: ActivatedRoute, private toursService: ToursService) {
+  constructor(
+    private route: ActivatedRoute,
+    private toursService: ToursService,
+    private authService: AuthService
+  ) {
   }
 
   ngOnInit(): void {
@@ -28,6 +34,7 @@ export class TourDetailsComponent implements OnInit, OnDestroy {
     });
 
     this.exhibits$ = this.toursService.fetchTourExhibits(this.tour.tourId);
+    this.isGuide$ = this.authService.isGuide$;
     this.toursService.checkFavouriteTour(this.tour.tourId, 3)// <--   visitorId
       .subscribe((resData: boolean) => this.isFavouriteTour = resData, error => console.log(error));
   }

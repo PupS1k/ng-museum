@@ -1,0 +1,38 @@
+<div class="col-xs-12">
+  <div class="col-xs-12" style="border: 1px solid #bebebe; border-radius: 10px; padding: 5px">
+    <h1 class="text-center">{{ exhibit.title }}</h1>
+    <div class="container-fluid">
+      <div class="col-xs-4">
+        <img class="img-responsive" src="{{ exhibit.imageUrl }}" alt="Exhibit">
+      </div>
+      <div class="col-xs-8">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <span class="heading">Dated: </span> <span>{{ exhibit.dated }}</span>
+          </div>
+          <div class="panel-body" style="border-bottom: 1px solid #e4e4e4; border-top: 1px solid #e4e4e4">
+            <span class="heading">Material: </span> <span>{{ exhibit.material }}</span>
+          </div>
+          <div class="panel-body">
+            <span class="heading">Archive Number: </span> <span>{{ exhibit.archiveNum }}</span>
+          </div>
+        </div>
+        <div class="container-fluid">
+          <div class="text-center"><span class="heading">Description</span></div>
+          <div class="text-justify" style="text-indent: 1.5em"><span>{{ exhibit.description }}</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12" style="display: flex; align-items: center; justify-content: space-between">
+      <div></div>
+      <a *ngIf="isGuide" routerLink="edit" class="btn btn-primary">Edit</a>
+    </div>
+  </div>
+  <div class="container-fluid text-center col-xs-12" *ngIf="exhibit.tourEntitySet.length">
+    <span style="font-size: 24px">Tours with the exhibit</span>
+    <app-tour-item
+      *ngFor="let tour of exhibit.tourEntitySet"
+      [tour]="tour"
+    ></app-tour-item>
+  </div>
+</div>

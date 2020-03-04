@@ -22,9 +22,9 @@ export interface WhoiamResData {
 @Injectable()
 export class AuthService {
   userData$ = new BehaviorSubject<UserData>(null);
-  isAdmin$: Observable<boolean> = this.userData$.pipe(map(userData => userData ? userData.roles.includes('ROLE_ADMIN') : false));
-  isGuide$: Observable<boolean> = this.userData$.pipe(map(userData =>  userData ? userData.roles.includes('ROLE_GUIDE') : false));
   isVisitor$: Observable<boolean> = this.userData$.pipe(map(userData =>  userData ? userData.roles.includes('ROLE_VISITOR') : false));
+  isGuide$: Observable<boolean> = this.userData$.pipe(map(userData =>  userData ? userData.roles.includes('ROLE_GUIDE') : false));
+  isAdmin$: Observable<boolean> = this.userData$.pipe(map(userData => userData ? userData.roles.includes('ROLE_ADMIN') : false));
 
   private tokenExpirationTimer: any;
 

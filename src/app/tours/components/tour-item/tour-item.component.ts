@@ -8,4 +8,5 @@ import {Tour} from '../../models/tour.model';
 })
 export class TourItemComponent {
   @Input() tour: Tour;
+  @Input() isGuide: boolean;
 }

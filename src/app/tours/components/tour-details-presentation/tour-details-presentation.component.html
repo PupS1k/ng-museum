@@ -20,14 +20,18 @@
       </div>
     </div>
     <div class="col-xs-12" style="display: flex; align-items: center; justify-content: space-between">
-      <div *ngIf="isFavouriteTour" style="margin: 5px; display: flex; align-items: center; justify-content: space-between">
-        <span style="font-size: 24px">Tour already in favorites</span>
-        <button class="btn btn-danger" (click)="onDeleteFavouriteTour()">Delete from favourites</button>
+      <div>
+        <ng-template [ngIf]="!isGuide">
+          <div *ngIf="isFavouriteTour" style="margin: 5px; display: flex; align-items: center; justify-content: space-between">
+            <span style="font-size: 24px">Tour already in favorites</span>
+            <button class="btn btn-danger" (click)="onDeleteFavouriteTour()">Delete from favourites</button>
+          </div>
+          <div *ngIf="!isFavouriteTour" style="margin: 5px">
+            <button class="btn btn-primary" (click)="onAddIntoFavourites()">Add into favourites</button>
+          </div>
+        </ng-template>
       </div>
-      <div *ngIf="!isFavouriteTour" style="margin: 5px">
-        <button class="btn btn-primary" (click)="onAddIntoFavourites()">Add into favourites</button>
-      </div>
-      <a routerLink="edit" class="btn btn-primary">Edit</a>
+      <a *ngIf="isGuide" routerLink="edit" class="btn btn-primary">Edit</a>
     </div>
   </div>
   <div class="container text-center col-xs-12" *ngIf="exhibits">
