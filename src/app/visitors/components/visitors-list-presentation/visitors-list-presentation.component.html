@@ -3,7 +3,7 @@
     <div class="col-xs-2"><span>Username</span></div>
     <div class="col-xs-2"><span>Password</span></div>
     <div class="col-xs-2"><span>FIO</span></div>
-    <div class="col-xs-2"><span>Age</span></div>
+    <div class="col-xs-1"><span>Age</span></div>
     <div class="col-xs-2"><span>E-mail</span></div>
   </li>
   <app-visitor-item
@@ -12,3 +12,6 @@
     (updateVisitors)="onUpdateVisitors()"
   ></app-visitor-item>
 </ul>
+<div class="col-xs-12 text-center" style="margin-top: 20px">
+  <button class="btn btn-success" routerLink="create">Create Visitor</button>
+</div>

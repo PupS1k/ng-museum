@@ -1,4 +1,4 @@
-<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="name">Name</label>
     <input
@@ -7,6 +7,16 @@
       class="form-control"
       name="name"
       formControlName="name"
+    >
+  </div>
+  <div class="form-group">
+    <label for="fio">FIO</label>
+    <input
+      id="fio"
+      type="text"
+      class="form-control"
+      name="fio"
+      formControlName="fio"
     >
   </div>
   <div class="form-group">
@@ -52,8 +62,8 @@
   <button
     class="btn btn-primary"
     type="submit"
-    [disabled]="signUpForm.invalid"
+    [disabled]="userForm.invalid"
   >
-    Sign Up
+    {{ isUpdate ? 'Update' : 'Create' }}
   </button>
 </form>

@@ -21,10 +21,17 @@ export class VisitorsService {
   }
 
   updateVisitor(visitorId, username, password, fio, email, age) {
-    return this.http.put(
-      `visitor/visitors/${visitorId}/update`,
+    return this.http.post(
+      `visitor/visitors/update/${visitorId}`,
       {visitorId, username, password, fio, email, age}
       );
+  }
+
+  createVisitor(username, password, fio, email, age) {
+    return this.http.post(
+      `visitor/visitors/add`,
+      {visitorId: '', username, password, fio, email, age}
+    );
   }
 
 }

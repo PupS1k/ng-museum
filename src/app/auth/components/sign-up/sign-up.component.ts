@@ -12,6 +12,7 @@ import {Router} from '@angular/router';
 export class SignUpComponent implements OnInit {
   signUpForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    fio: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     age: new FormControl('', [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]),
     password: new FormControl('', [Validators.required, Validators.minLength(5)]),
@@ -37,15 +38,22 @@ export class SignUpComponent implements OnInit {
   onSubmit() {
     this.isLoading = true;
 
-    const name = this.signUpForm.value.name;
+    const username = this.signUpForm.value.name;
     const password = this.signUpForm.value.password;
     const age = this.signUpForm.value.age;
+    const fio = this.signUpForm.value.fio;
     const email = this.signUpForm.value.email;
 
-    this.authServices.signUp(name, password, age, email)
+    this.authServices.signUp(username, password, age, fio, email)
       .subscribe(() => {
+        this.authServices.login(username, password).subscribe(() => {
           this.router.navigate(['/']);
           this.isLoading = false;
+        },
+          errorMessage => {
+            this.isLoading = false;
+            this.error = errorMessage;
+          });
         },
         errorMessage => {
           this.isLoading = false;

@@ -5,6 +5,7 @@ import {catchError, map, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 
 import {UserData} from '../../auth/models/user-data.model';
+import {Visitor} from '../../visitors/models/visitor.model';
 
 export interface LoginResponseData {
   access_token: string;
@@ -22,15 +23,15 @@ export interface WhoiamResData {
 @Injectable()
 export class AuthService {
   userData$ = new BehaviorSubject<UserData>(null);
-  isVisitor$: Observable<boolean> = this.userData$.pipe(map(userData =>  userData ? userData.roles.includes('ROLE_VISITOR') : false));
-  isGuide$: Observable<boolean> = this.userData$.pipe(map(userData =>  userData ? userData.roles.includes('ROLE_GUIDE') : false));
+  isVisitor$: Observable<boolean> = this.userData$.pipe(map(userData => userData ? userData.roles.includes('ROLE_VISITOR') : false));
+  isGuide$: Observable<boolean> = this.userData$.pipe(map(userData => userData ? userData.roles.includes('ROLE_GUIDE') : false));
   isAdmin$: Observable<boolean> = this.userData$.pipe(map(userData => userData ? userData.roles.includes('ROLE_ADMIN') : false));
 
   private tokenExpirationTimer: any;
 
-  login(name, password) {
+  login(username, password) {
     let body = new HttpParams();
-    body = body.set('username', name);
+    body = body.set('username', username);
     body = body.set('password', password);
     body = body.set('grant_type', 'password');
 
@@ -45,7 +46,7 @@ export class AuthService {
       }
     ).pipe(
       catchError(this.handleError),
-      tap(resData => this.handleAuthentication(name, resData.access_token, resData.expires_in)),
+      tap(resData => this.handleAuthentication(username, resData.access_token, resData.expires_in)),
     );
   }
 
@@ -70,20 +71,19 @@ export class AuthService {
       .pipe(catchError(this.handleError));
   }
 
-  signUp(name, password, age, email) {
-    return this.http.post<LoginResponseData>(
+  signUp(username, password, age, fio, email) {
+    return this.http.post<Visitor>(
       '/visitor/visitors/add',
       {
         visitorId: '',
-        username: name,
+        username,
         password,
-        fio: name,
+        fio,
         age,
         email
       }
     ).pipe(
-      catchError(this.handleError),
-      tap(resData => this.handleAuthentication(name, resData.access_token, resData.expires_in))
+      catchError(this.handleError)
     );
   }
 

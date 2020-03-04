@@ -16,7 +16,7 @@ export class ExhibitsService {
   }
 
   updateExhibit(exhibitId, title, dated, material, archiveNum, description, imageUrl, tourEntitySet) {
-    return this.http.put(
+    return this.http.post(
       `/exhibit/exhibits/update/${exhibitId}`,
       {
         exhibitId, title, dated, material, archiveNum, description, imageUrl, tourEntitySet

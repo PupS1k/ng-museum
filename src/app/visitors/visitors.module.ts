@@ -12,6 +12,7 @@ import {VisitorEditComponent} from './components/visitor-edit/visitor-edit.compo
 import {VisitorsResolverService} from './services/visitors-resolver.service';
 import {VisitorResolverService} from './services/visitor-resolver.service';
 import {VisitorItemPresentationComponent} from './components/visitor-item-presentation/visitor-item-presentation.component';
+import {AuthSharedModule} from '../auth/auth-shared.module';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import {VisitorItemPresentationComponent} from './components/visitor-item-presen
     RouterModule,
     VisitorsRoutingModule,
     ReactiveFormsModule,
+    AuthSharedModule,
     SharedModule
   ],
   declarations: [

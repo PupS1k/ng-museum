@@ -8,7 +8,8 @@ import {VisitorEditComponent} from './components/visitor-edit/visitor-edit.compo
 
 const visitorsRoutes: Routes = [
   {path: '', component: VisitorsListComponent, resolve: {visitors: VisitorsResolverService}},
-  {path: ':id/edit', component: VisitorEditComponent, resolve: {visitor: VisitorResolverService}}
+  {path: ':id/edit', component: VisitorEditComponent, resolve: {visitor: VisitorResolverService}},
+  {path: 'create', component: VisitorEditComponent}
 ];
 
 
