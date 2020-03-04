@@ -7,11 +7,11 @@ import {AlertComponent} from './components/alert/alert.component';
   imports: [CommonModule],
   declarations: [
     SpinnerComponent,
-    AlertComponent
+    AlertComponent,
   ],
   exports: [
     SpinnerComponent,
-    AlertComponent
+    AlertComponent,
   ]
 })
 export class SharedModule {

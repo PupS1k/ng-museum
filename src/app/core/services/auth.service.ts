@@ -21,9 +21,24 @@ export interface WhoiamResData {
 
 @Injectable()
 export class AuthService {
-  user = new BehaviorSubject<UserData>(null);
+  userData = new BehaviorSubject<UserData>(null);
+  private _isAdmin = false;
+  private _isGuide = false;
+  private _isVisitor = false;
 
   private tokenExpirationTimer: any;
+
+  get isAdmin() {
+    return this._isAdmin;
+  }
+
+  get isGuide() {
+    return this._isGuide;
+  }
+
+  get isVisitor() {
+    return this._isVisitor;
+  }
 
   login(name, password) {
     let body = new HttpParams();
@@ -53,10 +68,12 @@ export class AuthService {
       return;
     }
 
+    this.checkRoles(userData.roles);
+
     const loadedUser: UserData = {...userData, tokenExpirationDate: new Date(userData.tokenExpirationDate)};
 
     if (this.getToken(loadedUser)) {
-      this.user.next(loadedUser);
+      this.userData.next(loadedUser);
       const expirationDuration = new Date(userData.tokenExpirationDate).getTime() - new Date().getTime();
       this.autoLogout(expirationDuration);
     }
@@ -86,7 +103,11 @@ export class AuthService {
 
 
   logout() {
-    this.user.next(null);
+    this._isAdmin = false;
+    this._isGuide = false;
+    this._isVisitor = false;
+
+    this.userData.next(null);
 
     this.router.navigate(['/']);
 
@@ -104,12 +125,6 @@ export class AuthService {
     }, expirationDate);
   }
 
-  checkRole(role) {
-    const userData: UserData = JSON.parse(localStorage.getItem('userData'));
-
-    return userData.roles.includes(role);
-  }
-
   handleAuthentication(name: string, token: string, expiresIn: number) {
     const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000);
 
@@ -120,15 +135,25 @@ export class AuthService {
     this.fetchRole().subscribe(resData => {
         const roles = resData.map((role: WhoiamResData) => role.authority);
 
+        this.checkRoles(roles);
+
         const user: UserData = {name, token, tokenExpirationDate: expirationDate, roles};
 
-        this.user.next(user);
+        this.userData.next(user);
 
         localStorage.setItem('userData', JSON.stringify(user));
       },
       (error => console.log(error))
     );
   }
+
+  checkRoles(roles: string[]) {
+    this._isAdmin = roles.includes('ROLE_ADMIN');
+    this._isGuide = roles.includes('ROLE_GUIDE');
+    this._isVisitor = roles.includes('ROLE_VISITOR');
+  }
+
+
 
   handleError(errorRes: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred!';

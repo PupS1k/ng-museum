@@ -5,7 +5,6 @@ import {HttpClientModule} from '@angular/common/http';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {AuthService} from './core/services/auth.service';
 import {SharedModule} from './shared/shared.module';
 import {ExhibitsSharedModule} from './exhibits/exhibits-shared.module';
 import {LayoutModule} from './layout/layout.module';

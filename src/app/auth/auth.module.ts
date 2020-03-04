@@ -10,7 +10,6 @@ import {RouterModule} from '@angular/router';
 import {AuthRoutingModule} from './auth-routing.module';
 import {ExhibitsSharedModule} from '../exhibits/exhibits-shared.module';
 
-
 @NgModule({
   imports: [
     CommonModule,

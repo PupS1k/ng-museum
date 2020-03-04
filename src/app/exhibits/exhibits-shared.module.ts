@@ -7,10 +7,8 @@ import {ExhibitCardComponent} from './components/exhibit-card/exhibit-card.compo
 import {ExhibitItemComponent} from './components/exhibit-item/exhibit-item.component';
 import {RouterModule} from '@angular/router';
 import {ExhibitsSharedService} from './services/exhibits-shared.service';
-import {ExhibitsService} from './services/exhibits.service';
 import {ExhibitsResolverService} from './services/exhibits-resolver.service';
 import {ToursSharedModule} from '../tours/tours-shared.module';
-import {CoreModule} from '../core/core.module';
 
 
 @NgModule({
@@ -19,7 +17,6 @@ import {CoreModule} from '../core/core.module';
     RouterModule,
     SharedModule,
     ToursSharedModule,
-    CoreModule
   ],
   declarations: [
     ExhibitListComponent,

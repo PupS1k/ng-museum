@@ -5,16 +5,9 @@ import {AuthService} from './services/auth.service';
 import {AdminGuard} from './services/admin-guard.service';
 import {GuideGuard} from './services/guide-guard.service';
 import {AuthGuard} from './services/auth-guard.service';
-import {RoleDirective} from './directives/role.directive';
 
 
 @NgModule({
-  declarations: [
-    RoleDirective
-  ],
-  exports: [
-    RoleDirective
-  ],
   providers: [
     AuthService,
     AdminGuard,

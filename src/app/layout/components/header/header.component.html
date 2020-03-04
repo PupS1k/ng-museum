@@ -1,7 +1,7 @@
 <nav class="navbar-fixed-left navbar-default navbar navbar-dropdown">
   <div class="navbar_arrow"></div>
   <div class="navbar-header navbar_header">
-    <a routerLink="/" routerLinkActive="active" class="museum-img"></a>
+    <a routerLink="/" routerLinkActive="active" class="museum-img" role="link"></a>
   </div>
   <ul class="nav navbar-nav navbar_group-item">
     <li routerLinkActive="active">
@@ -10,19 +10,19 @@
         <span>Exhibits</span>
       </a>
     </li>
-    <li routerLinkActive="active" *appRoleUser="'ROLE_GUIDE'">
+    <li routerLinkActive="active" *ngIf="isGuide">
       <a routerLink="/visitors">
         <div class="visitor-img"></div>
         <span>Visitors</span>
       </a>
     </li>
-    <li routerLinkActive="active" *appRoleUser="'ROLE_VISITOR'">
+    <li routerLinkActive="active" *ngIf="isVisitor">
       <a routerLink="/tours">
         <div class="tour-img"></div>
         <span>Tours</span>
       </a>
     </li>
-    <li routerLinkActive="active" *appRoleUser="'ROLE_ADMIN'">
+    <li routerLinkActive="active" *ngIf="isAdmin">
       <a routerLink="/guide">
         <div class="guide-img"></div>
         <span>Guides</span>
