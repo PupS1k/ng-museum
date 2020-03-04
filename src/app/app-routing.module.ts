@@ -3,6 +3,7 @@ import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from './core/services/auth-guard.service';
 import {AdminGuard} from './core/services/admin-guard.service';
 import {GuideGuard} from './core/services/guide-guard.service';
+import {NotFoundComponent} from './layout/components/not-found/not-found.component';
 
 const appRoutes: Routes = [
   {path: '', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
@@ -23,6 +24,8 @@ const appRoutes: Routes = [
   // canActivate: [AuthGuard, AdminGuard],
   // loadChildren: () => import('./guides/guides.module').then(m => m.GuidesModule)
   // }
+  {path: 'notFound', component: NotFoundComponent},
+  {path: '**', redirectTo: '/notFound', pathMatch: 'full'}
 ];
 
 
