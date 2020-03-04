@@ -15,6 +15,5 @@ export class VisitorItemComponent {
 
   onDeleteVisitor() {
     this.visitorsService.deleteVisitor(this.visitor).subscribe(() => this.updateVisitors.emit());
-
   }
 }

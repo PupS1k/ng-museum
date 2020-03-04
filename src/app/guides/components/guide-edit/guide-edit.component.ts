@@ -1,62 +1,68 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subject} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {VisitorsService} from '../../services/visitors.service';
-import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {confirmPassword} from '../../../auth/utils/validators';
+import {GuidesService} from '../../services/guides.service';
 
 @Component({
-  selector: 'app-visitor-edit',
-  templateUrl: './visitor-edit.component.html',
-  styleUrls: ['./visitor-edit.component.css']
+  selector: 'app-guide-edit',
+  templateUrl: './guide-edit.component.html',
+  styleUrls: ['./guide-edit.component.css']
 })
-export class VisitorEditComponent implements OnInit, OnDestroy {
+export class GuideEditComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
   error: string;
   isLoading = false;
 
-  isUpdateForm: boolean;
-  visitorId: number;
-  visitorForm: FormGroup;
+  isUpdate: boolean;
+  guideId: number;
+  guideForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private visitorsService: VisitorsService
+    private guidesService: GuidesService
   ) {
   }
 
   ngOnInit(): void {
     this.route.data.pipe(takeUntil(this.destroy$))
       .subscribe(data => {
-        this.isUpdateForm = !!data.visitor;
-        if (data.visitor) {
-          this.visitorId = data.visitor.visitorId;
+        this.isUpdate = !!data.guide;
+
+        if (data.guide) {
+          this.guideId = data.guide.guideId;
         }
-        this.visitorForm = new FormGroup({
+
+        this.guideForm = new FormGroup({
           name: new FormControl(
-            data.visitor ? data.visitor.username : '',
+            data.guide ? data.guide.username : '',
             [Validators.required, Validators.minLength(2)]
           ),
           password: new FormControl(
-            data.visitor ? data.visitor.password : '',
+            data.guide ? data.guide.password : '',
             [Validators.required]
           ),
           confirmPassword: new FormControl(
-            data.visitor ? data.visitor.password : '',
+            data.guide ? data.guide.password : '',
             [Validators.required, confirmPassword()]
           ),
           fio: new FormControl(
-            data.visitor ? data.visitor.fio : '',
+            data.guide ? data.guide.fio : '',
             [Validators.required]
           ),
-          age: new FormControl(
-            data.visitor ? data.visitor.age : '',
+          experience: new FormControl(
+            data.guide ? data.guide.experience : '',
             [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]
           ),
-          email: new FormControl(
-            data.visitor ? data.visitor.email : '',
+          age: new FormControl(
+            data.guide ? data.guide.age : '',
+            [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]
+          ),
+          languages: new FormControl(
+            data.guide ? data.guide.languages : '',
             [Validators.required]),
         });
 
@@ -64,18 +70,19 @@ export class VisitorEditComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    const username = this.visitorForm.value.name;
-    const password = this.visitorForm.value.password;
-    const age = this.visitorForm.value.age;
-    const fio = this.visitorForm.value.fio;
-    const email = this.visitorForm.value.email;
+    const username = this.guideForm.value.name;
+    const password = this.guideForm.value.password;
+    const experience = this.guideForm.value.experience;
+    const age = this.guideForm.value.age;
+    const fio = this.guideForm.value.fio;
+    const languages = this.guideForm.value.languages;
 
     this.isLoading = true;
 
-    if (this.isUpdateForm) {
-      this.visitorsService.updateVisitor(this.visitorId, username, password, fio, email, age)
+    if (this.isUpdate) {
+      this.guidesService.updateGuide(this.guideId, username, password, fio, age, experience, languages)
         .subscribe(() => {
-            this.router.navigate(['/visitors']);
+            this.router.navigate(['/guides']);
             this.isLoading = false;
           },
           errorMessage => {
@@ -83,9 +90,9 @@ export class VisitorEditComponent implements OnInit, OnDestroy {
             this.error = errorMessage;
           });
     } else {
-      this.visitorsService.createVisitor(username, password, fio, email, age)
+      this.guidesService.createGuide(username, password, fio, age, experience, languages)
         .subscribe(() => {
-            this.router.navigate(['/visitors']);
+            this.router.navigate(['/guides']);
             this.isLoading = false;
           },
           errorMessage => {

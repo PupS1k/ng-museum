@@ -1,0 +1,19 @@
+<ul class="list-group">
+  <li class="list-group-item list-group-item-info col-xs-12">
+    <div class="col-xs-2 text-center"><span>Username</span></div>
+    <div class="col-xs-2 text-center"><span>Password</span></div>
+    <div class="col-xs-2 text-center"><span>FIO</span></div>
+    <div class="col-xs-1 text-center"><span>Age</span></div>
+    <div class="col-xs-1 text-center"><span>Experience</span></div>
+    <div class="col-xs-2 text-center"><span>Language</span></div>
+  </li>
+  <app-guide-item
+    *ngFor="let guide of guides"
+    [guide]="guide"
+    (updateGuides)="onUpdateGuides()"
+  ></app-guide-item>
+</ul>
+<div class="col-xs-12 text-center" style="margin-top: 20px">
+  <button class="btn btn-success" routerLink="create">Create Guide</button>
+</div>
+

@@ -6,8 +6,8 @@ import {GuideGuard} from './core/services/guide-guard.service';
 import {NotFoundComponent} from './layout/components/not-found/not-found.component';
 
 const appRoutes: Routes = [
-  {path: '', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
-  {path: 'exhibits',  loadChildren: () => import('./exhibits/exhibits.module').then(m => m.ExhibitsModule) },
+  {path: '', loadChildren: () => import('./home/home.module').then(m => m.HomeModule)},
+  {path: 'exhibits', loadChildren: () => import('./exhibits/exhibits.module').then(m => m.ExhibitsModule)},
   {
     path: 'tours',
     canActivate: [AuthGuard],
@@ -18,19 +18,19 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard, GuideGuard],
     loadChildren: () => import('./visitors/visitors.module').then(m => m.VisitorsModule)
   },
-  {path: 'auth',  loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
-  // {
-  // path: 'guides',
-  // canActivate: [AuthGuard, AdminGuard],
-  // loadChildren: () => import('./guides/guides.module').then(m => m.GuidesModule)
-  // }
-  {path: 'notFound', component: NotFoundComponent},
-  {path: '**', redirectTo: '/notFound', pathMatch: 'full'}
+  {
+    path: 'guides',
+    canActivate: [AuthGuard, AdminGuard],
+    loadChildren: () => import('./guides/guides.module').then(m => m.GuidesModule)
+  },
+  {path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)},
+  {path: '**', redirectTo: '/notFound', pathMatch: 'full'},
+  {path: 'notFound', component: NotFoundComponent}
 ];
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes,  {preloadingStrategy: PreloadAllModules})],
+  imports: [RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules})],
   exports: [RouterModule]
 })
 
