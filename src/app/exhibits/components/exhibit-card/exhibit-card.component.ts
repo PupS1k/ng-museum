@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Exhibit} from '../../models/exhibit.model';
 
 @Component({
@@ -6,12 +6,7 @@ import {Exhibit} from '../../models/exhibit.model';
   templateUrl: './exhibit-card.component.html',
   styleUrls: ['./exhibit-card.component.css']
 })
-export class ExhibitCardComponent implements OnInit {
+export class ExhibitCardComponent {
   @Input() exhibit: Exhibit;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  @Input() isGuide: boolean;
 }

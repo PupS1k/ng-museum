@@ -10,19 +10,19 @@
         <span>Exhibits</span>
       </a>
     </li>
-    <li routerLinkActive="active" *ngIf="isGuide">
+    <li routerLinkActive="active" *ngIf="isGuide$ | async">
       <a routerLink="/visitors">
         <div class="visitor-img"></div>
         <span>Visitors</span>
       </a>
     </li>
-    <li routerLinkActive="active" *ngIf="isVisitor">
+    <li routerLinkActive="active" *ngIf="isVisitor$ | async">
       <a routerLink="/tours">
         <div class="tour-img"></div>
         <span>Tours</span>
       </a>
     </li>
-    <li routerLinkActive="active" *ngIf="isAdmin">
+    <li routerLinkActive="active" *ngIf="isAdmin$ | async">
       <a routerLink="/guide">
         <div class="guide-img"></div>
         <span>Guides</span>

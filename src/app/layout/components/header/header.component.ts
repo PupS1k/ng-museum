@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../../../core/services/auth.service';
-import {Subject, Subscription} from 'rxjs';
+import {Observable, Subject, Subscription} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
@@ -13,9 +13,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isAuthenticated = false;
   username = '';
 
-  isAdmin: boolean;
-  isGuide: boolean;
-  isVisitor: boolean;
+  isAdmin$: Observable<boolean>;
+  isGuide$: Observable<boolean>;
+  isVisitor$: Observable<boolean>;
 
   constructor(
     private authService: AuthService,
@@ -23,17 +23,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.authService.userData.pipe(takeUntil(this.destroy$))
+    this.authService.userData$.pipe(takeUntil(this.destroy$))
       .subscribe(user => {
         this.isAuthenticated = !!user;
         if (this.isAuthenticated) {
           this.username = user.name;
         }
-
-        this.isAdmin = this.authService.isAdmin;
-        this.isGuide = this.authService.isGuide;
-        this.isVisitor = this.authService.isVisitor;
       });
+
+    this.isAdmin$ = this.authService.isAdmin$;
+    this.isGuide$ = this.authService.isGuide$;
+    this.isVisitor$ = this.authService.isVisitor$;
   }
 
   onLogout() {

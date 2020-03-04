@@ -3,6 +3,7 @@
     <app-exhibit-card
       *ngFor="let exhibit of exhibits.slice(0, 6)"
       [exhibit]="exhibit"
+      [isGuide]="isGuide"
     ></app-exhibit-card>
     <button class="btn btn-default" (click)="onMoveExhibits()">See all</button>
   </div>
@@ -10,6 +11,7 @@
     <app-exhibit-item
       *ngFor="let exhibit of exhibits"
       [exhibit]="exhibit"
+      [isGuide]="isGuide"
     ></app-exhibit-item>
   </div>
 </div>

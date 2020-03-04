@@ -4,7 +4,7 @@
     "secure": true,
     "logLevel": "debug"
   },
-  "/visitor/visitors/*": {
+  "/visitor/**": {
     "target": "http://192.168.0.133:8090",
     "secure": false,
     "logLevel": "debug"

@@ -1,7 +1,7 @@
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
-import {BehaviorSubject, throwError} from 'rxjs';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {catchError, tap} from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 
 import {UserData} from '../../auth/models/user-data.model';
@@ -21,24 +21,12 @@ export interface WhoiamResData {
 
 @Injectable()
 export class AuthService {
-  userData = new BehaviorSubject<UserData>(null);
-  private _isAdmin = false;
-  private _isGuide = false;
-  private _isVisitor = false;
+  userData$ = new BehaviorSubject<UserData>(null);
+  isAdmin$: Observable<boolean> = this.userData$.pipe(map(userData => userData ? userData.roles.includes('ROLE_ADMIN') : false));
+  isGuide$: Observable<boolean> = this.userData$.pipe(map(userData =>  userData ? userData.roles.includes('ROLE_GUIDE') : false));
+  isVisitor$: Observable<boolean> = this.userData$.pipe(map(userData =>  userData ? userData.roles.includes('ROLE_VISITOR') : false));
 
   private tokenExpirationTimer: any;
-
-  get isAdmin() {
-    return this._isAdmin;
-  }
-
-  get isGuide() {
-    return this._isGuide;
-  }
-
-  get isVisitor() {
-    return this._isVisitor;
-  }
 
   login(name, password) {
     let body = new HttpParams();
@@ -68,12 +56,10 @@ export class AuthService {
       return;
     }
 
-    this.checkRoles(userData.roles);
-
     const loadedUser: UserData = {...userData, tokenExpirationDate: new Date(userData.tokenExpirationDate)};
 
     if (this.getToken(loadedUser)) {
-      this.userData.next(loadedUser);
+      this.userData$.next(loadedUser);
       const expirationDuration = new Date(userData.tokenExpirationDate).getTime() - new Date().getTime();
       this.autoLogout(expirationDuration);
     }
@@ -103,11 +89,7 @@ export class AuthService {
 
 
   logout() {
-    this._isAdmin = false;
-    this._isGuide = false;
-    this._isVisitor = false;
-
-    this.userData.next(null);
+    this.userData$.next(null);
 
     this.router.navigate(['/']);
 
@@ -135,24 +117,15 @@ export class AuthService {
     this.fetchRole().subscribe(resData => {
         const roles = resData.map((role: WhoiamResData) => role.authority);
 
-        this.checkRoles(roles);
-
         const user: UserData = {name, token, tokenExpirationDate: expirationDate, roles};
 
-        this.userData.next(user);
+        this.userData$.next(user);
 
         localStorage.setItem('userData', JSON.stringify(user));
       },
       (error => console.log(error))
     );
   }
-
-  checkRoles(roles: string[]) {
-    this._isAdmin = roles.includes('ROLE_ADMIN');
-    this._isGuide = roles.includes('ROLE_GUIDE');
-    this._isVisitor = roles.includes('ROLE_VISITOR');
-  }
-
 
 
   handleError(errorRes: HttpErrorResponse) {

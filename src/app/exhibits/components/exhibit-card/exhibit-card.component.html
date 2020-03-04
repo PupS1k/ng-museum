@@ -17,6 +17,7 @@
       View
     </a>
     <a
+      *ngIf="isGuide"
       class="btn btn-primary"
       style="cursor: pointer"
       [routerLink]="['/exhibits', exhibit.exhibitId, 'edit']"

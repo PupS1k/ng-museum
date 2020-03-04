@@ -1,8 +1,10 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs';
+import {Observable, Subject, Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import {Exhibit} from '../../models/exhibit.model';
+import {takeUntil} from 'rxjs/operators';
+import {AuthService} from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-exhibit-list',
@@ -10,23 +12,29 @@ import {Exhibit} from '../../models/exhibit.model';
   styleUrls: ['./exhibit-list.component.css']
 })
 export class ExhibitListComponent implements OnInit, OnDestroy {
-  sub: Subscription;
+  destroy$ = new Subject();
   exhibits: Exhibit[];
+  isGuide$: Observable<boolean>;
   isLoading = false;
 
   @Input() showMode: string;
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.sub = this.route.data.subscribe(data => {
+
+    this.route.data.pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
       this.exhibits = data.exhibits;
       this.isLoading = false;
     });
+
+    this.isGuide$ = this.authService.isGuide$;
   }
 
   onNavigateExhibits() {
@@ -34,7 +42,8 @@ export class ExhibitListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 }

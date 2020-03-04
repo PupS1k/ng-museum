@@ -5,5 +5,6 @@
   *ngIf="!isLoading"
   [exhibits]="exhibits"
   [showMode]="showMode"
+  [isGuide]="isGuide$ | async"
   (moveExhibits)="onNavigateExhibits()"
 ></app-exhibit-list-presentation>

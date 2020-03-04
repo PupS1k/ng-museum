@@ -12,6 +12,7 @@ export class ExhibitListPresentationComponent implements OnInit {
 
   @Input() exhibits: Exhibit[];
   @Input() showMode: string;
+  @Input() isGuide: boolean;
 
   @Output() moveExhibits = new EventEmitter<void>();
 
