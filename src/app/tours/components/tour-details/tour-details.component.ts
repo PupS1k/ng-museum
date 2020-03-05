@@ -39,13 +39,19 @@ export class TourDetailsComponent implements OnInit, OnDestroy {
     });
 
     const userData: UserData = JSON.parse(localStorage.getItem('userData'));
-    this.userService.getVisitorByUsername(userData.name)
-      .subscribe((visitor: Visitor) => this.visitorId = visitor.visitorId);
 
-    this.exhibits$ = this.toursService.fetchTourExhibits(this.tour.tourId);
+    if (userData.name !== 'admin') {
+      this.userService.getVisitorByUsername(userData.name)
+        .subscribe((visitor: Visitor) => this.visitorId = visitor.visitorId);
+    }
+
     this.isGuide$ = this.authService.isGuide$;
-    this.toursService.checkFavouriteTour(this.tour.tourId, this.visitorId)
-      .subscribe((resData: boolean) => this.isFavouriteTour = resData, error => console.log(error));
+
+    if (this.visitorId) {
+      this.exhibits$ = this.toursService.fetchTourExhibits(this.tour.tourId);
+      this.toursService.checkFavouriteTour(this.tour.tourId, this.visitorId)
+        .subscribe((resData: boolean) => this.isFavouriteTour = resData, error => console.log(error));
+    }
   }
 
   onDeleteTourFromFavourites() {
