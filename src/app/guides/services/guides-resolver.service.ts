@@ -8,7 +8,7 @@ import {GuidesService} from './guides.service';
 
 
 @Injectable()
-export class GuidesResolverService implements Resolve<Observable<Guide[]>> {
+export class GuidesResolver implements Resolve<Observable<Guide[]>> {
   constructor(private guidesServices: GuidesService) {
   }
 

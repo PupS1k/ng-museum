@@ -7,7 +7,7 @@ import {Visitor} from '../models/visitor.model';
 
 
 @Injectable()
-export class VisitorsResolverService implements Resolve<Observable<Visitor[]>> {
+export class VisitorsResolver implements Resolve<Observable<Visitor[]>> {
   constructor(private visitorsService: VisitorsService) {
   }
 

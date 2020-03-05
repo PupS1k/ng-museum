@@ -8,7 +8,7 @@ import {ToursService} from './tours.service';
 
 
 @Injectable()
-export class TourResolverService implements Resolve<Observable<Tour>> {
+export class TourResolver implements Resolve<Observable<Tour>> {
   constructor(private toursService: ToursService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any>|Promise<any>|any {

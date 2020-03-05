@@ -7,7 +7,7 @@ import {ExhibitCardComponent} from './components/exhibit-card/exhibit-card.compo
 import {ExhibitItemComponent} from './components/exhibit-item/exhibit-item.component';
 import {RouterModule} from '@angular/router';
 import {ExhibitsSharedService} from './services/exhibits-shared.service';
-import {ExhibitsResolverService} from './services/exhibits-resolver.service';
+import {ExhibitsResolver} from './services/exhibits-resolver.service';
 import {ToursSharedModule} from '../tours/tours-shared.module';
 
 
@@ -32,7 +32,7 @@ import {ToursSharedModule} from '../tours/tours-shared.module';
   ],
   providers: [
     ExhibitsSharedService,
-    ExhibitsResolverService
+    ExhibitsResolver
   ],
 })
 export class ExhibitsSharedModule {}

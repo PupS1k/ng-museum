@@ -7,7 +7,7 @@ import {Exhibit} from '../models/exhibit.model';
 
 
 @Injectable()
-export class ExhibitsResolverService implements Resolve<Observable<Exhibit[]>> {
+export class ExhibitsResolver implements Resolve<Observable<Exhibit[]>> {
   constructor(private exhibitsSharedService: ExhibitsSharedService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any>|Promise<any>|any {

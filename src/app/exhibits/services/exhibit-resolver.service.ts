@@ -7,7 +7,7 @@ import {Exhibit} from '../models/exhibit.model';
 
 
 @Injectable()
-export class ExhibitResolverService implements Resolve<Observable<Exhibit>> {
+export class ExhibitResolver implements Resolve<Observable<Exhibit>> {
   constructor(private exhibitsService: ExhibitsService) {
   }
 

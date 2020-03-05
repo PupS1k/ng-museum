@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
-import {ExhibitsRoutingModule} from './exhibits-routing.module';
+import {ExhibitsRouting} from './exhibits-routing.module';
 import {ExhibitsComponent} from './components/exhibits/exhibits.component';
 import {ExhibitDetailsComponent} from './components/exhibit-details/exhibit-details.component';
 import {CommonModule} from '@angular/common';
@@ -12,7 +12,7 @@ import {ExhibitEditPresentationComponent} from './components/exhibit-edit-presen
 import {ExhibitComponent} from './components/exhibit/exhibit.component';
 import {ToursSharedModule} from '../tours/tours-shared.module';
 import {ExhibitsService} from './services/exhibits.service';
-import {ExhibitResolverService} from './services/exhibit-resolver.service';
+import {ExhibitResolver} from './services/exhibit-resolver.service';
 import {ExhibitDetailsPresentationComponent} from './components/exhibit-details-presentation/exhibit-details-presentation.component';
 
 
@@ -21,7 +21,7 @@ import {ExhibitDetailsPresentationComponent} from './components/exhibit-details-
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
-    ExhibitsRoutingModule,
+    ExhibitsRouting,
     ExhibitsSharedModule,
     ToursSharedModule,
     SharedModule
@@ -36,7 +36,7 @@ import {ExhibitDetailsPresentationComponent} from './components/exhibit-details-
     ],
   providers: [
     ExhibitsService,
-    ExhibitResolverService
+    ExhibitResolver
   ]
 })
 export class ExhibitsModule {

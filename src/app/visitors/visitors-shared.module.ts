@@ -4,7 +4,7 @@ import {VisitorsService} from './services/visitors.service';
 import {VisitorEditComponent} from './components/visitor-edit/visitor-edit.component';
 import {ToursSharedModule} from '../tours/tours-shared.module';
 import {AuthSharedModule} from '../auth/auth-shared.module';
-import {VisitorResolverService} from './services/visitor-resolver.service';
+import {VisitorResolver} from './services/visitor-resolver.service';
 import {ReactiveFormsModule} from '@angular/forms';
 
 
@@ -23,7 +23,7 @@ import {ReactiveFormsModule} from '@angular/forms';
   ],
   providers: [
     VisitorsService,
-    VisitorResolverService
+    VisitorResolver
   ]
 })
 export class VisitorsSharedModule {}

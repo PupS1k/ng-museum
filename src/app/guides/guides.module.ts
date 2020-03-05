@@ -8,15 +8,15 @@ import {GuidesListComponent} from './components/guides-list/guides-list.componen
 import {GuidesListPresentationComponent} from './components/guides-list-presentation/guides-list-presentation.component';
 import {GuideItemComponent} from './components/guide-item/guide-item.component';
 import {GuideItemPresentationComponent} from './components/guide-item-presentation/guide-item-presentation.component';
-import {GuidesResolverService} from './services/guides-resolver.service';
-import {GuidesRoutingModule} from './guides-routing.module';
+import {GuidesResolver} from './services/guides-resolver.service';
+import {GuidesRouting} from './guides-routing.module';
 import {GuidesSharedModule} from './guides-shared.module';
 
 
 @NgModule({
   imports: [
     CommonModule,
-    GuidesRoutingModule,
+    GuidesRouting,
     RouterModule,
     GuidesSharedModule,
     SharedModule
@@ -28,7 +28,7 @@ import {GuidesSharedModule} from './guides-shared.module';
     GuideItemPresentationComponent
   ],
   providers: [
-    GuidesResolverService,
+    GuidesResolver,
   ]
 })
 export class GuidesModule {}

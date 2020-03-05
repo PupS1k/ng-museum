@@ -7,7 +7,7 @@ import {SignUpComponent} from './components/sign-up/sign-up.component';
 import {LoginPresentationComponent} from './components/login-presentation/login-presentation.component';
 import {CreateUserPresentationComponent} from './components/create-user-presentation/create-user-presentation.component';
 import {RouterModule} from '@angular/router';
-import {AuthRoutingModule} from './auth-routing.module';
+import {AuthRouting} from './auth-routing.module';
 import {ExhibitsSharedModule} from '../exhibits/exhibits-shared.module';
 import {AuthSharedModule} from './auth-shared.module';
 
@@ -17,7 +17,7 @@ import {AuthSharedModule} from './auth-shared.module';
     ReactiveFormsModule,
     SharedModule,
     RouterModule,
-    AuthRoutingModule,
+    AuthRouting,
     ExhibitsSharedModule,
     AuthSharedModule
   ],
