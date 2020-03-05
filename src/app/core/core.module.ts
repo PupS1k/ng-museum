@@ -5,6 +5,7 @@ import {AuthService} from './services/auth.service';
 import {AdminGuard} from './services/admin-guard.service';
 import {GuideGuard} from './services/guide-guard.service';
 import {AuthGuard} from './services/auth-guard.service';
+import {UserService} from './services/user.service';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import {AuthGuard} from './services/auth-guard.service';
     AdminGuard,
     GuideGuard,
     AuthGuard,
+    UserService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
   ]
 })

@@ -5,6 +5,8 @@ import {VisitorsService} from '../../services/visitors.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {confirmPassword} from '../../../auth/utils/validators';
+import {Tour} from '../../../tours/models/tour.model';
+import {AuthService} from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-visitor-edit',
@@ -16,24 +18,35 @@ export class VisitorEditComponent implements OnInit, OnDestroy {
   error: string;
   isLoading = false;
 
-  isUpdateForm: boolean;
+  isUpdate: boolean;
+  isUpdateUser = false;
   visitorId: number;
   visitorForm: FormGroup;
+  tours?: Tour[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private visitorsService: VisitorsService
+    private visitorsService: VisitorsService,
+    private authService: AuthService
   ) {
   }
 
   ngOnInit(): void {
     this.route.data.pipe(takeUntil(this.destroy$))
       .subscribe(data => {
-        this.isUpdateForm = !!data.visitor;
+        this.isUpdate = !!data.visitor;
+
         if (data.visitor) {
           this.visitorId = data.visitor.visitorId;
+          this.tours = data.visitor.tourEntitySet;
+
+          const userData = JSON.parse(localStorage.getItem('userData'));
+          if (userData) {
+            this.isUpdateUser = userData.name === data.visitor.username;
+          }
         }
+
         this.visitorForm = new FormGroup({
           name: new FormControl(
             data.visitor ? data.visitor.username : '',
@@ -72,11 +85,15 @@ export class VisitorEditComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
 
-    if (this.isUpdateForm) {
-      this.visitorsService.updateVisitor(this.visitorId, username, password, fio, email, age)
+    if (this.isUpdate) {
+      this.visitorsService.updateVisitor(this.visitorId, username, password, fio, email, age, this.tours)
         .subscribe(() => {
-            this.router.navigate(['/visitors']);
-            this.isLoading = false;
+            if (this.isUpdateUser) {
+              this.authService.changeUsername(username);
+            } else {
+              this.router.navigate(['/visitors']);
+              this.isLoading = false;
+            }
           },
           errorMessage => {
             this.isLoading = false;

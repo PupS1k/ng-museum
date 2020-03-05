@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 
 import {UserData} from '../../auth/models/user-data.model';
 import {Visitor} from '../../visitors/models/visitor.model';
+import {UserService} from './user.service';
 
 export interface LoginResponseData {
   access_token: string;
@@ -87,6 +88,14 @@ export class AuthService {
     );
   }
 
+  changeUsername(username) {
+    const userData: UserData = JSON.parse(localStorage.getItem('userData'));
+
+    if (userData.name !== username) {
+      this.userData$.next({...userData, name: username});
+    }
+  }
+
 
   logout() {
     this.userData$.next(null);
@@ -109,7 +118,6 @@ export class AuthService {
 
   handleAuthentication(name: string, token: string, expiresIn: number) {
     const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000);
-
     this.autoLogout(expiresIn * 1000);
 
     localStorage.setItem('userData', JSON.stringify({name, token, tokenExpirationDate: expirationDate}));
@@ -118,7 +126,6 @@ export class AuthService {
         const roles = resData.map((role: WhoiamResData) => role.authority);
 
         const user: UserData = {name, token, tokenExpirationDate: expirationDate, roles};
-
         this.userData$.next(user);
 
         localStorage.setItem('userData', JSON.stringify(user));
@@ -126,7 +133,6 @@ export class AuthService {
       (error => console.log(error))
     );
   }
-
 
   handleError(errorRes: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred!';
@@ -157,7 +163,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {
   }
 

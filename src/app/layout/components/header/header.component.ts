@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../../../core/services/auth.service';
-import {Observable, Subject, Subscription} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
   isAuthenticated = false;
   username = '';
+  profileMode = '';
 
   isAdmin$: Observable<boolean>;
   isGuide$: Observable<boolean>;
@@ -28,6 +29,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.isAuthenticated = !!user;
         if (this.isAuthenticated) {
           this.username = user.name;
+
+          if (user.roles.length < 3) {
+            this.profileMode = user.roles.length === 2 ? 'guide' : 'visitor';
+          }
         }
       });
 

@@ -41,6 +41,11 @@
       <ul class="menu dropdown-menu">
         <li>
           <button class="btn btn-default" (click)="onLogout()">Logout</button>
+          <button
+            *ngIf="profileMode"
+            class="btn btn-default"
+            [routerLink]="['/profile', profileMode, username]"
+          >Profile</button>
         </li>
       </ul>
     </li>

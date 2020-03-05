@@ -20,10 +20,10 @@ export class VisitorsService {
     return this.http.post<Visitor>(`visitor/visitors/delete/${visitor.visitorId}`, visitor);
   }
 
-  updateVisitor(visitorId, username, password, fio, email, age) {
+  updateVisitor(visitorId, username, password, fio, email, age, tourEntitySet) {
     return this.http.post(
       `visitor/visitors/update/${visitorId}`,
-      {visitorId, username, password, fio, email, age}
+      {visitorId, username, password, fio, email, age, tourEntitySet}
       );
   }
 

@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {takeUntil} from 'rxjs/operators';
 import {confirmPassword} from '../../../auth/utils/validators';
 import {GuidesService} from '../../services/guides.service';
+import {AuthService} from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-guide-edit',
@@ -18,12 +19,14 @@ export class GuideEditComponent implements OnInit, OnDestroy {
 
   isUpdate: boolean;
   guideId: number;
+  isUserUpdate = false;
   guideForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private guidesService: GuidesService
+    private guidesService: GuidesService,
+    private authService: AuthService
   ) {
   }
 
@@ -34,6 +37,11 @@ export class GuideEditComponent implements OnInit, OnDestroy {
 
         if (data.guide) {
           this.guideId = data.guide.guideId;
+
+          const userData = JSON.parse(localStorage.getItem('userData'));
+          if (userData) {
+            this.isUserUpdate = userData.name === data.guide.username;
+          }
         }
 
         this.guideForm = new FormGroup({
@@ -82,8 +90,12 @@ export class GuideEditComponent implements OnInit, OnDestroy {
     if (this.isUpdate) {
       this.guidesService.updateGuide(this.guideId, username, password, fio, age, experience, languages)
         .subscribe(() => {
-            this.router.navigate(['/guides']);
-            this.isLoading = false;
+            if (this.isUserUpdate) {
+              this.authService.changeUsername(username);
+            } else {
+              this.router.navigate(['/guides']);
+              this.isLoading = false;
+            }
           },
           errorMessage => {
             this.isLoading = false;

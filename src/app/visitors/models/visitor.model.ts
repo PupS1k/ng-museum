@@ -1,3 +1,5 @@
+import {Tour} from '../../tours/models/tour.model';
+
 export interface Visitor {
   visitorId: number;
   username: string;
@@ -5,4 +7,5 @@ export interface Visitor {
   fio: string;
   age: number;
   email: string;
+  tourEntitySet?: Tour[];
 }
