@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
-import {HeaderComponent} from './components/header/header.component';
+import {NavbarComponent} from './components/navbar/navbar.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {RouterModule} from '@angular/router';
 import {SharedModule} from '../shared/shared.module';
@@ -15,12 +15,12 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     SharedModule
   ],
   declarations: [
-    HeaderComponent,
+    NavbarComponent,
     FooterComponent,
     NotFoundComponent
   ],
   exports: [
-    HeaderComponent,
+    NavbarComponent,
     FooterComponent,
     NotFoundComponent
   ]

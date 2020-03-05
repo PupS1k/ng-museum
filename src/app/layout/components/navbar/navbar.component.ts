@@ -4,11 +4,11 @@ import {Observable, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.css']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class NavbarComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
   isAuthenticated = false;
   username = '';
