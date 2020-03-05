@@ -1,0 +1,56 @@
+<nav class="navbar-fixed-left navbar-default navbar navbar-dropdown">
+  <div class="navbar_arrow"></div>
+  <div class="navbar-header navbar_header">
+    <a routerLink="/" routerLinkActive="active" class="museum-img" role="link"></a>
+  </div>
+  <ul class="nav navbar-nav navbar_group-item">
+    <li routerLinkActive="active">
+      <a routerLink="/exhibits">
+        <div class="exhibit-img"></div>
+        <span>Exhibits</span>
+      </a>
+    </li>
+    <li routerLinkActive="active" *ngIf="isGuide">
+      <a routerLink="/visitors">
+        <div class="visitor-img"></div>
+        <span>Visitors</span>
+      </a>
+    </li>
+    <li routerLinkActive="active" *ngIf="isVisitor">
+      <a routerLink="/tours">
+        <div class="tour-img"></div>
+        <span>Tours</span>
+      </a>
+    </li>
+    <li routerLinkActive="active" *ngIf="isAdmin">
+      <a routerLink="/guides">
+        <div class="guide-img"></div>
+        <span>Guides</span>
+      </a>
+    </li>
+  </ul>
+  <ul class="nav navbar-nav navbar_group-item navbar_group-item__bottom">
+    <li class="dropup" *ngIf="isAuthenticated">
+      <button
+        class="btn btn-default dropdown-toggle navbar_group-item"
+        type="button" data-toggle="dropdown"
+      >
+        <div class="user-img navbar_img"></div>
+        <span class="username">{{ username }}</span>
+      </button>
+      <ul class="menu dropdown-menu">
+        <li>
+          <button class="btn btn-default" (click)="onLogout()">Logout</button>
+          <button
+            *ngIf="profileMode"
+            class="btn btn-default"
+            [routerLink]="['/profile', profileMode, username]"
+          >Profile</button>
+        </li>
+      </ul>
+    </li>
+    <li routerLinkActive="active" *ngIf="!isAuthenticated">
+      <a routerLink="/auth/login">Login</a>
+    </li>
+  </ul>
+</nav>

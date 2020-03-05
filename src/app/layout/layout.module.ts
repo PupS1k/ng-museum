@@ -6,6 +6,7 @@ import {FooterComponent} from './components/footer/footer.component';
 import {RouterModule} from '@angular/router';
 import {SharedModule} from '../shared/shared.module';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { NavbarPresentationComponent } from './components/navbar-presentation/navbar-presentation.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
   declarations: [
     NavbarComponent,
     FooterComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    NavbarPresentationComponent
   ],
   exports: [
     NavbarComponent,
