@@ -6,7 +6,6 @@ import {ExhibitListPresentationComponent} from './components/exhibit-list-presen
 import {ExhibitCardComponent} from './components/exhibit-card/exhibit-card.component';
 import {ExhibitItemComponent} from './components/exhibit-item/exhibit-item.component';
 import {RouterModule} from '@angular/router';
-import {ExhibitsSharedService} from './services/exhibits-shared.service';
 import {ExhibitsResolver} from './services/exhibits-resolver.service';
 import {ToursSharedModule} from '../tours/tours-shared.module';
 
@@ -31,7 +30,6 @@ import {ToursSharedModule} from '../tours/tours-shared.module';
     ExhibitItemComponent
   ],
   providers: [
-    ExhibitsSharedService,
     ExhibitsResolver
   ],
 })

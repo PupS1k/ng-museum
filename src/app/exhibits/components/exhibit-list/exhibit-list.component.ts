@@ -3,17 +3,18 @@ import {Observable, Subject} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import {Exhibit} from '../../models/exhibit.model';
-import {takeUntil} from 'rxjs/operators';
+import {map, take, takeUntil} from 'rxjs/operators';
 import {AuthService} from '../../../core/services/auth.service';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../app.reducer';
 
 @Component({
   selector: 'app-exhibit-list',
   templateUrl: './exhibit-list.component.html',
   styleUrls: ['./exhibit-list.component.scss']
 })
-export class ExhibitListComponent implements OnInit, OnDestroy {
-  destroy$ = new Subject();
-  exhibits: Exhibit[];
+export class ExhibitListComponent implements OnInit {
+  exhibits$: Observable<Exhibit[]>;
   isGuide$: Observable<boolean>;
   isLoading = false;
 
@@ -22,17 +23,17 @@ export class ExhibitListComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private store: Store<AppState>
+  ) {
+  }
 
   ngOnInit(): void {
-    this.isLoading = true;
-
-    this.route.data.pipe(takeUntil(this.destroy$))
-      .subscribe(data => {
-      this.exhibits = data.exhibits;
-      this.isLoading = false;
-    });
+    this.exhibits$ = this.store.select('exhibits')
+      .pipe(map(exhibitState => {
+      this.isLoading = exhibitState.loading;
+      return exhibitState.exhibits;
+    }));
 
     this.isGuide$ = this.authService.isGuide$;
   }
@@ -40,10 +41,4 @@ export class ExhibitListComponent implements OnInit, OnDestroy {
   onNavigateExhibits() {
     this.router.navigate(['/exhibits']);
   }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
 }

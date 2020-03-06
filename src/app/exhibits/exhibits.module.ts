@@ -11,7 +11,6 @@ import {ExhibitEditComponent} from './components/exhibit-edit/exhibit-edit.compo
 import {ExhibitEditPresentationComponent} from './components/exhibit-edit-presentation/exhibit-edit-presentation.component';
 import {ExhibitComponent} from './components/exhibit/exhibit.component';
 import {ToursSharedModule} from '../tours/tours-shared.module';
-import {ExhibitsService} from './services/exhibits.service';
 import {ExhibitResolver} from './services/exhibit-resolver.service';
 import {ExhibitDetailsPresentationComponent} from './components/exhibit-details-presentation/exhibit-details-presentation.component';
 
@@ -35,7 +34,6 @@ import {ExhibitDetailsPresentationComponent} from './components/exhibit-details-
         ExhibitDetailsPresentationComponent
     ],
   providers: [
-    ExhibitsService,
     ExhibitResolver
   ]
 })

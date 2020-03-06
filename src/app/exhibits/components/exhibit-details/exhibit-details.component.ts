@@ -1,32 +1,34 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Exhibit} from '../../models/exhibit.model';
 import {ActivatedRoute} from '@angular/router';
-import {map, takeUntil} from 'rxjs/operators';
-import {Observable, Subject} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 import {AuthService} from '../../../core/services/auth.service';
+import {AppState} from '../../../app.reducer';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-exhibit-details',
   templateUrl: './exhibit-details.component.html',
   styleUrls: ['./exhibit-details.component.scss']
 })
-export class ExhibitDetailsComponent implements OnInit, OnDestroy {
-  destroy$ = new Subject();
+export class ExhibitDetailsComponent implements OnInit {
   exhibit$: Observable<Exhibit>;
   isGuide$: Observable<boolean>;
+  isLoading = false;
 
-  constructor(private route: ActivatedRoute, private authService: AuthService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private store: Store<AppState>
+  ) {}
 
   ngOnInit(): void {
-    this.exhibit$ = this.route.parent.data.pipe(
-      takeUntil(this.destroy$),
-      map(data => data.exhibit)
-    );
-    this.isGuide$ = this.authService.isGuide$;
-  }
+    this.exhibit$ = this.store.select('exhibits').pipe(map(exhibitState => {
+      this.isLoading = exhibitState.loading;
+      return exhibitState.selectedExhibit;
+    }));
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.isGuide$ = this.authService.isGuide$;
   }
 }

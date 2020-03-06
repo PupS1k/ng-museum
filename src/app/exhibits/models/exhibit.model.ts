@@ -8,5 +8,5 @@ export interface Exhibit {
    archiveNum: string;
    description: string;
    imageUrl: string;
-   tourEntitySet: Tour[];
+   tourEntitySet?: Tour[];
 }

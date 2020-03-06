@@ -1,12 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Exhibit} from '../../models/exhibit.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 
-import {ExhibitsService} from '../../services/exhibits.service';
 import {Tour} from '../../../tours/models/tour.model';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../app.reducer';
+import {CloseErrorAlert, UpdateExhibitStart} from '../../store/exhibit.actions';
 
 @Component({
   selector: 'app-exhibit-edit',
@@ -15,9 +16,9 @@ import {Tour} from '../../../tours/models/tour.model';
 })
 export class ExhibitEditComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
-  exhibitId: Exhibit;
-  tourEntitySet: Tour[];
-  error: string;
+  exhibitId: number;
+  tours: Tour[];
+  error = '';
   isLoading = false;
 
   exhibitForm: FormGroup;
@@ -25,25 +26,29 @@ export class ExhibitEditComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private exhibitsService: ExhibitsService
+    private store: Store<AppState>
   ) {
   }
 
   ngOnInit(): void {
-    this.route.parent.data
+    this.store.select('exhibits')
       .pipe(takeUntil(this.destroy$))
-      .subscribe(data => {
-      this.exhibitId = data.exhibit.exhibitId;
-      this.tourEntitySet = data.exhibit.tourEntitySet;
-      this.exhibitForm = new FormGroup({
-        title: new FormControl(data.exhibit.title, [Validators.required, Validators.minLength(3)]),
-        dated: new FormControl(data.exhibit.dated, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]),
-        material: new FormControl(data.exhibit.material, [Validators.required]),
-        archiveNum: new FormControl(data.exhibit.archiveNum, [Validators.required]),
-        description: new FormControl(data.exhibit.description, [Validators.required]),
-        imageUrl: new FormControl(data.exhibit.imageUrl, [Validators.required]),
+      .subscribe(exhibitsState => {
+        this.exhibitId = exhibitsState.selectedExhibit.exhibitId;
+        this.tours = exhibitsState.selectedExhibit.tourEntitySet;
+
+        this.error = exhibitsState.errorMessage;
+        this.isLoading = exhibitsState.loading;
+
+        this.exhibitForm = new FormGroup({
+          title: new FormControl(exhibitsState.selectedExhibit.title, [Validators.required, Validators.minLength(3)]),
+          dated: new FormControl(exhibitsState.selectedExhibit.dated, [Validators.required]),
+          material: new FormControl(exhibitsState.selectedExhibit.material, [Validators.required]),
+          archiveNum: new FormControl(exhibitsState.selectedExhibit.archiveNum, [Validators.required]),
+          description: new FormControl(exhibitsState.selectedExhibit.description, [Validators.required]),
+          imageUrl: new FormControl(exhibitsState.selectedExhibit.imageUrl, [Validators.required]),
+        });
       });
-    });
   }
 
   onSubmit() {
@@ -54,24 +59,19 @@ export class ExhibitEditComponent implements OnInit, OnDestroy {
     const description = this.exhibitForm.value.description;
     const imageUrl = this.exhibitForm.value.imageUrl;
 
-    this.isLoading = true;
 
-
-    console.log(title, dated, material, archiveNum, description, imageUrl);
-
-    this.exhibitsService.updateExhibit(this.exhibitId, title, dated, material, archiveNum, description, imageUrl, [])
-      .subscribe(() => {
-          this.router.navigate(['/exhibits']);
-          this.isLoading = false;
-        },
-        errorMessage => {
-          this.isLoading = false;
-          this.error = errorMessage;
-        });
+    this.store.dispatch(new UpdateExhibitStart({
+      exhibitId: this.exhibitId,
+      title, dated,
+      material, archiveNum,
+      description,
+      imageUrl,
+      tourEntitySet: this.tours
+    }));
   }
 
   onCloseAlert() {
-    this.error = '';
+    this.store.dispatch(new CloseErrorAlert());
   }
 
   ngOnDestroy(): void {
