@@ -10,20 +10,19 @@
     >
     <div class="list-group">
       <div class="list-group-item">
-        <span style="font-weight: bold; font-size: 14px">Duration: </span>
+        <span class="heading-text">Duration: </span>
         <span>{{ tour.duration }}</span>
       </div>
       <div class="list-group-item">
-        <span style="font-weight: bold; font-size: 14px">Cost: </span>
+        <span class="heading-text">Cost: </span>
         <span>{{ tour.cost }}</span>
       </div>
     </div>
   </div>
-  <div class="btn-group text-center" style="display: flex; justify-content: flex-end; margin-bottom: 10px">
+  <div class="btn-group text-center list-item_footer">
     <a
       class="btn btn-primary"
       role="link"
-      style="cursor: pointer"
       [routerLink]="['/tours', tour.tourId]"
     >
       View
@@ -32,7 +31,6 @@
       *ngIf="isGuide"
       class="btn btn-primary"
       role="link"
-      style="cursor: pointer"
       [routerLink]="['/tours', tour.tourId, 'edit']"
     >
       Edit

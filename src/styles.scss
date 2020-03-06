@@ -3,4 +3,11 @@
   background: url("./assets/img/no-image.png") no-repeat center center;
   background-size: 300px auto;
   height: 300px;
+
+  display: flex;
+  justify-content: center;
+}
+
+a {
+  cursor: pointer;
 }

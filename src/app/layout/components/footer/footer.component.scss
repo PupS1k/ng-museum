@@ -1,3 +1,13 @@
 footer {
   height: 220px;
 }
+
+.map {
+  display: flex;
+  justify-content: center;
+
+  iframe {
+    position: absolute;
+    border: 0;
+  }
+}

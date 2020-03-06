@@ -1,0 +1,24 @@
+.exhibit-details {
+  border: 1px solid #bebebe;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.panel-body_center {
+  border-bottom: 1px solid #e4e4e4;
+  border-top: 1px solid #e4e4e4;
+}
+
+.description {
+  text-indent: 1.5em;
+}
+
+.exhibit-details_btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.heading {
+  font-weight: bold;
+}

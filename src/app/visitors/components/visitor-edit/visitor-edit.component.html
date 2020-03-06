@@ -5,10 +5,9 @@
 ></app-create-user-presentation>
 <div
   *ngIf="isUpdateUser && tours.length"
-  class="col-xs-12 text-center"
-  style="display: flex; flex-direction: column; justify-content: center; margin-top: 20px"
+  class="col-xs-12 text-center favourite-tours"
 >
-  <span style="font-size: 23px">Favourite Tours</span>
+  <span class="heading">Favourite Tours</span>
   <app-tour-item
     *ngFor="let tour of tours"
     [tour]="tour"
