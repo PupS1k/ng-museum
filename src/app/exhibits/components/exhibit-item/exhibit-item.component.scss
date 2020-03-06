@@ -1,0 +1,38 @@
+.list-item {
+  cursor: pointer;
+  border: 1px solid #9d9d9d;
+  border-radius: 10px;
+  margin: 10px 0;
+
+  .list-item_header {
+    font-size: 16px;
+    color: black;
+    font-weight: bold;
+    margin-top: 6px;
+    border-bottom: #b7b7b7 1px solid;
+  }
+
+  .list-item_body {
+    display: flex;
+    margin: 10px;
+
+    .exhibit-img {
+      max-height: 150px;
+    }
+
+    .description {
+      text-indent: 1.5em;
+      text-align: justify;
+      margin: 10px 20px;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+

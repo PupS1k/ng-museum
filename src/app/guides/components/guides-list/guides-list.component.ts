@@ -9,7 +9,7 @@ import {Guide} from '../../models/guide.model';
 @Component({
   selector: 'app-guides-list',
   templateUrl: './guides-list.component.html',
-  styleUrls: ['./guides-list.component.css']
+  styleUrls: ['./guides-list.component.scss']
 })
 export class GuidesListComponent implements OnInit {
   guides$: Observable<Guide[]>;

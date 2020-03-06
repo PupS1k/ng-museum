@@ -10,7 +10,7 @@ import {AuthService} from '../../../core/services/auth.service';
 @Component({
   selector: 'app-guide-edit',
   templateUrl: './guide-edit.component.html',
-  styleUrls: ['./guide-edit.component.css']
+  styleUrls: ['./guide-edit.component.scss']
 })
 export class GuideEditComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();

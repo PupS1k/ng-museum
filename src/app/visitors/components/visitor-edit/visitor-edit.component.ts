@@ -11,7 +11,7 @@ import {AuthService} from '../../../core/services/auth.service';
 @Component({
   selector: 'app-visitor-edit',
   templateUrl: './visitor-edit.component.html',
-  styleUrls: ['./visitor-edit.component.css']
+  styleUrls: ['./visitor-edit.component.scss']
 })
 export class VisitorEditComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();

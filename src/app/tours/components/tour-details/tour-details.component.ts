@@ -13,7 +13,7 @@ import {Visitor} from '../../../visitors/models/visitor.model';
 @Component({
   selector: 'app-tour-details',
   templateUrl: './tour-details.component.html',
-  styleUrls: ['./tour-details.component.css']
+  styleUrls: ['./tour-details.component.scss']
 })
 export class TourDetailsComponent implements OnInit, OnDestroy {
   private obsDestroyed = new Subject();

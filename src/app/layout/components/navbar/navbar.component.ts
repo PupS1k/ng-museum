@@ -6,10 +6,10 @@ import {takeUntil} from 'rxjs/operators';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject();
+  destroy$ = new Subject();
   isAuthenticated = false;
   username = '';
   profileMode = '';

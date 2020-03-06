@@ -1,30 +1,32 @@
 <nav class="navbar-fixed-left navbar-default navbar navbar-dropdown">
   <div class="navbar_arrow"></div>
   <div class="navbar-header navbar_header">
-    <a routerLink="/" routerLinkActive="active" class="museum-img" role="link"></a>
+    <a routerLink="/" routerLinkActive="active" role="link">
+      <img class="museum-img" src="/assets/img/art_gallery_museum-512.png" alt="Logo">
+    </a>
   </div>
   <ul class="nav navbar-nav navbar_group-item">
     <li routerLinkActive="active">
       <a routerLink="/exhibits">
-        <div class="exhibit-img"></div>
+        <img src="/assets/img/museum-art-512.png" alt="Exhibits">
         <span>Exhibits</span>
       </a>
     </li>
     <li routerLinkActive="active" *ngIf="isGuide">
       <a routerLink="/visitors">
-        <div class="visitor-img"></div>
+        <img src="/assets/img/2028-512.png" alt="Visitors">
         <span>Visitors</span>
       </a>
     </li>
     <li routerLinkActive="active" *ngIf="isVisitor">
       <a routerLink="/tours">
-        <div class="tour-img"></div>
+        <img src="/assets/img/tour.svg" alt="Tours">
         <span>Tours</span>
       </a>
     </li>
     <li routerLinkActive="active" *ngIf="isAdmin">
       <a routerLink="/guides">
-        <div class="guide-img"></div>
+        <img src="/assets/img/tour-guide.svg" alt="Guides">
         <span>Guides</span>
       </a>
     </li>
@@ -35,7 +37,7 @@
         class="btn btn-default dropdown-toggle navbar_group-item"
         type="button" data-toggle="dropdown"
       >
-        <div class="user-img navbar_img"></div>
+        <img src="/assets/img/user.svg" alt="User">
         <span class="username">{{ username }}</span>
       </button>
       <ul class="menu dropdown-menu">

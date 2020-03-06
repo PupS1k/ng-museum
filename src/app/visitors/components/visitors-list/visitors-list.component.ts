@@ -8,7 +8,7 @@ import {VisitorsService} from '../../services/visitors.service';
 @Component({
   selector: 'app-visitors-list',
   templateUrl: './visitors-list.component.html',
-  styleUrls: ['./visitors-list.component.css']
+  styleUrls: ['./visitors-list.component.scss']
 })
 export class VisitorsListComponent implements OnInit {
   visitors$: Observable<Visitor[]>;

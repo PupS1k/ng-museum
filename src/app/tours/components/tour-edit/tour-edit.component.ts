@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Tour} from '../../models/tour.model';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-tour-edit',
   templateUrl: './tour-edit.component.html',
-  styleUrls: ['./tour-edit.component.css']
+  styleUrls: ['./tour-edit.component.scss']
 })
-export class TourEditComponent implements OnInit {
-
+export class TourEditComponent implements OnInit, OnDestroy {
+  destroy$ = new Subject();
   tour: Tour;
   error: string;
   isLoading = false;
@@ -23,7 +25,8 @@ export class TourEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.parent.data.subscribe(data => {
+    this.route.parent.data.pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
       this.tour = data.tour;
       this.tourForm = new FormGroup({
         theme: new FormControl(this.tour.theme, [Validators.required, Validators.minLength(2)]),
@@ -60,5 +63,10 @@ export class TourEditComponent implements OnInit {
 
   onCloseAlert() {
     this.error = '';
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

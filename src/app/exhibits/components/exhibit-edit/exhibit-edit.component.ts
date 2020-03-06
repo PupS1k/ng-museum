@@ -1,17 +1,20 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Exhibit} from '../../models/exhibit.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from '../../../core/services/auth.service';
+import {takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs';
+
 import {ExhibitsService} from '../../services/exhibits.service';
 import {Tour} from '../../../tours/models/tour.model';
 
 @Component({
   selector: 'app-exhibit-edit',
   templateUrl: './exhibit-edit.component.html',
-  styleUrls: ['./exhibit-edit.component.css']
+  styleUrls: ['./exhibit-edit.component.scss']
 })
-export class ExhibitEditComponent implements OnInit {
+export class ExhibitEditComponent implements OnInit, OnDestroy {
+  destroy$ = new Subject();
   exhibitId: Exhibit;
   tourEntitySet: Tour[];
   error: string;
@@ -27,7 +30,9 @@ export class ExhibitEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.parent.data.subscribe(data => {
+    this.route.parent.data
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
       this.exhibitId = data.exhibit.exhibitId;
       this.tourEntitySet = data.exhibit.tourEntitySet;
       this.exhibitForm = new FormGroup({
@@ -67,6 +72,11 @@ export class ExhibitEditComponent implements OnInit {
 
   onCloseAlert() {
     this.error = '';
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 }

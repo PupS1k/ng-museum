@@ -5,7 +5,7 @@ import {Exhibit} from '../../../exhibits/models/exhibit.model';
 @Component({
   selector: 'app-tour-details-presentation',
   templateUrl: './tour-details-presentation.component.html',
-  styleUrls: ['./tour-details-presentation.component.css']
+  styleUrls: ['./tour-details-presentation.component.scss']
 })
 export class TourDetailsPresentationComponent {
   @Input() tour: Tour;

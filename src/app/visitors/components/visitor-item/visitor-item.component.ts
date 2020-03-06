@@ -5,7 +5,7 @@ import {VisitorsService} from '../../services/visitors.service';
 @Component({
   selector: 'app-visitor-item',
   templateUrl: './visitor-item.component.html',
-  styleUrls: ['./visitor-item.component.css']
+  styleUrls: ['./visitor-item.component.scss']
 })
 export class VisitorItemComponent {
   @Input() visitor: Visitor;

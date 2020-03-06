@@ -4,7 +4,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 @Component({
   selector: 'app-login-presentation',
   templateUrl: './login-presentation.component.html',
-  styleUrls: ['./login-presentation.component.css'],
+  styleUrls: ['./login-presentation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginPresentationComponent implements OnInit {

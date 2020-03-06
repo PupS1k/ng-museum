@@ -4,7 +4,7 @@ import {Exhibit} from '../../models/exhibit.model';
 @Component({
   selector: 'app-exhibit-item',
   templateUrl: './exhibit-item.component.html',
-  styleUrls: ['./exhibit-item.component.css']
+  styleUrls: ['./exhibit-item.component.scss']
 })
 export class ExhibitItemComponent {
   @Input() exhibit: Exhibit;

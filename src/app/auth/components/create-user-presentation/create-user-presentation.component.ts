@@ -4,7 +4,7 @@ import {FormGroup} from '@angular/forms';
 @Component({
   selector: 'app-create-user-presentation',
   templateUrl: './create-user-presentation.component.html',
-  styleUrls: ['./create-user-presentation.component.css']
+  styleUrls: ['./create-user-presentation.component.scss']
 })
 export class CreateUserPresentationComponent {
   @Input() userForm: FormGroup;

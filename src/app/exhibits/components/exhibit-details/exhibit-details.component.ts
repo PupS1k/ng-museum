@@ -8,9 +8,10 @@ import {AuthService} from '../../../core/services/auth.service';
 @Component({
   selector: 'app-exhibit-details',
   templateUrl: './exhibit-details.component.html',
-  styleUrls: ['./exhibit-details.component.css']
+  styleUrls: ['./exhibit-details.component.scss']
 })
-export class ExhibitDetailsComponent implements OnInit {
+export class ExhibitDetailsComponent implements OnInit, OnDestroy {
+  destroy$ = new Subject();
   exhibit$: Observable<Exhibit>;
   isGuide$: Observable<boolean>;
 
@@ -18,8 +19,14 @@ export class ExhibitDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.exhibit$ = this.route.parent.data.pipe(
+      takeUntil(this.destroy$),
       map(data => data.exhibit)
     );
     this.isGuide$ = this.authService.isGuide$;
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

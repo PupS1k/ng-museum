@@ -3,7 +3,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 @Component({
   selector: 'app-navbar-presentation',
   templateUrl: './navbar-presentation.component.html',
-  styleUrls: ['./navbar-presentation.component.css']
+  styleUrls: ['./navbar-presentation.component.scss']
 })
 export class NavbarPresentationComponent {
   @Input() isGuide: boolean;

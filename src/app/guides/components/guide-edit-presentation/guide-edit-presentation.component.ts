@@ -4,7 +4,7 @@ import {FormGroup} from '@angular/forms';
 @Component({
   selector: 'app-guide-edit-presentation',
   templateUrl: './guide-edit-presentation.component.html',
-  styleUrls: ['./guide-edit-presentation.component.css']
+  styleUrls: ['./guide-edit-presentation.component.scss']
 })
 export class GuideEditPresentationComponent {
   @Input() guideForm: FormGroup;

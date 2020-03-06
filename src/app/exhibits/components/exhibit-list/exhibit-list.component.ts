@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Observable, Subject, Subscription} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import {Exhibit} from '../../models/exhibit.model';
@@ -9,7 +9,7 @@ import {AuthService} from '../../../core/services/auth.service';
 @Component({
   selector: 'app-exhibit-list',
   templateUrl: './exhibit-list.component.html',
-  styleUrls: ['./exhibit-list.component.css']
+  styleUrls: ['./exhibit-list.component.scss']
 })
 export class ExhibitListComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();

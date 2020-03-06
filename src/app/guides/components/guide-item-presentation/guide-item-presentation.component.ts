@@ -4,7 +4,7 @@ import {Guide} from '../../models/guide.model';
 @Component({
   selector: 'app-guide-item-presentation',
   templateUrl: './guide-item-presentation.component.html',
-  styleUrls: ['./guide-item-presentation.component.css']
+  styleUrls: ['./guide-item-presentation.component.scss']
 })
 export class GuideItemPresentationComponent {
   @Input() guide: Guide;

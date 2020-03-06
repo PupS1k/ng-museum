@@ -1,25 +1,16 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {Tour} from '../../models/tour.model';
 
 @Component({
   selector: 'app-tour-edit-presentation',
   templateUrl: './tour-edit-presentation.component.html',
-  styleUrls: ['./tour-edit-presentation.component.css']
+  styleUrls: ['./tour-edit-presentation.component.scss']
 })
-export class TourEditPresentationComponent implements OnInit {
+export class TourEditPresentationComponent {
 
   @Input() tourForm: FormGroup;
 
   @Output() edit = new EventEmitter<void>();
-
-  imageUrl = '';
-
-  constructor() { }
-
-  ngOnInit(): void {
-    this.imageUrl = this.tourForm.value.imageUrl;
-  }
 
   onSubmit() {
     this.edit.emit();

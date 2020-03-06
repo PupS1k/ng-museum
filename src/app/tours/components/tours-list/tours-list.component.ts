@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Observable, Subject, Subscription} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {Tour} from '../../models/tour.model';
 import {AuthService} from '../../../core/services/auth.service';
@@ -8,7 +8,7 @@ import {takeUntil} from 'rxjs/operators';
 @Component({
   selector: 'app-tours-list',
   templateUrl: './tours-list.component.html',
-  styleUrls: ['./tours-list.component.css']
+  styleUrls: ['./tours-list.component.scss']
 })
 export class ToursListComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();

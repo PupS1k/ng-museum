@@ -1,15 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-tour',
   templateUrl: './tour.component.html',
-  styleUrls: ['./tour.component.css']
+  styleUrls: ['./tour.component.scss']
 })
-export class TourComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class TourComponent {
 }
