@@ -1,15 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {confirmPassword} from '../../utils/validators';
-import {AuthService} from '../../../core/services/auth.service';
-import {Router} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../app.reducer';
+import {SignUpStart} from '../../store/auth.actions';
+import {takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent implements OnInit, OnDestroy {
   signUpForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(5)]),
     fio: new FormControl('', [Validators.required]),
@@ -22,17 +25,21 @@ export class SignUpComponent implements OnInit {
       confirmPassword()
     ]),
   });
-
+  destroy$ = new Subject();
   isLoading = false;
   error = '';
 
   constructor(
-    private authServices: AuthService,
-    private router: Router,
+    private store: Store<AppState>,
   ) {
   }
 
   ngOnInit(): void {
+    this.store.select(state => state.auth)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((authState) => {
+        this.isLoading = authState.isLoading;
+      });
   }
 
   onSubmit() {
@@ -44,25 +51,15 @@ export class SignUpComponent implements OnInit {
     const fio = this.signUpForm.value.fio;
     const email = this.signUpForm.value.email;
 
-    this.authServices.signUp(username, password, age, fio, email)
-      .subscribe(() => {
-        this.authServices.login(username, password).subscribe(() => {
-          this.router.navigate(['/']);
-          this.isLoading = false;
-        },
-          errorMessage => {
-            this.isLoading = false;
-            this.error = errorMessage;
-          });
-        },
-        errorMessage => {
-          this.isLoading = false;
-          this.error = errorMessage;
-        });
+    this.store.dispatch(new SignUpStart({username, password, age, fio, email}));
   }
 
   onCloseAlert() {
     this.error = '';
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }

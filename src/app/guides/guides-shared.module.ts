@@ -6,13 +6,15 @@ import {GuideEditPresentationComponent} from './components/guide-edit-presentati
 import {GuideResolver} from './services/guide-resolver.service';
 import {GuidesService} from './services/guides.service';
 import {ReactiveFormsModule} from '@angular/forms';
+import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    ToursSharedModule
+    ToursSharedModule,
+    SharedModule
   ],
   declarations: [
     GuideEditComponent,

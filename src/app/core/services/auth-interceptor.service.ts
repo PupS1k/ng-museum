@@ -19,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const userData: UserData = JSON.parse(localStorage.getItem('userData'));
 
-    const token = userData ? this.authService.getToken(userData) : '';
+    const token = userData ? this.authService.checkTokenExp(userData) : '';
 
     const basicAuth = request.headers.get('Authorization');
 

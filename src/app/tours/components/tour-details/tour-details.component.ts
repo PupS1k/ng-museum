@@ -5,10 +5,11 @@ import {Observable, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {Exhibit} from '../../../exhibits/models/exhibit.model';
 import {ToursService} from '../../service/tours.service';
-import {AuthService} from '../../../core/services/auth.service';
 import {UserService} from '../../../core/services/user.service';
 import {UserData} from '../../../auth/models/user-data.model';
 import {Visitor} from '../../../visitors/models/visitor.model';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../app.reducer';
 
 @Component({
   selector: 'app-tour-details',
@@ -26,7 +27,7 @@ export class TourDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private toursService: ToursService,
-    private authService: AuthService,
+    private store: Store<AppState>,
     private userService: UserService
   ) {
   }
@@ -45,7 +46,7 @@ export class TourDetailsComponent implements OnInit, OnDestroy {
         .subscribe((visitor: Visitor) => this.visitorId = visitor.visitorId);
     }
 
-    this.isGuide$ = this.authService.isGuide$;
+    this.isGuide$ = this.store.select(state => state.auth.isGuide);
 
     if (this.visitorId) {
       this.exhibits$ = this.toursService.fetchTourExhibits(this.tour.tourId);

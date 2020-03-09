@@ -3,7 +3,6 @@ import {Exhibit} from '../../models/exhibit.model';
 import {ActivatedRoute} from '@angular/router';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {AuthService} from '../../../core/services/auth.service';
 import {AppState} from '../../../app.reducer';
 import {Store} from '@ngrx/store';
 
@@ -19,7 +18,6 @@ export class ExhibitDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private authService: AuthService,
     private store: Store<AppState>
   ) {}
 
@@ -29,6 +27,6 @@ export class ExhibitDetailsComponent implements OnInit {
       return exhibitState.selectedExhibit;
     }));
 
-    this.isGuide$ = this.authService.isGuide$;
+    this.isGuide$ = this.store.select(state => state.auth.isGuide);
   }
 }

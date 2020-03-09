@@ -1,9 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 
-import {SharedModule} from '../shared/shared.module';
 import {GuidesListComponent} from './components/guides-list/guides-list.component';
 import {GuidesListPresentationComponent} from './components/guides-list-presentation/guides-list-presentation.component';
 import {GuideItemComponent} from './components/guide-item/guide-item.component';
@@ -19,7 +17,6 @@ import {GuidesSharedModule} from './guides-shared.module';
     GuidesRouting,
     RouterModule,
     GuidesSharedModule,
-    SharedModule
   ],
   declarations: [
     GuidesListComponent,

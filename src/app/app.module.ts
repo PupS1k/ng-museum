@@ -4,16 +4,17 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
-import {EffectsModule} from '@ngrx/effects';
 
 import {AppRouting} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {LayoutModule} from './layout/layout.module';
 import {CoreModule} from './core/core.module';
 import {appReducer} from './app.reducer';
-import {ExhibitEffects} from './exhibits/store/exhibit.effects';
 
 import {environment} from '../environments/environment';
+import {EffectsModule} from '@ngrx/effects';
+import {ExhibitEffects} from './exhibits/store/exhibit.effects';
+import {AuthEffects} from './auth/store/auth.effects';
 
 
 
@@ -29,7 +30,7 @@ import {environment} from '../environments/environment';
     LayoutModule,
     CoreModule,
     StoreModule.forRoot(appReducer),
-    EffectsModule.forRoot([ExhibitEffects]),
+    EffectsModule.forRoot([ExhibitEffects, AuthEffects]),
     StoreDevtoolsModule.instrument({logOnly: environment.production})
   ],
   bootstrap: [AppComponent]

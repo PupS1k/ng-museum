@@ -5,7 +5,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {takeUntil} from 'rxjs/operators';
 import {confirmPassword} from '../../../auth/utils/validators';
 import {GuidesService} from '../../services/guides.service';
-import {AuthService} from '../../../core/services/auth.service';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../app.reducer';
+import {ChangeUsername} from '../../../auth/store/auth.actions';
 
 @Component({
   selector: 'app-guide-edit',
@@ -14,7 +16,7 @@ import {AuthService} from '../../../core/services/auth.service';
 })
 export class GuideEditComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
-  error: string;
+  message: string;
   isLoading = false;
 
   isUpdate: boolean;
@@ -26,7 +28,7 @@ export class GuideEditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private guidesService: GuidesService,
-    private authService: AuthService
+    private store: Store<AppState>
   ) {
   }
 
@@ -91,7 +93,8 @@ export class GuideEditComponent implements OnInit, OnDestroy {
       this.guidesService.updateGuide(this.guideId, username, password, fio, age, experience, languages)
         .subscribe(() => {
             if (this.isUserUpdate) {
-              this.authService.changeUsername(username);
+              this.store.dispatch(new ChangeUsername(username));
+              this.message = 'Update Successful';
             } else {
               this.router.navigate(['/guides']);
               this.isLoading = false;
@@ -99,7 +102,7 @@ export class GuideEditComponent implements OnInit, OnDestroy {
           },
           errorMessage => {
             this.isLoading = false;
-            this.error = errorMessage;
+            this.message = errorMessage;
           });
     } else {
       this.guidesService.createGuide(username, password, fio, age, experience, languages)
@@ -109,13 +112,13 @@ export class GuideEditComponent implements OnInit, OnDestroy {
           },
           errorMessage => {
             this.isLoading = false;
-            this.error = errorMessage;
+            this.message = errorMessage;
           });
     }
   }
 
   onCloseAlert() {
-    this.error = '';
+    this.message = '';
   }
 
   ngOnDestroy(): void {

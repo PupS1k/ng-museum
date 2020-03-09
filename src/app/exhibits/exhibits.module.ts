@@ -25,14 +25,14 @@ import {ExhibitDetailsPresentationComponent} from './components/exhibit-details-
     ToursSharedModule,
     SharedModule
   ],
-    declarations: [
-        ExhibitsComponent,
-        ExhibitDetailsComponent,
-        ExhibitEditComponent,
-        ExhibitEditPresentationComponent,
-        ExhibitComponent,
-        ExhibitDetailsPresentationComponent
-    ],
+  declarations: [
+    ExhibitsComponent,
+    ExhibitDetailsComponent,
+    ExhibitEditComponent,
+    ExhibitEditPresentationComponent,
+    ExhibitComponent,
+    ExhibitDetailsPresentationComponent
+  ],
   providers: [
     ExhibitResolver
   ]

@@ -6,7 +6,9 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {confirmPassword} from '../../../auth/utils/validators';
 import {Tour} from '../../../tours/models/tour.model';
-import {AuthService} from '../../../core/services/auth.service';
+import {ChangeUsername} from '../../../auth/store/auth.actions';
+import {AppState} from '../../../app.reducer';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-visitor-edit',
@@ -28,7 +30,7 @@ export class VisitorEditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private visitorsService: VisitorsService,
-    private authService: AuthService
+    private store: Store<AppState>
   ) {
   }
 
@@ -89,7 +91,7 @@ export class VisitorEditComponent implements OnInit, OnDestroy {
       this.visitorsService.updateVisitor(this.visitorId, username, password, fio, email, age, this.tours)
         .subscribe(() => {
             if (this.isUpdateUser) {
-              this.authService.changeUsername(username);
+              this.store.dispatch(new ChangeUsername(username));
             } else {
               this.router.navigate(['/visitors']);
               this.isLoading = false;

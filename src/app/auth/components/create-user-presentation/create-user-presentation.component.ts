@@ -1,10 +1,11 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-create-user-presentation',
   templateUrl: './create-user-presentation.component.html',
-  styleUrls: ['./create-user-presentation.component.scss']
+  styleUrls: ['./create-user-presentation.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateUserPresentationComponent {
   @Input() userForm: FormGroup;

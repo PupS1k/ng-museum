@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-login-presentation',
@@ -7,17 +7,11 @@ import {FormControl, FormGroup} from '@angular/forms';
   styleUrls: ['./login-presentation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginPresentationComponent implements OnInit {
+export class LoginPresentationComponent {
   @Input() loginForm: FormGroup;
   @Output() submitLoginForm = new EventEmitter();
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   onSubmit() {
     this.submitLoginForm.emit();
   }
-
 }

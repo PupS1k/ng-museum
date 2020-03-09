@@ -1,171 +1,35 @@
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
-import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {catchError, map, tap} from 'rxjs/operators';
-import {Router} from '@angular/router';
 
-import {UserData} from '../../auth/models/user-data.model';
-import {Visitor} from '../../visitors/models/visitor.model';
-import {UserService} from './user.service';
-
-export interface LoginResponseData {
-  access_token: string;
-  token_type: string;
-  refresh_token: string;
-  expires_in: number;
-  scope: string;
-  jti: string;
-}
-
-export interface WhoiamResData {
-  authority: string;
-}
+import {Store} from '@ngrx/store';
+import {AppState} from '../../app.reducer';
+import {Logout} from '../../auth/store/auth.actions';
 
 @Injectable()
 export class AuthService {
-  userData$ = new BehaviorSubject<UserData>(null);
-  isVisitor$: Observable<boolean> = this.userData$.pipe(map(userData => userData ? userData.roles.includes('ROLE_VISITOR') : false));
-  isGuide$: Observable<boolean> = this.userData$.pipe(map(userData => userData ? userData.roles.includes('ROLE_GUIDE') : false));
-  isAdmin$: Observable<boolean> = this.userData$.pipe(map(userData => userData ? userData.roles.includes('ROLE_ADMIN') : false));
-
   private tokenExpirationTimer: any;
 
-  login(username, password) {
-    let body = new HttpParams();
-    body = body.set('username', username);
-    body = body.set('password', password);
-    body = body.set('grant_type', 'password');
+  constructor(
+    private store: Store<AppState>
+  ) {}
 
-    return this.http.post<LoginResponseData>(
-      'oauth/token',
-      body,
-      {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: 'Basic ' + btoa('Client' + ':' + 'Secret'),
-        })
-      }
-    ).pipe(
-      catchError(this.handleError),
-      tap(resData => this.handleAuthentication(username, resData.access_token, resData.expires_in)),
-    );
-  }
-
-  autoLogin() {
-    const userData: UserData = JSON.parse(localStorage.getItem('userData'));
-
-    if (!userData) {
-      return;
-    }
-
-    const loadedUser: UserData = {...userData, tokenExpirationDate: new Date(userData.tokenExpirationDate)};
-
-    if (this.getToken(loadedUser)) {
-      this.userData$.next(loadedUser);
-      const expirationDuration = new Date(userData.tokenExpirationDate).getTime() - new Date().getTime();
-      this.autoLogout(expirationDuration);
-    }
-  }
-
-  fetchRole() {
-    return this.http.get<WhoiamResData[]>('/abo/whoiam')
-      .pipe(catchError(this.handleError));
-  }
-
-  signUp(username, password, age, fio, email) {
-    return this.http.post<Visitor>(
-      '/visitor/visitors/add',
-      {
-        visitorId: '',
-        username,
-        password,
-        fio,
-        age,
-        email
-      }
-    ).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  changeUsername(username) {
-    const userData: UserData = JSON.parse(localStorage.getItem('userData'));
-
-    if (userData.name !== username) {
-      this.userData$.next({...userData, name: username});
-    }
-  }
-
-
-  logout() {
-    this.userData$.next(null);
-
-    this.router.navigate(['/']);
-
-    localStorage.removeItem('userData');
-
-    if (this.tokenExpirationTimer) {
-      clearTimeout(this.tokenExpirationTimer);
-    }
-    this.tokenExpirationTimer = null;
-  }
-
-  autoLogout(expirationDate: number) {
-    this.tokenExpirationTimer = setTimeout(() => {
-      this.logout();
-    }, expirationDate);
-  }
-
-  handleAuthentication(name: string, token: string, expiresIn: number) {
-    const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000);
-    this.autoLogout(expiresIn * 1000);
-
-    localStorage.setItem('userData', JSON.stringify({name, token, tokenExpirationDate: expirationDate}));
-
-    this.fetchRole().subscribe(resData => {
-        const roles = resData.map((role: WhoiamResData) => role.authority);
-
-        const user: UserData = {name, token, tokenExpirationDate: expirationDate, roles};
-        this.userData$.next(user);
-
-        localStorage.setItem('userData', JSON.stringify(user));
-      },
-      (error => console.log(error))
-    );
-  }
-
-  handleError(errorRes: HttpErrorResponse) {
-    let errorMessage = 'An unknown error occurred!';
-
-    if (!errorRes.error || !errorRes.error.error) {
-      return throwError(errorMessage);
-    }
-
-    switch (errorRes.error.error.message) {
-      case 'EMAIL_EXISTS':
-        errorMessage = 'This email exists already';
-        break;
-      case 'EMAIL_NOT_FOUND':
-      case 'INVALID_PASSWORD':
-        errorMessage = 'Email or password is not correct';
-        break;
-    }
-
-    return throwError(errorMessage);
-  }
-
-  getToken(userData) {
+  checkTokenExp(userData) {
     if (!userData.tokenExpirationDate || new Date() > userData.tokenExpirationDate) {
       return null;
     }
     return userData.token;
   }
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private userService: UserService
-  ) {
+  setLogoutTimer(expirationDuration: number) {
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.store.dispatch(new Logout());
+    }, expirationDuration);
+  }
+
+  clearLogoutTimer() {
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+      this.tokenExpirationTimer = null;
+    }
   }
 
 }

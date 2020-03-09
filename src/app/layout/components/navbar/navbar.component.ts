@@ -1,7 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthService} from '../../../core/services/auth.service';
 import {Observable, Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {map, takeUntil} from 'rxjs/operators';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../app.reducer';
+import {Logout} from '../../../auth/store/auth.actions';
 
 @Component({
   selector: 'app-navbar',
@@ -19,31 +21,35 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isVisitor$: Observable<boolean>;
 
   constructor(
-    private authService: AuthService,
-  ) {
-  }
+    private store: Store<AppState>
+  ) {}
 
   ngOnInit() {
-    this.authService.userData$.pipe(takeUntil(this.destroy$))
-      .subscribe(user => {
-        this.isAuthenticated = !!user;
-        if (this.isAuthenticated) {
-          this.username = user.name;
+    this.store.select(state => state.auth)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(authState => {
+        this.isAuthenticated = !!authState.name;
 
-          if (user.roles.length < 3) {
-            this.profileMode = user.roles.length === 2 ? 'guide' : 'visitor';
+        if (this.isAuthenticated) {
+          this.username = authState.name;
+
+          if (authState.isGuide) {
+            this.profileMode = 'guide';
+          }
+
+          if (authState.isVisitor) {
+            this.profileMode = 'visitor';
           }
         }
       });
 
-    this.isAdmin$ = this.authService.isAdmin$;
-    this.isGuide$ = this.authService.isGuide$;
-    this.isVisitor$ = this.authService.isVisitor$;
+    this.isAdmin$ = this.store.select(state => state.auth.isAdmin);
+    this.isGuide$ = this.store.select(state => state.auth.isGuide);
+    this.isVisitor$ = this.store.select(state => state.auth.isVisitor);
   }
 
   onLogout() {
-    this.authService.logout();
-    this.username = '';
+    this.store.dispatch(new Logout());
   }
 
   ngOnDestroy(): void {

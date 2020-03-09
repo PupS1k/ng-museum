@@ -76,14 +76,6 @@ export class ExhibitEffects {
     return of(new UpdateExhibitFail(errorMessage));
   }
 
-  // @Effect({dispatch: false})
-  // storeRecipes = this.actions$.pipe(
-  //   ofType(STORE_RECIPES),
-  //   withLatestFrom(this.store.select('recipes')),
-  //   switchMap(([actionData, recipesState]) => this.http
-  //     .put('https://ng-course-recipe-book-e2b47.firebaseio.com/recipes.json', recipesState.recipes))
-  // );
-
   constructor(
     private actions$: Actions,
     private http: HttpClient,

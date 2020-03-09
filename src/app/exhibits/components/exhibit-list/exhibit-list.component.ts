@@ -1,10 +1,9 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {Component, Input, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import {Exhibit} from '../../models/exhibit.model';
-import {map, take, takeUntil} from 'rxjs/operators';
-import {AuthService} from '../../../core/services/auth.service';
+import {map} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
 
@@ -23,19 +22,18 @@ export class ExhibitListComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private authService: AuthService,
     private store: Store<AppState>
   ) {
   }
 
   ngOnInit(): void {
-    this.exhibits$ = this.store.select('exhibits')
+    this.exhibits$ = this.store.select(state => state.exhibits)
       .pipe(map(exhibitState => {
       this.isLoading = exhibitState.loading;
       return exhibitState.exhibits;
     }));
 
-    this.isGuide$ = this.authService.isGuide$;
+    this.isGuide$ = this.store.select(state => state.auth).pipe(map(authState => authState.isGuide));
   }
 
   onNavigateExhibits() {
