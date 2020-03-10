@@ -4,7 +4,6 @@ import {ToursSharedModule} from '../tours/tours-shared.module';
 import {GuideEditComponent} from './components/guide-edit/guide-edit.component';
 import {GuideEditPresentationComponent} from './components/guide-edit-presentation/guide-edit-presentation.component';
 import {GuideResolver} from './services/guide-resolver.service';
-import {GuidesService} from './services/guides.service';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
 
@@ -25,8 +24,7 @@ import {SharedModule} from '../shared/shared.module';
     GuideEditPresentationComponent
   ],
   providers: [
-    GuideResolver,
-    GuidesService
+    GuideResolver
   ]
 })
 export class GuidesSharedModule {

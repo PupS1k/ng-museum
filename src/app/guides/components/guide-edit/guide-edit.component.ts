@@ -4,10 +4,9 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {takeUntil} from 'rxjs/operators';
 import {confirmPassword} from '../../../auth/utils/validators';
-import {GuidesService} from '../../services/guides.service';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
-import {ChangeUsername} from '../../../auth/store/auth.actions';
+import {ClearSelectedGuide, CreateGuideStart, UpdateGuideStart} from '../../store/guide.actions';
 
 @Component({
   selector: 'app-guide-edit',
@@ -27,52 +26,52 @@ export class GuideEditComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private guidesService: GuidesService,
     private store: Store<AppState>
   ) {
   }
 
   ngOnInit(): void {
-    this.route.data.pipe(takeUntil(this.destroy$))
-      .subscribe(data => {
-        this.isUpdate = !!data.guide;
+    this.store.select(state => state.guides.selectedGuide)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(guide => {
+        this.isUpdate = !!guide;
 
-        if (data.guide) {
-          this.guideId = data.guide.guideId;
+        if (guide) {
+          this.guideId = guide.guideId;
 
           const userData = JSON.parse(localStorage.getItem('userData'));
           if (userData) {
-            this.isUserUpdate = userData.name === data.guide.username;
+            this.isUserUpdate = userData.name === guide.username;
           }
         }
 
         this.guideForm = new FormGroup({
           name: new FormControl(
-            data.guide ? data.guide.username : '',
+            guide ? guide.username : '',
             [Validators.required, Validators.minLength(2)]
           ),
           password: new FormControl(
-            data.guide ? data.guide.password : '',
+            guide ? guide.password : '',
             [Validators.required]
           ),
           confirmPassword: new FormControl(
-            data.guide ? data.guide.password : '',
+            guide ? guide.password : '',
             [Validators.required, confirmPassword()]
           ),
           fio: new FormControl(
-            data.guide ? data.guide.fio : '',
+            guide ? guide.fio : '',
             [Validators.required]
           ),
           experience: new FormControl(
-            data.guide ? data.guide.experience : '',
+            guide ? guide.experience : '',
             [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]
           ),
           age: new FormControl(
-            data.guide ? data.guide.age : '',
+            guide ? guide.age : '',
             [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]
           ),
           languages: new FormControl(
-            data.guide ? data.guide.languages : '',
+            guide ? guide.languages : '',
             [Validators.required]),
         });
 
@@ -87,33 +86,14 @@ export class GuideEditComponent implements OnInit, OnDestroy {
     const fio = this.guideForm.value.fio;
     const languages = this.guideForm.value.languages;
 
-    this.isLoading = true;
-
     if (this.isUpdate) {
-      this.guidesService.updateGuide(this.guideId, username, password, fio, age, experience, languages)
-        .subscribe(() => {
-            if (this.isUserUpdate) {
-              this.store.dispatch(new ChangeUsername(username));
-              this.message = 'Update Successful';
-            } else {
-              this.router.navigate(['/guides']);
-              this.isLoading = false;
-            }
-          },
-          errorMessage => {
-            this.isLoading = false;
-            this.message = errorMessage;
-          });
+      this.store.dispatch(
+        new UpdateGuideStart({guideId: this.guideId, username, password, fio, age, experience, languages})
+      );
     } else {
-      this.guidesService.createGuide(username, password, fio, age, experience, languages)
-        .subscribe(() => {
-            this.router.navigate(['/guides']);
-            this.isLoading = false;
-          },
-          errorMessage => {
-            this.isLoading = false;
-            this.message = errorMessage;
-          });
+      this.store.dispatch(
+        new CreateGuideStart({guideId: null, username, password, fio, age, experience, languages})
+      );
     }
   }
 
@@ -122,6 +102,7 @@ export class GuideEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.store.dispatch(new ClearSelectedGuide());
     this.destroy$.next();
     this.destroy$.complete();
   }

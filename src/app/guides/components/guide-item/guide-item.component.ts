@@ -1,6 +1,8 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {GuidesService} from '../../services/guides.service';
+import {Component, Input} from '@angular/core';
 import {Guide} from '../../models/guide.model';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../app.reducer';
+import {DeleteGuideStart} from '../../store/guide.actions';
 
 @Component({
   selector: 'app-guide-item',
@@ -9,11 +11,10 @@ import {Guide} from '../../models/guide.model';
 })
 export class GuideItemComponent {
   @Input() guide: Guide;
-  @Output() updateGuides = new EventEmitter<void>();
 
-  constructor(private guidesService: GuidesService) { }
+  constructor(private store: Store<AppState>) { }
 
   onDeleteGuide() {
-    this.guidesService.deleteGuide(this.guide.guideId).subscribe(() => this.updateGuides.emit());
+    this.store.dispatch(new DeleteGuideStart(this.guide.guideId));
   }
 }

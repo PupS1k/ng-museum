@@ -8,9 +8,4 @@ import {Guide} from '../../models/guide.model';
 })
 export class GuidesListPresentationComponent {
   @Input() guides: Guide[];
-  @Output() updateGuides = new EventEmitter<void>();
-
-  onUpdateGuides() {
-    this.updateGuides.emit();
-  }
 }

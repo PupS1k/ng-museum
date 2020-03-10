@@ -3,18 +3,21 @@ import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/rou
 import {Observable} from 'rxjs';
 
 import {Guide} from '../models/guide.model';
-import {GuidesService} from './guides.service';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../app.reducer';
+import {FetchGuideStart} from '../store/guide.actions';
 
 
 
 @Injectable()
 export class GuideResolver implements Resolve<Observable<Guide>> {
-  constructor(private guidesServices: GuidesService) {
+  constructor(private store: Store<AppState>) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     const id = +route.params.id;
-    return this.guidesServices.fetchGuide(id);
+
+    return this.store.dispatch(new FetchGuideStart(id));
   }
 
 }

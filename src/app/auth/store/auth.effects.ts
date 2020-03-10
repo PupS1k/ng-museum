@@ -109,7 +109,6 @@ export class AuthEffects {
       }
 
       const loadedUser: UserData = {...userData, tokenExpirationDate: new Date(userData.tokenExpirationDate)};
-      console.log(!!this.authService.checkTokenExp(loadedUser));
 
       if (!!this.authService.checkTokenExp(loadedUser)) {
         const expirationDuration = new Date(userData.tokenExpirationDate).getTime() - new Date().getTime();
