@@ -1,11 +1,8 @@
 import {Tour} from '../../tours/models/tour.model';
+import {SubUser} from '../../auth/models/sub-user.model';
 
-export interface Visitor {
+export interface Visitor extends SubUser {
   visitorId: number;
-  username: string;
-  password: string;
-  fio: string;
-  age: number;
   email: string;
   tourEntitySet?: Tour[];
 }

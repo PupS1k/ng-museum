@@ -1,29 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
-import {Visitor} from '../../models/visitor.model';
-import {map} from 'rxjs/operators';
-import {VisitorsService} from '../../services/visitors.service';
+import {Component} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../app.reducer';
+import {selectVisitors} from '../../store/visitor.selectors';
 
 @Component({
   selector: 'app-visitors-list',
   templateUrl: './visitors-list.component.html',
   styleUrls: ['./visitors-list.component.scss']
 })
-export class VisitorsListComponent implements OnInit {
-  visitors$: Observable<Visitor[]>;
-  isUpdate = false;
+export class VisitorsListComponent {
+  visitors$ = this.store.select(selectVisitors);
 
-  constructor(private route: ActivatedRoute, private visitorsService: VisitorsService) {}
+  constructor(private store: Store<AppState>) {}
 
-  ngOnInit(): void {
-    if (!this.isUpdate) {
-      this.visitors$ = this.route.data.pipe(map(data => data.visitors));
-    }
-  }
-
-  onUpdateVisitors() {
-    this.isUpdate = true;
-    this.visitors$ = this.visitorsService.fetchVisitors();
-  }
 }

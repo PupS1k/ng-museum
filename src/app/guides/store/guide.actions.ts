@@ -10,10 +10,10 @@ export const FETCH_GUIDE_SUCCESS = '[Guide] Fetch Guide Success';
 export const UPDATE_GUIDE_START = '[Guide] Update Guide Start';
 export const UPDATE_GUIDE_SUCCESS = '[Guide] Update Guide Success';
 export const UPDATE_GUIDE_FAIL = '[Guide] Update Guide Fail';
-export const DELETE_GUIDE_SUCCESS = '[Guide] Delete Guides Success';
-export const DELETE_GUIDE_START = '[Guide] Delete Guides Start';
-export const CREATE_GUIDE_SUCCESS = '[Guide] Create Guides Success';
-export const CREATE_GUIDE_START = '[Guide] Create Guides Start';
+export const DELETE_GUIDE_SUCCESS = '[Guide] Delete Guide Success';
+export const DELETE_GUIDE_START = '[Guide] Delete Guide Start';
+export const CREATE_GUIDE_SUCCESS = '[Guide] Create Guide Success';
+export const CREATE_GUIDE_START = '[Guide] Create Guide Start';
 
 export class FetchGuidesSuccess implements Action {
   readonly type = FETCH_GUIDES_SUCCESS;

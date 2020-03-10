@@ -1,14 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {VisitorsService} from '../../services/visitors.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {confirmPassword} from '../../../auth/utils/validators';
 import {Tour} from '../../../tours/models/tour.model';
-import {ChangeUsername} from '../../../auth/store/auth.actions';
 import {AppState} from '../../../app.reducer';
 import {Store} from '@ngrx/store';
+import {createFormVisitor} from '../../utils';
+import {selectVisitorState} from '../../store/visitor.selectors';
+import {CreateVisitorStart, UpdateVisitorStart} from '../../store/visitor.actions';
 
 @Component({
   selector: 'app-visitor-edit',
@@ -29,52 +29,27 @@ export class VisitorEditComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private visitorsService: VisitorsService,
     private store: Store<AppState>
   ) {
   }
 
   ngOnInit(): void {
-    this.route.data.pipe(takeUntil(this.destroy$))
-      .subscribe(data => {
-        this.isUpdate = !!data.visitor;
+    this.store.select(selectVisitorState)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(visitorState => {
+        this.isUpdate = !!visitorState.selectedVisitor;
 
-        if (data.visitor) {
-          this.visitorId = data.visitor.visitorId;
-          this.tours = data.visitor.tourEntitySet;
+        if (visitorState.selectedVisitor) {
+          this.visitorId = visitorState.selectedVisitor.visitorId;
+          this.tours = visitorState.selectedVisitor.tourEntitySet;
 
           const userData = JSON.parse(localStorage.getItem('userData'));
           if (userData) {
-            this.isUpdateUser = userData.name === data.visitor.username;
+            this.isUpdateUser = userData.name === visitorState.selectedVisitor.username;
           }
         }
 
-        this.visitorForm = new FormGroup({
-          name: new FormControl(
-            data.visitor ? data.visitor.username : '',
-            [Validators.required, Validators.minLength(2)]
-          ),
-          password: new FormControl(
-            data.visitor ? data.visitor.password : '',
-            [Validators.required]
-          ),
-          confirmPassword: new FormControl(
-            data.visitor ? data.visitor.password : '',
-            [Validators.required, confirmPassword()]
-          ),
-          fio: new FormControl(
-            data.visitor ? data.visitor.fio : '',
-            [Validators.required]
-          ),
-          age: new FormControl(
-            data.visitor ? data.visitor.age : '',
-            [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]
-          ),
-          email: new FormControl(
-            data.visitor ? data.visitor.email : '',
-            [Validators.required]),
-        });
-
+        this.visitorForm = createFormVisitor(visitorState.selectedVisitor);
       });
   }
 
@@ -88,29 +63,24 @@ export class VisitorEditComponent implements OnInit, OnDestroy {
     this.isLoading = true;
 
     if (this.isUpdate) {
-      this.visitorsService.updateVisitor(this.visitorId, username, password, fio, email, age, this.tours)
-        .subscribe(() => {
-            if (this.isUpdateUser) {
-              this.store.dispatch(new ChangeUsername(username));
-            } else {
-              this.router.navigate(['/visitors']);
-              this.isLoading = false;
-            }
-          },
-          errorMessage => {
-            this.isLoading = false;
-            this.error = errorMessage;
-          });
+      this.store.dispatch(new UpdateVisitorStart({
+        visitorId: this.visitorId,
+        username,
+        password,
+        fio,
+        email,
+        age,
+        tourEntitySet: this.tours
+      }));
     } else {
-      this.visitorsService.createVisitor(username, password, fio, email, age)
-        .subscribe(() => {
-            this.router.navigate(['/visitors']);
-            this.isLoading = false;
-          },
-          errorMessage => {
-            this.isLoading = false;
-            this.error = errorMessage;
-          });
+      this.store.dispatch(new CreateVisitorStart({
+        visitorId: null,
+        username,
+        password,
+        fio,
+        email,
+        age
+      }));
     }
   }
 

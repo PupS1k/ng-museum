@@ -1,6 +1,8 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Visitor} from '../../models/visitor.model';
-import {VisitorsService} from '../../services/visitors.service';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../app.reducer';
+import {DeleteVisitorStart} from '../../store/visitor.actions';
 
 @Component({
   selector: 'app-visitor-item',
@@ -9,11 +11,10 @@ import {VisitorsService} from '../../services/visitors.service';
 })
 export class VisitorItemComponent {
   @Input() visitor: Visitor;
-  @Output() updateVisitors = new EventEmitter<void>();
 
-  constructor(private visitorsService: VisitorsService) { }
+  constructor(private store: Store<AppState>) { }
 
   onDeleteVisitor() {
-    this.visitorsService.deleteVisitor(this.visitor).subscribe(() => this.updateVisitors.emit());
+    this.store.dispatch(new DeleteVisitorStart(this.visitor));
   }
 }

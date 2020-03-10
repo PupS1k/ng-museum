@@ -16,6 +16,8 @@ import {EffectsModule} from '@ngrx/effects';
 import {ExhibitEffects} from './exhibits/store/exhibit.effects';
 import {AuthEffects} from './auth/store/auth.effects';
 import {GuideEffects} from './guides/store/guide.effects';
+import {ProfileEffects} from './profile/store/profile.effects';
+import {VisitorEffects} from './visitors/store/visitor.effects';
 
 
 
@@ -31,7 +33,7 @@ import {GuideEffects} from './guides/store/guide.effects';
     LayoutModule,
     CoreModule,
     StoreModule.forRoot(appReducer),
-    EffectsModule.forRoot([ExhibitEffects, AuthEffects, GuideEffects]),
+    EffectsModule.forRoot([ExhibitEffects, AuthEffects, GuideEffects, ProfileEffects, VisitorEffects]),
     StoreDevtoolsModule.instrument({logOnly: environment.production})
   ],
   bootstrap: [AppComponent]

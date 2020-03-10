@@ -1,9 +1,7 @@
-export class Guide {
+import {SubUser} from '../../auth/models/sub-user.model';
+
+export interface Guide extends SubUser {
   guideId: number;
-  username: string;
-  password: string;
-  fio: string;
-  age: number;
   experience: number;
   languages: string;
 }

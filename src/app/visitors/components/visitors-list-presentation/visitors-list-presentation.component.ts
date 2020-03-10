@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Visitor} from '../../models/visitor.model';
 
 @Component({
@@ -8,9 +8,4 @@ import {Visitor} from '../../models/visitor.model';
 })
 export class VisitorsListPresentationComponent {
   @Input() visitors: Visitor[];
-  @Output() updateVisitors = new EventEmitter<void>();
-
-  onUpdateVisitors() {
-    this.updateVisitors.emit();
-  }
 }

@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject} from 'rxjs';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {takeUntil} from 'rxjs/operators';
-import {confirmPassword} from '../../../auth/utils/validators';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
+import {createFormGuide} from '../../utils';
 import {ClearSelectedGuide, CreateGuideStart, UpdateGuideStart} from '../../store/guide.actions';
 
 @Component({
@@ -45,36 +45,7 @@ export class GuideEditComponent implements OnInit, OnDestroy {
           }
         }
 
-        this.guideForm = new FormGroup({
-          name: new FormControl(
-            guide ? guide.username : '',
-            [Validators.required, Validators.minLength(2)]
-          ),
-          password: new FormControl(
-            guide ? guide.password : '',
-            [Validators.required]
-          ),
-          confirmPassword: new FormControl(
-            guide ? guide.password : '',
-            [Validators.required, confirmPassword()]
-          ),
-          fio: new FormControl(
-            guide ? guide.fio : '',
-            [Validators.required]
-          ),
-          experience: new FormControl(
-            guide ? guide.experience : '',
-            [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]
-          ),
-          age: new FormControl(
-            guide ? guide.age : '',
-            [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]
-          ),
-          languages: new FormControl(
-            guide ? guide.languages : '',
-            [Validators.required]),
-        });
-
+        this.guideForm = createFormGuide(guide);
       });
   }
 
