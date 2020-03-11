@@ -4,6 +4,6 @@
   [isVisitor]="isVisitor$ | async"
   [isAuthenticated]="isAuthenticated"
   [username]="username"
-  [profileMode]="profileMode"
+  [profileMode]="profileMode$ | async"
   (logout)="onLogout()"
 ></app-navbar-presentation>

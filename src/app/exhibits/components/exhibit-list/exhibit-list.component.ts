@@ -29,7 +29,7 @@ export class ExhibitListComponent implements OnInit {
   ngOnInit(): void {
     this.exhibits$ = this.store.select(state => state.exhibits)
       .pipe(map(exhibitState => {
-      this.isLoading = exhibitState.loading;
+      // this.isLoading = exhibitState.loading;
       return exhibitState.exhibits;
     }));
 

@@ -1,0 +1,12 @@
+<app-create-user-presentation
+  *ngIf="userIsVisitor | async"
+  [userForm]="userForm"
+  (submitForm)="onSubmit()"
+  [isUpdate]="true"
+></app-create-user-presentation>
+<app-guide-edit-presentation
+  *ngIf="userIsGuide"
+  [guideForm]="userForm"
+  [isUpdate]="true"
+  (submitForm)="onSubmit()"
+></app-guide-edit-presentation>

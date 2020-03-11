@@ -2,10 +2,10 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {ProfileRouting} from './profile-routing.module';
-import {VisitorDataResolver} from './services/visitor-data-resolver.service';
-import {GuideDataResolver} from './services/guide-data-resolver.service';
 import {VisitorsSharedModule} from '../visitors/visitors-shared.module';
 import {GuidesSharedModule} from '../guides/guides-shared.module';
+import { ProfileComponent } from './components/profile/profile.component';
+import {AuthSharedModule} from '../auth/auth-shared.module';
 
 
 @NgModule({
@@ -14,12 +14,10 @@ import {GuidesSharedModule} from '../guides/guides-shared.module';
     RouterModule,
     ProfileRouting,
     VisitorsSharedModule,
-    GuidesSharedModule
+    GuidesSharedModule,
+    AuthSharedModule
   ],
-  providers: [
-    VisitorDataResolver,
-    GuideDataResolver
-  ]
+  declarations: [ProfileComponent]
 })
 export class ProfileModule {
 }

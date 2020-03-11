@@ -81,13 +81,6 @@ export class VisitorEffects {
     )
   );
 
-  @Effect({dispatch: false})
-  updateOrCreateVisitorRedirect = this.actions$.pipe(
-    ofType(UPDATE_VISITOR_SUCCESS, CREATE_VISITOR_SUCCESS),
-    tap(() => this.router.navigate(['/visitors']))
-  );
-
-
   handleError(errorRes: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred!';
 

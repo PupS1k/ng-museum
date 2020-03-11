@@ -23,7 +23,7 @@ export class ExhibitDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.exhibit$ = this.store.select('exhibits').pipe(map(exhibitState => {
-      this.isLoading = exhibitState.loading;
+      // this.isLoading = exhibitState.loading;
       return exhibitState.selectedExhibit;
     }));
 

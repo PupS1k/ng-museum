@@ -21,7 +21,7 @@ import {AppState} from '../../app.reducer';
 import {Store} from '@ngrx/store';
 import {UserData} from '../models/user-data.model';
 import {Visitor} from '../../visitors/models/visitor.model';
-import {FetchGuideInfoStart, FetchVisitorInfoStart, SetProfileMode} from '../../profile/store/profile.actions';
+import {ClearUserInfo, FetchGuideInfoStart, FetchVisitorInfoStart, SetProfileMode} from '../../profile/store/profile.actions';
 
 
 export interface LoginResponseData {
@@ -166,6 +166,7 @@ export class AuthEffects {
     tap(() => {
       this.authService.clearLogoutTimer();
       this.router.navigate(['/']);
+      this.store.dispatch(new ClearUserInfo());
       localStorage.removeItem('userData');
     })
   );

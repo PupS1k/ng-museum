@@ -82,6 +82,7 @@ export class VisitorEditComponent implements OnInit, OnDestroy {
         age
       }));
     }
+    this.router.navigate(['/visitors']);
   }
 
   onCloseAlert() {

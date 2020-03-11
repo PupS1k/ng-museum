@@ -78,12 +78,6 @@ export class GuideEffects {
     )
   );
 
-  @Effect({dispatch: false})
-  updateOrCreateGuideRedirect = this.actions$.pipe(
-    ofType(UPDATE_GUIDE_SUCCESS, CREATE_GUIDE_SUCCESS),
-    tap(() => this.router.navigate(['/guides']))
-  );
-
 
   handleError(errorRes: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred!';

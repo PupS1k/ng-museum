@@ -66,6 +66,7 @@ export class GuideEditComponent implements OnInit, OnDestroy {
         new CreateGuideStart({guideId: null, username, password, fio, age, experience, languages})
       );
     }
+    this.router.navigate(['/guides']);
   }
 
   onCloseAlert() {

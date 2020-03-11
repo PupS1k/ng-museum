@@ -4,6 +4,7 @@ import {map, takeUntil} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
 import {Logout} from '../../../auth/store/auth.actions';
+import {selectProfileMode} from '../../../profile/store/profile.selectors';
 
 @Component({
   selector: 'app-navbar',
@@ -14,11 +15,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
   isAuthenticated = false;
   username = '';
-  profileMode = '';
+  profileMode$ = this.store.select(selectProfileMode);
 
-  isAdmin$: Observable<boolean>;
-  isGuide$: Observable<boolean>;
-  isVisitor$: Observable<boolean>;
+  isAdmin$ = this.store.select(state => state.auth.isAdmin);
+  isGuide$ = this.store.select(state => state.auth.isGuide);
+  isVisitor$ = this.store.select(state => state.auth.isVisitor);
 
   constructor(
     private store: Store<AppState>
@@ -32,14 +33,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
         if (this.isAuthenticated) {
           this.username = authState.name;
-
-          if (authState.isGuide) {
-            this.profileMode = 'guide';
-          }
-
-          if (authState.isVisitor) {
-            this.profileMode = 'visitor';
-          }
         }
       });
 

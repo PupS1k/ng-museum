@@ -5,12 +5,11 @@ import {Store} from '@ngrx/store';
 
 import {Exhibit} from '../models/exhibit.model';
 import {
-  FETCH_EXHIBIT_START,
+  FETCH_EXHIBIT_SUCCESS,
   FetchExhibitStart,
 } from '../store/exhibit.actions';
 
 import {AppState} from '../../app.reducer';
-import {selectTours} from '../../tours/store/tour.selectors';
 import {switchMap, take} from 'rxjs/operators';
 import {Actions, ofType} from '@ngrx/effects';
 
@@ -23,12 +22,12 @@ export class ExhibitResolver implements Resolve<Observable<Exhibit>> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     const id = +route.params.id;
 
-    return this.store.select(selectTours).pipe(
+    return this.store.select(store => store.exhibits.selectedExhibit).pipe(
       take(1),
       switchMap(() => {
         this.store.dispatch(new FetchExhibitStart(id));
         return this.actions$.pipe(
-          ofType(FETCH_EXHIBIT_START),
+          ofType(FETCH_EXHIBIT_SUCCESS),
           take(1)
         );
       })
