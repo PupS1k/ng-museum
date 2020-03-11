@@ -3,6 +3,7 @@
 <div *ngIf="!isLoading" class="container exhibit-edit">
   <div class="col-md-8 col-md-offset-2">
     <app-exhibit-edit-presentation
+      *ngIf="exhibitForm"
       [exhibitForm]="exhibitForm"
       [tours]="tours"
       (edit)="onSubmit()"

@@ -1,4 +1,4 @@
 <app-tours-list-presentation
-  [tours]="tours"
+  [tours]="tours$ | async"
   [isGuide]="isGuide$ | async"
 ></app-tours-list-presentation>

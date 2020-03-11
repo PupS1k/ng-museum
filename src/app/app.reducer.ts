@@ -5,6 +5,7 @@ import {State as AuthState, authReducer} from './auth/store/auth.reducer';
 import {State as GuideState, guideReducer} from './guides/store/guide.reducer';
 import {State as ProfileState, profileReducer} from './profile/store/profile.reducer';
 import {State as VisitorState, visitorReducer} from './visitors/store/visitor.reducer';
+import {State as ToursState, tourReducer} from './tours/store/tour.reducer';
 
 export interface AppState {
   exhibits: ExhibitState;
@@ -12,6 +13,7 @@ export interface AppState {
   guides: GuideState;
   profile: ProfileState;
   visitors: VisitorState;
+  tours: ToursState;
 }
 
 export const appReducer: ActionReducerMap<AppState> = {
@@ -20,4 +22,5 @@ export const appReducer: ActionReducerMap<AppState> = {
   guides: guideReducer,
   profile: profileReducer,
   visitors: visitorReducer,
+  tours: tourReducer,
 };

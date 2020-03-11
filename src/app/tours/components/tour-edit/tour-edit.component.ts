@@ -1,9 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
 import {Tour} from '../../models/tour.model';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {selectSelectedTour} from '../../store/tour.selectors';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../app.reducer';
+import {UpdateTourStart} from '../../store/tour.actions';
 
 @Component({
   selector: 'app-tour-edit',
@@ -13,27 +16,29 @@ import {takeUntil} from 'rxjs/operators';
 export class TourEditComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
   tour: Tour;
+  tourId: number;
   error: string;
   isLoading = false;
 
   tourForm: FormGroup;
 
-  constructor(
-    private route: ActivatedRoute,
-  ) {}
+  constructor(private store: Store<AppState>,) {}
 
   ngOnInit(): void {
-    this.route.parent.data.pipe(takeUntil(this.destroy$))
-      .subscribe(data => {
-      this.tour = data.tour;
-      this.tourForm = new FormGroup({
-        theme: new FormControl(this.tour.theme, [Validators.required, Validators.minLength(2)]),
-        typeOfExhibits: new FormControl(this.tour.typeOfExhibits, [Validators.required]),
-        duration: new FormControl(this.tour.duration, [Validators.required]),
-        cost: new FormControl(this.tour.cost, [Validators.required]),
-        imageUrl: new FormControl(this.tour.imageUrl, [Validators.required]),
+    this.store.select(selectSelectedTour).pipe(takeUntil(this.destroy$))
+      .subscribe(tour => {
+        if (tour) {
+          this.tourId = tour.tourId;
+
+          this.tourForm = new FormGroup({
+            duration: new FormControl(tour.duration, [Validators.required]),
+            cost: new FormControl(tour.cost, [Validators.required]),
+            imageUrl: new FormControl(tour.imageUrl, [Validators.required]),
+            typeOfExhibits: new FormControl(tour.typeOfExhibits, [Validators.required]),
+            theme: new FormControl(tour.theme, [Validators.required]),
+          });
+        }
       });
-    });
   }
 
   onSubmit() {
@@ -43,20 +48,16 @@ export class TourEditComponent implements OnInit, OnDestroy {
     const cost = this.tourForm.value.cost;
     const imageUrl = this.tourForm.value.imageUrl;
 
-    this.isLoading = true;
+    // this.isLoading = true;
 
-
-    console.log(theme, typeOfExhibits, duration, cost, imageUrl);
-
-    // this.authService.login(name, password)
-    //   .subscribe(() => {
-    //       this.router.navigate(['/']);
-    //       this.isLoading = false;
-    //     },
-    //     errorMessage => {
-    //       this.isLoading = false;
-    //       this.error = errorMessage;
-    //     });
+    this.store.dispatch(new UpdateTourStart({
+      tourId: this.tourId,
+      typeOfExhibits,
+      theme,
+      cost,
+      imageUrl,
+      duration
+    }));
   }
 
   onCloseAlert() {

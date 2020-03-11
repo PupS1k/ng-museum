@@ -1,6 +1,7 @@
 <div class="container tour-edit">
   <div class="col-md-8 col-md-offset-2">
     <app-tour-edit-presentation
+      *ngIf="tourForm"
       [tourForm]="tourForm"
       (edit)="onSubmit()"
     ></app-tour-edit-presentation>

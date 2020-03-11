@@ -21,6 +21,7 @@ import {AppState} from '../../app.reducer';
 import {Store} from '@ngrx/store';
 import {UserData} from '../models/user-data.model';
 import {Visitor} from '../../visitors/models/visitor.model';
+import {FetchGuideInfoStart, FetchVisitorInfoStart, SetProfileMode} from '../../profile/store/profile.actions';
 
 
 export interface LoginResponseData {
@@ -39,6 +40,15 @@ export interface WhoiamResData {
 
 @Injectable()
 export class AuthEffects {
+
+  constructor(
+    private actions$: Actions,
+    private http: HttpClient,
+    private router: Router,
+    private authService: AuthService,
+    private store: Store<AppState>
+  ) {
+  }
   @Effect()
   login = this.actions$.pipe(
     ofType(LOGIN_START),
@@ -89,6 +99,8 @@ export class AuthEffects {
           const isGuide = roles.includes('ROLE_GUIDE');
           const isVisitor = roles.includes('ROLE_VISITOR');
 
+          this.setProfileMode(isAdmin, isGuide, userData.name);
+
           localStorage.setItem('userData', JSON.stringify({...userData, roles}));
 
           return new FetchRole({isAdmin, isGuide, isVisitor});
@@ -118,6 +130,8 @@ export class AuthEffects {
         const isAdmin = loadedUser.roles.includes('ROLE_ADMIN');
         const isGuide = loadedUser.roles.includes('ROLE_GUIDE');
         const isVisitor = loadedUser.roles.includes('ROLE_VISITOR');
+
+        this.setProfileMode(isAdmin, isGuide, loadedUser.name);
 
         return new AutoLoginSuccess({name: loadedUser.name, token: userData.token, isAdmin, isGuide, isVisitor});
       }
@@ -173,6 +187,19 @@ export class AuthEffects {
     }))
   );
 
+  setProfileMode(isAdmin, isGuide, name) {
+    if (!isAdmin) {
+      const profileMode = isGuide ? 'guide' : 'visitor';
+      this.store.dispatch(new SetProfileMode(profileMode));
+
+      if (profileMode === 'guide') {
+        this.store.dispatch(new FetchGuideInfoStart(name));
+      } else {
+        this.store.dispatch(new FetchVisitorInfoStart(name));
+      }
+    }
+  }
+
   handleError(errorRes: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred!';
 
@@ -191,13 +218,5 @@ export class AuthEffects {
     }
 
     return of(new UpdateExhibitFail(errorMessage));
-  }
-
-  constructor(
-    private actions$: Actions,
-    private http: HttpClient,
-    private router: Router,
-    private authService: AuthService,
-  ) {
   }
 }

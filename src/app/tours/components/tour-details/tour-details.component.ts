@@ -1,15 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Tour} from '../../models/tour.model';
-import {Observable, Subject} from 'rxjs';
+import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {Exhibit} from '../../../exhibits/models/exhibit.model';
-import {ToursService} from '../../service/tours.service';
-import {UserService} from '../../../core/services/user.service';
-import {UserData} from '../../../auth/models/user-data.model';
-import {Visitor} from '../../../visitors/models/visitor.model';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
+import {selectExhibitsOfTour, selectIsFavouriteTour, selectSelectedTour, selectSelectedTourId} from '../../store/tour.selectors';
+import {selectUserVisitorId} from '../../../profile/store/profile.selectors';
+import {AddFavouriteTourStart, DeleteFavouriteTourStart} from '../../store/tour.actions';
 
 @Component({
   selector: 'app-tour-details',
@@ -17,56 +13,35 @@ import {AppState} from '../../../app.reducer';
   styleUrls: ['./tour-details.component.scss']
 })
 export class TourDetailsComponent implements OnInit, OnDestroy {
-  private obsDestroyed = new Subject();
+  destroy$ = new Subject();
   visitorId: number;
-  tour: Tour;
-  exhibits$: Observable<Exhibit[]>;
-  isGuide$: Observable<boolean>;
-  isFavouriteTour: boolean;
+  tourId: number;
+  tour$ = this.store.select(selectSelectedTour);
+  exhibits$ = this.store.select(selectExhibitsOfTour);
+  isFavouriteTour$ = this.store.select(selectIsFavouriteTour);
+  isGuide$ = this.store.select(state => state.auth.isGuide);
 
-  constructor(
-    private route: ActivatedRoute,
-    private toursService: ToursService,
-    private store: Store<AppState>,
-    private userService: UserService
-  ) {
-  }
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.route.parent.data
-      .pipe(takeUntil(this.obsDestroyed))
-      .subscribe(data => {
-      this.tour = data.tour;
-    });
-
-    const userData: UserData = JSON.parse(localStorage.getItem('userData'));
-
-    if (userData.name !== 'admin') {
-      this.userService.getVisitorByUsername(userData.name)
-        .subscribe((visitor: Visitor) => this.visitorId = visitor.visitorId);
-    }
-
-    this.isGuide$ = this.store.select(state => state.auth.isGuide);
-
-    if (this.visitorId) {
-      this.exhibits$ = this.toursService.fetchTourExhibits(this.tour.tourId);
-      this.toursService.checkFavouriteTour(this.tour.tourId, this.visitorId)
-        .subscribe((resData: boolean) => this.isFavouriteTour = resData, error => console.log(error));
-    }
+    this.store.select(state => state)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(state => {
+        this.visitorId = selectUserVisitorId(state);
+        this.tourId = selectSelectedTourId(state);
+      });
   }
 
   onDeleteTourFromFavourites() {
-    this.toursService.deleteFavouriteTour(this.tour.tourId, this.visitorId)
-      .subscribe(() => this.isFavouriteTour = false, error => console.log(error));
+    this.store.dispatch(new DeleteFavouriteTourStart({tourId: this.tourId, visitorId: this.visitorId}));
   }
 
   onAddTourIntoFavourites() {
-    this.toursService.addFavouriteTour(this.tour.tourId, this.visitorId)
-      .subscribe(() => this.isFavouriteTour = true, error => console.log(error));
+    this.store.dispatch(new AddFavouriteTourStart({tourId: this.tourId, visitorId: this.visitorId}));
   }
 
   ngOnDestroy(): void {
-    this.obsDestroyed.next();
-    this.obsDestroyed.complete();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

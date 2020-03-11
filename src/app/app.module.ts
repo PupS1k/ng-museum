@@ -18,6 +18,7 @@ import {AuthEffects} from './auth/store/auth.effects';
 import {GuideEffects} from './guides/store/guide.effects';
 import {ProfileEffects} from './profile/store/profile.effects';
 import {VisitorEffects} from './visitors/store/visitor.effects';
+import {TourEffects} from './tours/store/tour.effects';
 
 
 
@@ -33,7 +34,7 @@ import {VisitorEffects} from './visitors/store/visitor.effects';
     LayoutModule,
     CoreModule,
     StoreModule.forRoot(appReducer),
-    EffectsModule.forRoot([ExhibitEffects, AuthEffects, GuideEffects, ProfileEffects, VisitorEffects]),
+    EffectsModule.forRoot([ExhibitEffects, AuthEffects, GuideEffects, ProfileEffects, VisitorEffects, TourEffects]),
     StoreDevtoolsModule.instrument({logOnly: environment.production})
   ],
   bootstrap: [AppComponent]

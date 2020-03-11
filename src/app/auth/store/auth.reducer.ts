@@ -1,6 +1,5 @@
 import {
   AuthActions,
-  AUTO_LOGIN_START,
   AUTO_LOGIN_SUCCESS,
   CHANGE_USERNAME,
   FETCH_ROLE,
@@ -23,6 +22,7 @@ export interface State {
 const initialState: State =  {
   name: '',
   token: '',
+
   isAdmin: false,
   isGuide: false,
   isVisitor: false,

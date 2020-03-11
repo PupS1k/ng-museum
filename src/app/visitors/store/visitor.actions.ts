@@ -2,18 +2,18 @@ import {Action} from '@ngrx/store';
 import {Visitor} from '../models/visitor.model';
 
 
-export const FETCH_VISITORS_SUCCESS = '[Guide] Fetch Visitors Success';
-export const FETCH_VISITORS_START = '[Guide] Fetch Visitors Start';
-export const FETCH_VISITOR_START = '[Guide] Fetch Visitor Start';
-export const CLEAR_SELECTED_VISITOR = '[Guide] Clear Selected Visitor';
-export const FETCH_VISITOR_SUCCESS = '[Guide] Fetch Visitor Success';
-export const UPDATE_VISITOR_START = '[Guide] Update Visitor Start';
-export const UPDATE_VISITOR_SUCCESS = '[Guide] Update Visitor Success';
-export const UPDATE_VISITOR_FAIL = '[Guide] Update Visitor Fail';
-export const DELETE_VISITOR_SUCCESS = '[Guide] Delete Visitor Success';
-export const DELETE_VISITOR_START = '[Guide] Delete Visitor Start';
-export const CREATE_VISITOR_SUCCESS = '[Guide] Create Visitor Success';
-export const CREATE_VISITOR_START = '[Guide] Create Visitor Start';
+export const FETCH_VISITORS_SUCCESS = '[Visitor] Fetch Visitors Success';
+export const FETCH_VISITORS_START = '[Visitor] Fetch Visitors Start';
+export const FETCH_VISITOR_START = '[Visitor] Fetch Visitor Start';
+export const CLEAR_SELECTED_VISITOR = '[Visitor] Clear Selected Visitor';
+export const FETCH_VISITOR_SUCCESS = '[Visitor] Fetch Visitor Success';
+export const UPDATE_VISITOR_START = '[Visitor] Update Visitor Start';
+export const UPDATE_VISITOR_SUCCESS = '[Visitor] Update Visitor Success';
+export const UPDATE_VISITOR_FAIL = '[Visitor] Update Visitor Fail';
+export const DELETE_VISITOR_SUCCESS = '[Visitor] Delete Visitor Success';
+export const DELETE_VISITOR_START = '[Visitor] Delete Visitor Start';
+export const CREATE_VISITOR_SUCCESS = '[Visitor] Create Visitor Success';
+export const CREATE_VISITOR_START = '[Visitor] Create Visitor Start';
 
 export class FetchVisitorsSuccess implements Action {
   readonly type = FETCH_VISITORS_SUCCESS;

@@ -34,20 +34,22 @@ export class ExhibitEditComponent implements OnInit, OnDestroy {
     this.store.select('exhibits')
       .pipe(takeUntil(this.destroy$))
       .subscribe(exhibitsState => {
-        this.exhibitId = exhibitsState.selectedExhibit.exhibitId;
-        this.tours = exhibitsState.selectedExhibit.tourEntitySet;
-
         this.error = exhibitsState.errorMessage;
         this.isLoading = exhibitsState.loading;
+        if (exhibitsState.selectedExhibit) {
+          this.exhibitId = exhibitsState.selectedExhibit.exhibitId;
+          this.tours = exhibitsState.selectedExhibit.tourEntitySet;
 
-        this.exhibitForm = new FormGroup({
-          title: new FormControl(exhibitsState.selectedExhibit.title, [Validators.required, Validators.minLength(3)]),
-          dated: new FormControl(exhibitsState.selectedExhibit.dated, [Validators.required]),
-          material: new FormControl(exhibitsState.selectedExhibit.material, [Validators.required]),
-          archiveNum: new FormControl(exhibitsState.selectedExhibit.archiveNum, [Validators.required]),
-          description: new FormControl(exhibitsState.selectedExhibit.description, [Validators.required]),
-          imageUrl: new FormControl(exhibitsState.selectedExhibit.imageUrl, [Validators.required]),
-        });
+          this.exhibitForm = new FormGroup({
+            title: new FormControl(exhibitsState.selectedExhibit.title, [Validators.required, Validators.minLength(3)]),
+            dated: new FormControl(exhibitsState.selectedExhibit.dated, [Validators.required]),
+            material: new FormControl(exhibitsState.selectedExhibit.material, [Validators.required]),
+            archiveNum: new FormControl(exhibitsState.selectedExhibit.archiveNum, [Validators.required]),
+            description: new FormControl(exhibitsState.selectedExhibit.description, [Validators.required]),
+            imageUrl: new FormControl(exhibitsState.selectedExhibit.imageUrl, [Validators.required]),
+          });
+        }
+
       });
   }
 

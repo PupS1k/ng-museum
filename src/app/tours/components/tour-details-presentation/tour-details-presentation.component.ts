@@ -1,11 +1,12 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {Tour} from '../../models/tour.model';
 import {Exhibit} from '../../../exhibits/models/exhibit.model';
 
 @Component({
   selector: 'app-tour-details-presentation',
   templateUrl: './tour-details-presentation.component.html',
-  styleUrls: ['./tour-details-presentation.component.scss']
+  styleUrls: ['./tour-details-presentation.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TourDetailsPresentationComponent {
   @Input() tour: Tour;
