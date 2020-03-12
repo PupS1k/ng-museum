@@ -8,7 +8,12 @@ import {GuideItemComponent} from './components/guide-item/guide-item.component';
 import {GuideItemPresentationComponent} from './components/guide-item-presentation/guide-item-presentation.component';
 import {GuidesResolver} from './services/guides-resolver.service';
 import {GuidesRouting} from './guides-routing.module';
-import {GuidesSharedModule} from './guides-shared.module';
+import {GuideEditComponent} from './components/guide-edit/guide-edit.component';
+import {GuideEditPresentationComponent} from './components/guide-edit-presentation/guide-edit-presentation.component';
+import {GuideResolver} from './services/guide-resolver.service';
+import {EffectsModule} from '@ngrx/effects';
+import {GuideEffects} from './store/guide.effects';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -16,16 +21,28 @@ import {GuidesSharedModule} from './guides-shared.module';
     CommonModule,
     GuidesRouting,
     RouterModule,
-    GuidesSharedModule,
+    ReactiveFormsModule,
+    EffectsModule.forFeature([GuideEffects])
   ],
   declarations: [
     GuidesListComponent,
     GuidesListPresentationComponent,
     GuideItemComponent,
+    GuideEditComponent,
+    GuideEditPresentationComponent,
+    GuideItemPresentationComponent
+  ],
+  exports: [
+    GuidesListComponent,
+    GuidesListPresentationComponent,
+    GuideItemComponent,
+    GuideEditComponent,
+    GuideEditPresentationComponent,
     GuideItemPresentationComponent
   ],
   providers: [
     GuidesResolver,
+    GuideResolver
   ]
 })
 export class GuidesModule {}

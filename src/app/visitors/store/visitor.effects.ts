@@ -25,6 +25,9 @@ import {handleError} from '../../layout/utils';
 import {UpdateGuideStart} from '../../guides/store/guide.actions';
 import {AppState} from '../../app.reducer';
 import {Store} from '@ngrx/store';
+import {UpdateExhibitStart} from '../../exhibits/store/exhibit.actions';
+import {selectVisitorInfoId} from '../../profile/store/profile.selectors';
+import {selectVisitorId} from './visitor.selectors';
 
 
 @Injectable()
@@ -53,15 +56,21 @@ export class VisitorEffects {
   @Effect()
   updateVisitor = this.actions$.pipe(
     ofType(UPDATE_VISITOR_START),
-    switchMap(
-      (updateVisitorStart: UpdateVisitorStart) => this.http.post<Visitor>(
-        `/visitor/visitors/update/${updateVisitorStart.payload.visitorId}`,
-        updateVisitorStart.payload
-      )
-        .pipe(
-          map((visitor: Visitor) => new UpdateVisitorSuccess(visitor)),
-          catchError(err => of(new CatchMessageAlert({module: 'Visitor', message: handleError(err)})))
+    withLatestFrom(this.store),
+    switchMap(([updateVisitorStart, state]: [UpdateVisitorStart, AppState]) => {
+      const id = updateVisitorStart.payload.visitorId || selectVisitorId(state);
+      return this.http.post<Visitor>(
+          `/visitor/visitors/update/${id}`,
+        {
+          ...updateVisitorStart.payload,
+          visitorId: id
+        }
         )
+          .pipe(
+            map((visitor: Visitor) => new UpdateVisitorSuccess(visitor)),
+            catchError(err => of(new CatchMessageAlert({module: 'Visitor', message: handleError(err)})))
+          );
+      }
     )
   );
 

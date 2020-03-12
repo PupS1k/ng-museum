@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject} from 'rxjs';
 import {FormGroup} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {takeUntil} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
@@ -20,7 +20,6 @@ export class GuideEditComponent implements OnInit, OnDestroy {
   guideForm: FormGroup;
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private store: Store<AppState>
   ) {

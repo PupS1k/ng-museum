@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {Exhibit} from '../../models/exhibit.model';
 
 
@@ -8,7 +8,12 @@ import {Exhibit} from '../../models/exhibit.model';
   styleUrls: ['./exhibit-details-presentation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExhibitDetailsPresentationComponent {
+export class ExhibitDetailsPresentationComponent implements OnInit{
   @Input() exhibit: Exhibit;
   @Input() isGuide: boolean;
+  @Input() isVisitor: boolean;
+
+  ngOnInit(): void {
+    console.log(this.isVisitor);
+  }
 }

@@ -18,7 +18,6 @@ import {CreateVisitorStart, UpdateVisitorStart} from '../../store/visitor.action
 export class VisitorEditComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
   isUpdate: boolean;
-  visitorId: number;
   visitorForm: FormGroup;
   tours?: Tour[] = [];
 
@@ -35,7 +34,6 @@ export class VisitorEditComponent implements OnInit, OnDestroy {
         this.isUpdate = !!visitorState.selectedVisitor;
 
         if (visitorState.selectedVisitor) {
-          this.visitorId = visitorState.selectedVisitor.visitorId;
           this.tours = visitorState.selectedVisitor.tourEntitySet;
         }
 
@@ -52,7 +50,7 @@ export class VisitorEditComponent implements OnInit, OnDestroy {
 
     if (this.isUpdate) {
       this.store.dispatch(new UpdateVisitorStart({
-        visitorId: this.visitorId,
+        visitorId: null,
         username,
         password,
         fio,

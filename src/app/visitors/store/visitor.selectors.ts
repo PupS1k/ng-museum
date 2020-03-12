@@ -13,3 +13,8 @@ export const selectVisitor = createSelector(
   selectVisitorState,
   (state) => state.selectedVisitor
 );
+
+export const selectVisitorId = createSelector(
+  selectVisitor,
+  (visitor) => visitor.visitorId
+);

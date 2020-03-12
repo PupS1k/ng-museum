@@ -22,7 +22,6 @@ export interface State {
 const initialState: State =  {
   name: '',
   token: '',
-
   isAdmin: false,
   isGuide: false,
   isVisitor: false,

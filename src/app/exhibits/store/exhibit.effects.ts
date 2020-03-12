@@ -52,8 +52,8 @@ export class ExhibitEffects {
     switchMap(([updateExhibitStart, state]: [UpdateExhibitStart, AppState]) => this.http.post<Exhibit>(
         `/exhibit/exhibits/update/${selectExhibitId(state)}`,
       {
-        ...updateExhibitStart.payload,
         exhibitId: selectExhibitId(state),
+        ...updateExhibitStart.payload,
         tourEntitySet: selectExhibitTours(state)
       }
       )

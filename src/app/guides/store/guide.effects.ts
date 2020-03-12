@@ -52,14 +52,20 @@ export class GuideEffects {
   updateGuide = this.actions$.pipe(
     ofType(UPDATE_GUIDE_START),
     withLatestFrom(this.store),
-    switchMap(([updateGuideStart, state]: [UpdateGuideStart, AppState]) => this.http.post<Guide>(
-        `/guide/guides/update/${selectGuideId(state)}`,
-        updateGuideStart.payload
-      )
-        .pipe(
-          map((guide: Guide) => new UpdateGuideSuccess(guide)),
-          catchError(err => of(new CatchMessageAlert({module: 'Guide', message: handleError(err)})))
+    switchMap(([updateGuideStart, state]: [UpdateGuideStart, AppState]) => {
+      const id = updateGuideStart.payload.guideId || selectGuideId(state);
+      return this.http.post<Guide>(
+          `/guide/guides/update/${id}`,
+          {
+            ...updateGuideStart.payload,
+            guideId: id
+          }
         )
+          .pipe(
+            map((guide: Guide) => new UpdateGuideSuccess(guide)),
+            catchError(err => of(new CatchMessageAlert({module: 'Guide', message: handleError(err)})))
+          );
+      }
     )
   );
 

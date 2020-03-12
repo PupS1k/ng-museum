@@ -10,7 +10,10 @@ import {VisitorsResolver} from './services/visitors-resolver.service';
 import {VisitorItemPresentationComponent} from './components/visitor-item-presentation/visitor-item-presentation.component';
 import {AuthSharedModule} from '../auth/auth-shared.module';
 import {ToursSharedModule} from '../tours/tours-shared.module';
-import {VisitorsSharedModule} from './visitors-shared.module';
+import {VisitorEditComponent} from './components/visitor-edit/visitor-edit.component';
+import {VisitorResolver} from './services/visitor-resolver.service';
+import {EffectsModule} from '@ngrx/effects';
+import {VisitorEffects} from './store/visitor.effects';
 
 
 @NgModule({
@@ -19,18 +22,27 @@ import {VisitorsSharedModule} from './visitors-shared.module';
     RouterModule,
     VisitorsRouting,
     AuthSharedModule,
-    VisitorsSharedModule,
     LayoutModule,
-    ToursSharedModule
+    ToursSharedModule,
+    EffectsModule.forFeature([VisitorEffects])
   ],
   declarations: [
     VisitorsListComponent,
     VisitorsListPresentationComponent,
     VisitorItemPresentationComponent,
-    VisitorItemComponent
+    VisitorItemComponent,
+    VisitorEditComponent
+  ],
+  exports: [
+    VisitorsListComponent,
+    VisitorsListPresentationComponent,
+    VisitorItemPresentationComponent,
+    VisitorItemComponent,
+    VisitorEditComponent
   ],
   providers: [
     VisitorsResolver,
+    VisitorResolver
   ]
 })
 export class VisitorsModule {}
