@@ -3,7 +3,7 @@
     <app-exhibit-edit-presentation
       *ngIf="exhibitForm"
       [exhibitForm]="exhibitForm"
-      [tours]="tours"
+      [tours]="tours$ | async"
       (edit)="onSubmit()"
     ></app-exhibit-edit-presentation>
   </div>

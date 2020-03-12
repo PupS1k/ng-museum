@@ -10,13 +10,13 @@ export const selectTours = createSelector(
   (state) => state.tours
 );
 
-export const selectSelectedTour = createSelector(
+export const selectTour = createSelector(
   selectToursState,
   (state) => state.selectedTour
 );
 
-export const selectSelectedTourId = createSelector(
-  selectSelectedTour,
+export const selectTourId = createSelector(
+  selectTour,
   (tour) => {
     if (tour) {
       return tour.tourId;

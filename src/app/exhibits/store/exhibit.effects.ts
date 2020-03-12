@@ -1,5 +1,5 @@
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {catchError, map, switchMap, tap} from 'rxjs/operators';
+import {catchError, map, switchMap, tap, withLatestFrom} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
@@ -16,6 +16,9 @@ import {
 import {Exhibit} from '../models/exhibit.model';
 import {CatchMessageAlert} from '../../layout/store/layout.actions';
 import {handleError} from '../../layout/utils';
+import {Action, Store} from '@ngrx/store';
+import {AppState} from '../../app.reducer';
+import {selectExhibitId, selectExhibitTours} from './exhibits.selectors';
 
 
 
@@ -45,10 +48,14 @@ export class ExhibitEffects {
   @Effect()
   updateExhibit = this.actions$.pipe(
     ofType(UPDATE_EXHIBIT_START),
-    switchMap(
-      (updateExhibitStart: UpdateExhibitStart) => this.http.post<Exhibit>(
-        `/exhibit/exhibits/update/${updateExhibitStart.payload.exhibitId}`,
-        updateExhibitStart.payload
+    withLatestFrom(this.store),
+    switchMap(([updateExhibitStart, state]: [UpdateExhibitStart, AppState]) => this.http.post<Exhibit>(
+        `/exhibit/exhibits/update/${selectExhibitId(state)}`,
+      {
+        ...updateExhibitStart.payload,
+        exhibitId: selectExhibitId(state),
+        tourEntitySet: selectExhibitTours(state)
+      }
       )
         .pipe(
           map((exhibit: Exhibit) => new UpdateExhibitSuccess(exhibit)),
@@ -66,7 +73,8 @@ export class ExhibitEffects {
   constructor(
     private actions$: Actions,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private store: Store<AppState>
   ) {
   }
 }

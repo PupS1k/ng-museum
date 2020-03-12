@@ -1,9 +1,10 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-navbar-presentation',
   templateUrl: './navbar-presentation.component.html',
-  styleUrls: ['./navbar-presentation.component.scss']
+  styleUrls: ['./navbar-presentation.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarPresentationComponent {
   @Input() isGuide: boolean;

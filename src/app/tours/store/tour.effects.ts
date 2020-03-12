@@ -26,8 +26,8 @@ import {Tour} from '../models/tour.model';
 import {Exhibit} from '../../exhibits/models/exhibit.model';
 import {Action, Store} from '@ngrx/store';
 import {AppState} from '../../app.reducer';
-import {selectSelectedTourId} from './tour.selectors';
-import {selectUserVisitorId} from '../../profile/store/profile.selectors';
+import {selectTourId} from './tour.selectors';
+import {selectUserVisitorId, selectVisitorInfoId} from '../../profile/store/profile.selectors';
 import {CatchMessageAlert} from '../../layout/store/layout.actions';
 import {handleError} from '../../layout/utils';
 import {selectIsGuide} from '../../auth/store/auth.selectors';
@@ -59,10 +59,13 @@ export class TourEffects {
   @Effect()
   updateTour = this.actions$.pipe(
     ofType(UPDATE_TOUR_START),
-    switchMap(
-      (updateTour: UpdateTourStart) => this.http.post<Tour>(
-        `/tour/tours/update/${updateTour.payload.tourId}`,
-        updateTour.payload
+    withLatestFrom(this.store),
+    switchMap(([updateTour, state]: [UpdateTourStart, AppState]) => this.http.post<Tour>(
+        `/tour/tours/update/${selectTourId(state)}`,
+      {
+        ...updateTour.payload,
+        tourId: selectTourId(state)
+      }
       )
         .pipe(
           map((tour: Tour) => new UpdateTourSuccess(tour)),
@@ -94,7 +97,7 @@ export class TourEffects {
           return this.http.post<boolean>(
             `visitor/toursCheck`,
             {
-              tourId: selectSelectedTourId(state),
+              tourId: selectTourId(state),
               visitorId: selectUserVisitorId(state)
             },
             {
@@ -117,9 +120,10 @@ export class TourEffects {
   @Effect()
   deleteFavouriteTour = this.actions$.pipe(
     ofType(DELETE_FAVOURITE_TOUR_START),
-    switchMap((deleteFavouriteTour: DeleteFavouriteTourStart) => this.http.post(
+    withLatestFrom(this.store),
+    switchMap(([action, state]: [Action, AppState]) => this.http.post(
       `visitor/visitors/removeTour`,
-      {tourId: deleteFavouriteTour.payload.tourId, visitorId: deleteFavouriteTour.payload.visitorId},
+      {tourId: selectTourId(state), visitorId: selectVisitorInfoId(state)},
       {
         headers: {
           'no-spinner': 'true'
@@ -136,9 +140,10 @@ export class TourEffects {
   @Effect()
   addFavouriteTour = this.actions$.pipe(
     ofType(ADD_FAVOURITE_TOUR_START),
-    switchMap((addFavouriteTour: AddFavouriteTourStart) => this.http.post(
+    withLatestFrom(this.store),
+    switchMap(([action, state]: [Action, AppState]) => this.http.post(
       `visitor/visitors/addTour`,
-      {tourId: addFavouriteTour.payload.tourId, visitorId: addFavouriteTour.payload.visitorId},
+      {tourId: selectTourId(state), visitorId: selectVisitorInfoId(state)},
       {
         headers: {
           'no-spinner': 'true'

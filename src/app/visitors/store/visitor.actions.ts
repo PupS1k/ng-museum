@@ -45,7 +45,7 @@ export class CreateVisitorSuccess implements Action {
 
 export class CreateVisitorStart implements Action {
   readonly type = CREATE_VISITOR_START;
-  constructor(public payload: Visitor) {}
+  constructor(public payload: Omit<Visitor, 'visitorId'>) {}
 }
 
 export class FetchVisitorSuccess implements Action {

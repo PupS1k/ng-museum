@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Tour} from '../../models/tour.model';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {selectSelectedTour} from '../../store/tour.selectors';
+import {selectTour} from '../../store/tour.selectors';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
 import {UpdateTourStart} from '../../store/tour.actions';
@@ -16,19 +16,14 @@ import {UpdateTourStart} from '../../store/tour.actions';
 export class TourEditComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
   tour: Tour;
-  tourId: number;
-  error: string;
-
   tourForm: FormGroup;
 
   constructor(private store: Store<AppState>,) {}
 
   ngOnInit(): void {
-    this.store.select(selectSelectedTour).pipe(takeUntil(this.destroy$))
+    this.store.select(selectTour).pipe(takeUntil(this.destroy$))
       .subscribe(tour => {
         if (tour) {
-          this.tourId = tour.tourId;
-
           this.tourForm = new FormGroup({
             duration: new FormControl(tour.duration, [Validators.required]),
             cost: new FormControl(tour.cost, [Validators.required]),
@@ -48,7 +43,6 @@ export class TourEditComponent implements OnInit, OnDestroy {
     const imageUrl = this.tourForm.value.imageUrl;
 
     this.store.dispatch(new UpdateTourStart({
-      tourId: this.tourId,
       typeOfExhibits,
       theme,
       cost,

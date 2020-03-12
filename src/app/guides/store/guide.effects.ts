@@ -1,5 +1,5 @@
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {catchError, map, switchMap} from 'rxjs/operators';
+import {catchError, map, switchMap, withLatestFrom} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
@@ -18,6 +18,10 @@ import {
 import {Guide} from '../models/guide.model';
 import {CatchMessageAlert} from '../../layout/store/layout.actions';
 import {handleError} from '../../layout/utils';
+import {UpdateExhibitStart} from '../../exhibits/store/exhibit.actions';
+import {AppState} from '../../app.reducer';
+import {Store} from '@ngrx/store';
+import {selectGuideId} from './guide.selectors';
 
 
 
@@ -47,9 +51,9 @@ export class GuideEffects {
   @Effect()
   updateGuide = this.actions$.pipe(
     ofType(UPDATE_GUIDE_START),
-    switchMap(
-      (updateGuideStart: UpdateGuideStart) => this.http.post<Guide>(
-        `/guide/guides/update/${updateGuideStart.payload.guideId}`,
+    withLatestFrom(this.store),
+    switchMap(([updateGuideStart, state]: [UpdateGuideStart, AppState]) => this.http.post<Guide>(
+        `/guide/guides/update/${selectGuideId(state)}`,
         updateGuideStart.payload
       )
         .pipe(
@@ -89,7 +93,7 @@ export class GuideEffects {
   constructor(
     private actions$: Actions,
     private http: HttpClient,
-    private router: Router
+    private store: Store<AppState>
   ) {
   }
 }

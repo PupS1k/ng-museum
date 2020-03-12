@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 
 import {AppState} from '../../../app.reducer';
@@ -19,7 +19,6 @@ export class ExhibitListComponent {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private store: Store<AppState>
   ) {
   }

@@ -29,7 +29,7 @@ export class FetchExhibitStart implements Action {
 
 export class UpdateExhibitStart implements Action {
   readonly type = UPDATE_EXHIBIT_START;
-  constructor(public payload: Exhibit) {}
+  constructor(public payload: Omit<Exhibit, 'exhibitId'|'tourEntitySet'>) {}
 }
 
 export class UpdateExhibitSuccess implements Action {

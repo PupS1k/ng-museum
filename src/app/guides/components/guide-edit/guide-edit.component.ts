@@ -6,7 +6,7 @@ import {takeUntil} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
 import {ClearSelectedGuide, CreateGuideStart, UpdateGuideStart} from '../../store/guide.actions';
-import {selectFormGuide, selectGuideId, selectIsUpdateGuide} from '../../store/guide.selectors';
+import {selectFormGuide, selectIsUpdateGuide} from '../../store/guide.selectors';
 
 @Component({
   selector: 'app-guide-edit',
@@ -15,10 +15,8 @@ import {selectFormGuide, selectGuideId, selectIsUpdateGuide} from '../../store/g
 })
 export class GuideEditComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
-  message: string;
 
   isUpdate: boolean;
-  guideId: number;
   guideForm: FormGroup;
 
   constructor(
@@ -29,10 +27,6 @@ export class GuideEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.store.select(selectGuideId)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(guideId => this.guideId = guideId);
-
     this.store.select(selectFormGuide)
       .pipe(takeUntil(this.destroy$))
       .subscribe(formGuide => this.guideForm = formGuide);
@@ -52,19 +46,15 @@ export class GuideEditComponent implements OnInit, OnDestroy {
 
     if (this.isUpdate) {
       this.store.dispatch(
-        new UpdateGuideStart({guideId: this.guideId, username, password, fio, age, experience, languages})
+        new UpdateGuideStart({guideId: null, username, password, fio, age, experience, languages})
       );
     } else {
       this.store.dispatch(
-        new CreateGuideStart({guideId: null, username, password, fio, age, experience, languages})
+        new CreateGuideStart({username, password, fio, age, experience, languages})
       );
     }
 
     this.router.navigate(['/guides']);
-  }
-
-  onCloseAlert() {
-    this.message = '';
   }
 
   ngOnDestroy(): void {

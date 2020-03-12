@@ -1,5 +1,5 @@
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {catchError, map, switchMap} from 'rxjs/operators';
+import {catchError, map, switchMap, withLatestFrom} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {of} from 'rxjs';
@@ -22,6 +22,9 @@ import {
 } from './visitor.actions';
 import {CatchMessageAlert} from '../../layout/store/layout.actions';
 import {handleError} from '../../layout/utils';
+import {UpdateGuideStart} from '../../guides/store/guide.actions';
+import {AppState} from '../../app.reducer';
+import {Store} from '@ngrx/store';
 
 
 @Injectable()
@@ -83,7 +86,10 @@ export class VisitorEffects {
     switchMap(
       (createVisitorStart: CreateVisitorStart) => this.http.post<Visitor>(
         '/visitor/visitors/add',
-        createVisitorStart.payload
+        {
+          ...createVisitorStart.payload,
+          visitorId: ''
+        }
       )
         .pipe(
           map((visitor: Visitor) => new CreateVisitorSuccess(visitor)),
@@ -95,6 +101,7 @@ export class VisitorEffects {
   constructor(
     private actions$: Actions,
     private http: HttpClient,
+    private store: Store<AppState>
   ) {
   }
 }

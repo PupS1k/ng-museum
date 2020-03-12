@@ -1,13 +1,12 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 
 import {Guide} from '../models/guide.model';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../app.reducer';
 import {FETCH_GUIDE_SUCCESS, FetchGuideStart} from '../store/guide.actions';
-import {selectGuide} from '../store/guide.selectors';
-import {switchMap, take} from 'rxjs/operators';
+import {take} from 'rxjs/operators';
 import {Actions, ofType} from '@ngrx/effects';
 
 
@@ -19,17 +18,10 @@ export class GuideResolver implements Resolve<Observable<Guide>> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     const id = +route.params.id;
-
-    return this.store.select(selectGuide).pipe(
-      take(1),
-      switchMap(() => {
-        this.store.dispatch(new FetchGuideStart(id));
-        return this.actions$.pipe(
-          ofType(FETCH_GUIDE_SUCCESS),
-          take(1)
-        );
-      }
-    ));
+    this.store.dispatch(new FetchGuideStart(id));
+    return this.actions$.pipe(
+      ofType(FETCH_GUIDE_SUCCESS),
+      take(1)
+    );
   }
-
 }

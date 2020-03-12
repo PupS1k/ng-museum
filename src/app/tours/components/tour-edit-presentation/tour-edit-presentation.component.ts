@@ -8,7 +8,6 @@ import {FormGroup} from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TourEditPresentationComponent {
-
   @Input() tourForm: FormGroup;
 
   @Output() edit = new EventEmitter<void>();

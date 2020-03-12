@@ -9,7 +9,6 @@ export const CLEAR_SELECTED_GUIDE = '[Guide] Clear Selected Guide';
 export const FETCH_GUIDE_SUCCESS = '[Guide] Fetch Guide Success';
 export const UPDATE_GUIDE_START = '[Guide] Update Guide Start';
 export const UPDATE_GUIDE_SUCCESS = '[Guide] Update Guide Success';
-export const UPDATE_GUIDE_FAIL = '[Guide] Update Guide Fail';
 export const DELETE_GUIDE_SUCCESS = '[Guide] Delete Guide Success';
 export const DELETE_GUIDE_START = '[Guide] Delete Guide Start';
 export const CREATE_GUIDE_SUCCESS = '[Guide] Create Guide Success';
@@ -45,7 +44,7 @@ export class CreateGuideSuccess implements Action {
 
 export class CreateGuideStart implements Action {
   readonly type = CREATE_GUIDE_START;
-  constructor(public payload: Guide) {}
+  constructor(public payload: Omit<Guide, 'guideId'>) {}
 }
 
 export class FetchGuideSuccess implements Action {
@@ -57,12 +56,6 @@ export class FetchGuideStart implements Action {
   readonly type = FETCH_GUIDE_START;
   constructor(public payload: number) {}
 }
-
-export class UpdateGuideFail implements Action {
-  readonly type = UPDATE_GUIDE_FAIL;
-  constructor(public payload: string) {}
-}
-
 export class UpdateGuideStart implements Action {
   readonly type = UPDATE_GUIDE_START;
   constructor(public payload: Guide) {}
@@ -79,7 +72,6 @@ export type GuideActions =
   | DeleteGuideSuccess
   | FetchGuidesSuccess
   | FetchGuideSuccess
-  | UpdateGuideFail
   | UpdateGuideStart
   | UpdateGuideSuccess
   | FetchGuidesStart

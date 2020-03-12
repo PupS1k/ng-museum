@@ -7,7 +7,6 @@ import {
   FETCH_GUIDES_START,
   FETCH_GUIDES_SUCCESS,
   GuideActions,
-  UPDATE_GUIDE_FAIL,
   UPDATE_GUIDE_START,
   UPDATE_GUIDE_SUCCESS
 } from './guide.actions';
@@ -47,12 +46,6 @@ export function guideReducer(state: State = initialState, action: GuideActions) 
         ...state,
         isLoading: false,
         guides: state.guides.map(guide => guide.guideId === action.payload.guideId ? action.payload : guide)
-      };
-    case UPDATE_GUIDE_FAIL:
-      return {
-        ...state,
-        errorMessage: action.payload,
-        isLoading: false
       };
     case DELETE_GUIDE_SUCCESS: {
       return {

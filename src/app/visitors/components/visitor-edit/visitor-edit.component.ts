@@ -17,15 +17,12 @@ import {CreateVisitorStart, UpdateVisitorStart} from '../../store/visitor.action
 })
 export class VisitorEditComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
-  error: string;
-
   isUpdate: boolean;
   visitorId: number;
   visitorForm: FormGroup;
   tours?: Tour[] = [];
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private store: Store<AppState>
   ) {
@@ -65,7 +62,6 @@ export class VisitorEditComponent implements OnInit, OnDestroy {
       }));
     } else {
       this.store.dispatch(new CreateVisitorStart({
-        visitorId: null,
         username,
         password,
         fio,

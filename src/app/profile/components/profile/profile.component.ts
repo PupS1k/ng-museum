@@ -11,7 +11,6 @@ import {
   FetchVisitorInfoSuccess,
 } from '../../store/profile.actions';
 import {UpdateVisitorStart} from '../../../visitors/store/visitor.actions';
-import {Router} from '@angular/router';
 import {Tour} from '../../../tours/models/tour.model';
 
 @Component({
@@ -27,7 +26,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   tours: Tour[] = [];
   userForm: FormGroup;
 
-  constructor(private store: Store<AppState>, private router: Router) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.store.select(state => selectUserForm(state))

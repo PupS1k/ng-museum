@@ -5,9 +5,9 @@ import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {Store} from '@ngrx/store';
 
-import {Tour} from '../../../tours/models/tour.model';
 import {AppState} from '../../../app.reducer';
 import {UpdateExhibitStart} from '../../store/exhibit.actions';
+import {selectExhibit, selectExhibitTours} from '../../store/exhibits.selectors';
 
 @Component({
   selector: 'app-exhibit-edit',
@@ -16,8 +16,7 @@ import {UpdateExhibitStart} from '../../store/exhibit.actions';
 })
 export class ExhibitEditComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
-  exhibitId: number;
-  tours: Tour[];
+  tours$ = this.store.select(selectExhibitTours);
   exhibitForm: FormGroup;
 
   constructor(
@@ -28,23 +27,17 @@ export class ExhibitEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.store.select('exhibits')
+    this.store.select(selectExhibit)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(exhibitsState => {
-        if (exhibitsState.selectedExhibit) {
-          this.exhibitId = exhibitsState.selectedExhibit.exhibitId;
-          this.tours = exhibitsState.selectedExhibit.tourEntitySet;
-
-          this.exhibitForm = new FormGroup({
-            title: new FormControl(exhibitsState.selectedExhibit.title, [Validators.required, Validators.minLength(3)]),
-            dated: new FormControl(exhibitsState.selectedExhibit.dated, [Validators.required]),
-            material: new FormControl(exhibitsState.selectedExhibit.material, [Validators.required]),
-            archiveNum: new FormControl(exhibitsState.selectedExhibit.archiveNum, [Validators.required]),
-            description: new FormControl(exhibitsState.selectedExhibit.description, [Validators.required]),
-            imageUrl: new FormControl(exhibitsState.selectedExhibit.imageUrl, [Validators.required]),
-          });
-        }
-
+      .subscribe(exhibit => {
+        this.exhibitForm = new FormGroup({
+          title: new FormControl(exhibit.title, [Validators.required, Validators.minLength(3)]),
+          dated: new FormControl(exhibit.dated, [Validators.required]),
+          material: new FormControl(exhibit.material, [Validators.required]),
+          archiveNum: new FormControl(exhibit.archiveNum, [Validators.required]),
+          description: new FormControl(exhibit.description, [Validators.required]),
+          imageUrl: new FormControl(exhibit.imageUrl, [Validators.required]),
+        });
       });
   }
 
@@ -56,14 +49,11 @@ export class ExhibitEditComponent implements OnInit, OnDestroy {
     const description = this.exhibitForm.value.description;
     const imageUrl = this.exhibitForm.value.imageUrl;
 
-
     this.store.dispatch(new UpdateExhibitStart({
-      exhibitId: this.exhibitId,
       title, dated,
       material, archiveNum,
       description,
-      imageUrl,
-      tourEntitySet: this.tours
+      imageUrl
     }));
   }
 

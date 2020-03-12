@@ -28,7 +28,6 @@ export class ClearSelectedTour implements Action {
 
 export class DeleteFavouriteTourStart implements Action {
   readonly type = DELETE_FAVOURITE_TOUR_START;
-  constructor(public payload: {tourId: number, visitorId: number}) {}
 }
 
 export class AddFavouriteTourSuccess implements Action {
@@ -37,7 +36,6 @@ export class AddFavouriteTourSuccess implements Action {
 
 export class AddFavouriteTourStart implements Action {
   readonly type = ADD_FAVOURITE_TOUR_START;
-  constructor(public payload: {tourId: number, visitorId: number}) {}
 }
 
 export class CheckFavouriteTourSuccess implements Action {
@@ -76,7 +74,7 @@ export class UpdateTourFail implements Action {
 
 export class UpdateTourStart implements Action {
   readonly type = UPDATE_TOUR_START;
-  constructor(public payload: Tour) {}
+  constructor(public payload: Omit<Tour, 'tourId'>) {}
 }
 
 export class UpdateTourSuccess implements Action {
