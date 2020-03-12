@@ -8,3 +8,8 @@ export const selectVisitors = createSelector(
   selectVisitorState,
   (state) => state.visitors
 );
+
+export const selectVisitor = createSelector(
+  selectVisitorState,
+  (state) => state.selectedVisitor
+);

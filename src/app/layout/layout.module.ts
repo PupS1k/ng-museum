@@ -1,28 +1,31 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-
+import {SpinnerComponent} from './components/spinner/spinner.component';
+import {AlertComponent} from './components/alert/alert.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
+import {NavbarPresentationComponent} from './components/navbar-presentation/navbar-presentation.component';
 import {FooterComponent} from './components/footer/footer.component';
+import {NotFoundComponent} from './components/not-found/not-found.component';
 import {RouterModule} from '@angular/router';
-import {SharedModule} from '../shared/shared.module';
-import { NotFoundComponent } from './components/not-found/not-found.component';
-import { NavbarPresentationComponent } from './components/navbar-presentation/navbar-presentation.component';
-
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    SharedModule
   ],
   declarations: [
+    SpinnerComponent,
+    AlertComponent,
     NavbarComponent,
+    NavbarPresentationComponent,
     FooterComponent,
-    NotFoundComponent,
-    NavbarPresentationComponent
+    NotFoundComponent
   ],
   exports: [
+    SpinnerComponent,
+    AlertComponent,
     NavbarComponent,
+    NavbarPresentationComponent,
     FooterComponent,
     NotFoundComponent
   ]

@@ -5,7 +5,7 @@ import {VisitorsRouting} from './visitors-routing.module';
 import {VisitorsListComponent} from './components/visitors-list/visitors-list.component';
 import {VisitorsListPresentationComponent} from './components/visitors-list-presentation/visitors-list-presentation.component';
 import {VisitorItemComponent} from './components/visitor-item/visitor-item.component';
-import {SharedModule} from '../shared/shared.module';
+import {LayoutModule} from '../layout/layout.module';
 import {VisitorsResolver} from './services/visitors-resolver.service';
 import {VisitorItemPresentationComponent} from './components/visitor-item-presentation/visitor-item-presentation.component';
 import {AuthSharedModule} from '../auth/auth-shared.module';
@@ -20,7 +20,7 @@ import {VisitorsSharedModule} from './visitors-shared.module';
     VisitorsRouting,
     AuthSharedModule,
     VisitorsSharedModule,
-    SharedModule,
+    LayoutModule,
     ToursSharedModule
   ],
   declarations: [

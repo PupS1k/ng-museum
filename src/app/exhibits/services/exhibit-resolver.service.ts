@@ -12,6 +12,7 @@ import {
 import {AppState} from '../../app.reducer';
 import {switchMap, take} from 'rxjs/operators';
 import {Actions, ofType} from '@ngrx/effects';
+import {selectExhibit} from '../store/exhibits.selectors';
 
 
 @Injectable()
@@ -22,7 +23,7 @@ export class ExhibitResolver implements Resolve<Observable<Exhibit>> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     const id = +route.params.id;
 
-    return this.store.select(store => store.exhibits.selectedExhibit).pipe(
+    return this.store.select(selectExhibit).pipe(
       take(1),
       switchMap(() => {
         this.store.dispatch(new FetchExhibitStart(id));

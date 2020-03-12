@@ -1,6 +1,4 @@
-<app-alert *ngIf="error" [message]="error" (close)="onCloseAlert()"></app-alert>
-<app-spinner *ngIf="isLoading"></app-spinner>
-<div *ngIf="!isLoading" class="container exhibit-edit">
+<div class="container exhibit-edit">
   <div class="col-md-8 col-md-offset-2">
     <app-exhibit-edit-presentation
       *ngIf="exhibitForm"

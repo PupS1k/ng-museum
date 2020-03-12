@@ -5,7 +5,8 @@ import {GuideEditComponent} from './components/guide-edit/guide-edit.component';
 import {GuideEditPresentationComponent} from './components/guide-edit-presentation/guide-edit-presentation.component';
 import {GuideResolver} from './services/guide-resolver.service';
 import {ReactiveFormsModule} from '@angular/forms';
-import {SharedModule} from '../shared/shared.module';
+import {EffectsModule} from '@ngrx/effects';
+import {GuideEffects} from './store/guide.effects';
 
 
 @NgModule({
@@ -13,7 +14,7 @@ import {SharedModule} from '../shared/shared.module';
     CommonModule,
     ReactiveFormsModule,
     ToursSharedModule,
-    SharedModule
+    EffectsModule.forFeature([GuideEffects])
   ],
   declarations: [
     GuideEditComponent,

@@ -5,6 +5,8 @@ import {ToursSharedModule} from '../tours/tours-shared.module';
 import {AuthSharedModule} from '../auth/auth-shared.module';
 import {VisitorResolver} from './services/visitor-resolver.service';
 import {ReactiveFormsModule} from '@angular/forms';
+import {EffectsModule} from '@ngrx/effects';
+import {VisitorEffects} from './store/visitor.effects';
 
 
 @NgModule({
@@ -12,7 +14,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     CommonModule,
     ReactiveFormsModule,
     ToursSharedModule,
-    AuthSharedModule
+    AuthSharedModule,
+    EffectsModule.forFeature([VisitorEffects])
   ],
   declarations: [
     VisitorEditComponent

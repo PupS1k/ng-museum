@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {SharedModule} from '../shared/shared.module';
 import {CommonModule} from '@angular/common';
 import {ExhibitListComponent} from './components/exhibit-list/exhibit-list.component';
 import {ExhibitListPresentationComponent} from './components/exhibit-list-presentation/exhibit-list-presentation.component';
@@ -8,13 +7,15 @@ import {ExhibitItemComponent} from './components/exhibit-item/exhibit-item.compo
 import {RouterModule} from '@angular/router';
 import {ExhibitsResolver} from './services/exhibits-resolver.service';
 import {ToursSharedModule} from '../tours/tours-shared.module';
+import {EffectsModule} from '@ngrx/effects';
+import {ExhibitEffects} from './store/exhibit.effects';
 
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    SharedModule,
+    EffectsModule.forFeature([ExhibitEffects]),
     ToursSharedModule,
   ],
   declarations: [

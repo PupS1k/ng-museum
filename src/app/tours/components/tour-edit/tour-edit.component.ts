@@ -18,7 +18,6 @@ export class TourEditComponent implements OnInit, OnDestroy {
   tour: Tour;
   tourId: number;
   error: string;
-  isLoading = false;
 
   tourForm: FormGroup;
 
@@ -48,8 +47,6 @@ export class TourEditComponent implements OnInit, OnDestroy {
     const cost = this.tourForm.value.cost;
     const imageUrl = this.tourForm.value.imageUrl;
 
-    // this.isLoading = true;
-
     this.store.dispatch(new UpdateTourStart({
       tourId: this.tourId,
       typeOfExhibits,
@@ -58,10 +55,6 @@ export class TourEditComponent implements OnInit, OnDestroy {
       imageUrl,
       duration
     }));
-  }
-
-  onCloseAlert() {
-    this.error = '';
   }
 
   ngOnDestroy(): void {

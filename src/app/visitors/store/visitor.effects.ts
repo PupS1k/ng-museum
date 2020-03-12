@@ -1,22 +1,27 @@
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {catchError, map, switchMap, tap} from 'rxjs/operators';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {catchError, map, switchMap} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
 import {of} from 'rxjs';
 import {Visitor} from '../models/visitor.model';
 import {
   CREATE_VISITOR_START,
-  CREATE_VISITOR_SUCCESS, CreateVisitorStart, CreateVisitorSuccess, DELETE_VISITOR_START, DeleteVisitorStart, DeleteVisitorSuccess,
+  CreateVisitorStart,
+  CreateVisitorSuccess,
+  DELETE_VISITOR_START,
+  DeleteVisitorStart,
+  DeleteVisitorSuccess,
   FETCH_VISITOR_START,
   FETCH_VISITORS_START,
   FetchVisitorsSuccess,
   FetchVisitorStart,
-  FetchVisitorSuccess, UPDATE_VISITOR_START, UPDATE_VISITOR_SUCCESS, UpdateVisitorFail,
-  UpdateVisitorStart, UpdateVisitorSuccess
+  FetchVisitorSuccess,
+  UPDATE_VISITOR_START,
+  UpdateVisitorStart,
+  UpdateVisitorSuccess
 } from './visitor.actions';
-
-
+import {CatchMessageAlert} from '../../layout/store/layout.actions';
+import {handleError} from '../../layout/utils';
 
 
 @Injectable()
@@ -25,7 +30,10 @@ export class VisitorEffects {
   fetchVisitors = this.actions$.pipe(
     ofType(FETCH_VISITORS_START),
     switchMap(() => this.http.get<Visitor[]>('/visitor/visitors')
-      .pipe(map((visitors: Visitor[]) => new FetchVisitorsSuccess(visitors))))
+      .pipe(
+        map((visitors: Visitor[]) => new FetchVisitorsSuccess(visitors)),
+        catchError(err => of(new CatchMessageAlert({module: 'Visitor', message: handleError(err)})))
+      ))
   );
 
   @Effect()
@@ -33,7 +41,10 @@ export class VisitorEffects {
     ofType(FETCH_VISITOR_START),
     switchMap(
       (fetchVisitorStart: FetchVisitorStart) => this.http.get<Visitor>(`/visitor/visitors/${fetchVisitorStart.payload}`)
-        .pipe(map((visitor: Visitor) => new FetchVisitorSuccess(visitor))))
+        .pipe(
+          map((visitor: Visitor) => new FetchVisitorSuccess(visitor)),
+          catchError(err => of(new CatchMessageAlert({module: 'Visitor', message: handleError(err)})))
+        ))
   );
 
   @Effect()
@@ -46,7 +57,7 @@ export class VisitorEffects {
       )
         .pipe(
           map((visitor: Visitor) => new UpdateVisitorSuccess(visitor)),
-          catchError(this.handleError)
+          catchError(err => of(new CatchMessageAlert({module: 'Visitor', message: handleError(err)})))
         )
     )
   );
@@ -61,7 +72,7 @@ export class VisitorEffects {
       )
         .pipe(
           map(() => new DeleteVisitorSuccess(deleteVisitorStart.payload.visitorId)),
-          catchError(this.handleError)
+          catchError(err => of(new CatchMessageAlert({module: 'Visitor', message: handleError(err)})))
         )
     )
   );
@@ -76,35 +87,14 @@ export class VisitorEffects {
       )
         .pipe(
           map((visitor: Visitor) => new CreateVisitorSuccess(visitor)),
-          catchError(this.handleError)
+          catchError(err => of(new CatchMessageAlert({module: 'Visitor', message: handleError(err)})))
         )
     )
   );
 
-  handleError(errorRes: HttpErrorResponse) {
-    let errorMessage = 'An unknown error occurred!';
-
-    if (!errorRes.error || !errorRes.error.error) {
-      return of(new UpdateVisitorFail(errorMessage));
-    }
-
-    switch (errorRes.error.error.message) {
-      case 'EMAIL_EXISTS':
-        errorMessage = 'This email exists already';
-        break;
-      case 'EMAIL_NOT_FOUND':
-      case 'INVALID_PASSWORD':
-        errorMessage = 'Email or password is not correct';
-        break;
-    }
-
-    return of(new UpdateVisitorFail(errorMessage));
-  }
-
   constructor(
     private actions$: Actions,
     private http: HttpClient,
-    private router: Router
   ) {
   }
 }

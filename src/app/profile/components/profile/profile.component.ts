@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
 import {UpdateGuideStart} from '../../../guides/store/guide.actions';
-import {selectUserForm, selectUserId, selectUserIsGuide, selectUserIsVisitor} from '../../store/profile.selectors';
+import {selectFavouriteTours, selectUserForm, selectUserId, selectUserIsGuide, selectUserIsVisitor} from '../../store/profile.selectors';
 import {FormGroup} from '@angular/forms';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -12,6 +12,7 @@ import {
 } from '../../store/profile.actions';
 import {UpdateVisitorStart} from '../../../visitors/store/visitor.actions';
 import {Router} from '@angular/router';
+import {Tour} from '../../../tours/models/tour.model';
 
 @Component({
   selector: 'app-profile',
@@ -23,6 +24,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   userIsGuide: boolean;
   userIsVisitor = this.store.select(selectUserIsVisitor);
   userId: number;
+  tours: Tour[] = [];
   userForm: FormGroup;
 
   constructor(private store: Store<AppState>, private router: Router) {}
@@ -39,6 +41,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.store.select(state => selectUserIsGuide(state))
       .pipe(takeUntil(this.destroy$))
       .subscribe(isGuide => this.userIsGuide = isGuide);
+
+    this.store.select(selectFavouriteTours)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(tours => this.tours = tours);
   }
 
   onSubmit() {
@@ -66,11 +72,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
       this.store.dispatch(new UpdateVisitorStart({
         visitorId: this.userId,
-        username, password, age, fio, email}));
+        username, password, age, fio, email, tourEntitySet: this.tours}));
 
       this.store.dispatch(new FetchVisitorInfoSuccess({
         visitorId: this.userId,
-        username, password, age, fio, email}));
+        username, password, age, fio, email, tourEntitySet: this.tours}));
     }
   }
 

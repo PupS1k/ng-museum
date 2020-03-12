@@ -6,7 +6,6 @@ import {ExhibitDetailsComponent} from './components/exhibit-details/exhibit-deta
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {ExhibitsSharedModule} from './exhibits-shared.module';
-import {SharedModule} from '../shared/shared.module';
 import {ExhibitEditComponent} from './components/exhibit-edit/exhibit-edit.component';
 import {ExhibitEditPresentationComponent} from './components/exhibit-edit-presentation/exhibit-edit-presentation.component';
 import {ExhibitComponent} from './components/exhibit/exhibit.component';
@@ -23,7 +22,6 @@ import {ExhibitDetailsPresentationComponent} from './components/exhibit-details-
     ExhibitsRouting,
     ExhibitsSharedModule,
     ToursSharedModule,
-    SharedModule
   ],
   declarations: [
     ExhibitsComponent,

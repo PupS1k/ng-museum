@@ -5,8 +5,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {takeUntil} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
-import {createFormGuide} from '../../utils';
 import {ClearSelectedGuide, CreateGuideStart, UpdateGuideStart} from '../../store/guide.actions';
+import {selectFormGuide, selectGuideId, selectIsUpdateGuide} from '../../store/guide.selectors';
 
 @Component({
   selector: 'app-guide-edit',
@@ -16,11 +16,9 @@ import {ClearSelectedGuide, CreateGuideStart, UpdateGuideStart} from '../../stor
 export class GuideEditComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
   message: string;
-  isLoading = false;
 
   isUpdate: boolean;
   guideId: number;
-  isUserUpdate = false;
   guideForm: FormGroup;
 
   constructor(
@@ -31,22 +29,17 @@ export class GuideEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.store.select(state => state.guides.selectedGuide)
+    this.store.select(selectGuideId)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(guide => {
-        this.isUpdate = !!guide;
+      .subscribe(guideId => this.guideId = guideId);
 
-        if (guide) {
-          this.guideId = guide.guideId;
+    this.store.select(selectFormGuide)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(formGuide => this.guideForm = formGuide);
 
-          const userData = JSON.parse(localStorage.getItem('userData'));
-          if (userData) {
-            this.isUserUpdate = userData.name === guide.username;
-          }
-        }
-
-        this.guideForm = createFormGuide(guide);
-      });
+    this.store.select(selectIsUpdateGuide)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(isUpdate => this.isUpdate = isUpdate);
   }
 
   onSubmit() {
@@ -66,6 +59,7 @@ export class GuideEditComponent implements OnInit, OnDestroy {
         new CreateGuideStart({guideId: null, username, password, fio, age, experience, languages})
       );
     }
+
     this.router.navigate(['/guides']);
   }
 

@@ -7,18 +7,12 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 
 import {AppRouting} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {LayoutModule} from './layout/layout.module';
 import {CoreModule} from './core/core.module';
 import {appReducer} from './app.reducer';
 
 import {environment} from '../environments/environment';
 import {EffectsModule} from '@ngrx/effects';
-import {ExhibitEffects} from './exhibits/store/exhibit.effects';
-import {AuthEffects} from './auth/store/auth.effects';
-import {GuideEffects} from './guides/store/guide.effects';
-import {ProfileEffects} from './profile/store/profile.effects';
-import {VisitorEffects} from './visitors/store/visitor.effects';
-import {TourEffects} from './tours/store/tour.effects';
+import {LayoutModule} from './layout/layout.module';
 
 
 
@@ -34,7 +28,7 @@ import {TourEffects} from './tours/store/tour.effects';
     LayoutModule,
     CoreModule,
     StoreModule.forRoot(appReducer),
-    EffectsModule.forRoot([ExhibitEffects, AuthEffects, GuideEffects, ProfileEffects, VisitorEffects, TourEffects]),
+    EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({logOnly: environment.production})
   ],
   bootstrap: [AppComponent]

@@ -3,11 +3,11 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
+import {Store} from '@ngrx/store';
 
 import {Tour} from '../../../tours/models/tour.model';
-import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
-import {CloseErrorAlert, UpdateExhibitStart} from '../../store/exhibit.actions';
+import {UpdateExhibitStart} from '../../store/exhibit.actions';
 
 @Component({
   selector: 'app-exhibit-edit',
@@ -18,9 +18,6 @@ export class ExhibitEditComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
   exhibitId: number;
   tours: Tour[];
-  error = '';
-  isLoading = false;
-
   exhibitForm: FormGroup;
 
   constructor(
@@ -34,8 +31,6 @@ export class ExhibitEditComponent implements OnInit, OnDestroy {
     this.store.select('exhibits')
       .pipe(takeUntil(this.destroy$))
       .subscribe(exhibitsState => {
-        this.error = exhibitsState.errorMessage;
-        this.isLoading = exhibitsState.loading;
         if (exhibitsState.selectedExhibit) {
           this.exhibitId = exhibitsState.selectedExhibit.exhibitId;
           this.tours = exhibitsState.selectedExhibit.tourEntitySet;
@@ -70,10 +65,6 @@ export class ExhibitEditComponent implements OnInit, OnDestroy {
       imageUrl,
       tourEntitySet: this.tours
     }));
-  }
-
-  onCloseAlert() {
-    this.store.dispatch(new CloseErrorAlert());
   }
 
   ngOnDestroy(): void {

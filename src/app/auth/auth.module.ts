@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ReactiveFormsModule} from '@angular/forms';
-import {SharedModule} from '../shared/shared.module';
 import {LoginComponent} from './components/login/login.component';
 import {SignUpComponent} from './components/sign-up/sign-up.component';
 import {LoginPresentationComponent} from './components/login-presentation/login-presentation.component';
@@ -14,7 +13,6 @@ import {AuthSharedModule} from './auth-shared.module';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    SharedModule,
     RouterModule,
     AuthRouting,
     ExhibitsSharedModule,

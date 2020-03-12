@@ -1,12 +1,23 @@
-<app-create-user-presentation
-  *ngIf="userIsVisitor | async"
-  [userForm]="userForm"
-  (submitForm)="onSubmit()"
-  [isUpdate]="true"
-></app-create-user-presentation>
 <app-guide-edit-presentation
   *ngIf="userIsGuide"
   [guideForm]="userForm"
   [isUpdate]="true"
   (submitForm)="onSubmit()"
 ></app-guide-edit-presentation>
+<app-create-user-presentation
+  *ngIf="userIsVisitor | async"
+  [userForm]="userForm"
+  (submitForm)="onSubmit()"
+  [isUpdate]="true"
+></app-create-user-presentation>
+<div
+  *ngIf="(userIsVisitor | async) && !!tours.length"
+  class="col-xs-12 text-center favourite-tours"
+>
+  <span class="heading">Favourite Tours</span>
+  <app-tour-item
+    *ngFor="let tour of tours"
+    [tour]="tour"
+    [isGuide]="false"
+  ></app-tour-item>
+</div>

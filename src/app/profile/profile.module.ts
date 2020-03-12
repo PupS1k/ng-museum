@@ -4,8 +4,10 @@ import {RouterModule} from '@angular/router';
 import {ProfileRouting} from './profile-routing.module';
 import {VisitorsSharedModule} from '../visitors/visitors-shared.module';
 import {GuidesSharedModule} from '../guides/guides-shared.module';
-import { ProfileComponent } from './components/profile/profile.component';
+import {ProfileComponent} from './components/profile/profile.component';
 import {AuthSharedModule} from '../auth/auth-shared.module';
+import {ToursSharedModule} from '../tours/tours-shared.module';
+import {ProfileResolver} from './services/profile-resolver.service';
 
 
 @NgModule({
@@ -15,9 +17,11 @@ import {AuthSharedModule} from '../auth/auth-shared.module';
     ProfileRouting,
     VisitorsSharedModule,
     GuidesSharedModule,
-    AuthSharedModule
+    AuthSharedModule,
+    ToursSharedModule,
   ],
-  declarations: [ProfileComponent]
+  declarations: [ProfileComponent],
+  providers: [ProfileResolver]
 })
 export class ProfileModule {
 }

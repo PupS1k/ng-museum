@@ -7,7 +7,8 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../app.reducer';
 import {switchMap, take} from 'rxjs/operators';
 import {Actions, ofType} from '@ngrx/effects';
-import {FETCH_GUIDES_START, FETCH_GUIDES_SUCCESS, FetchGuidesStart} from '../store/guide.actions';
+import {FETCH_GUIDES_SUCCESS, FetchGuidesStart} from '../store/guide.actions';
+import {selectGuides} from '../store/guide.selectors';
 
 
 
@@ -17,7 +18,7 @@ export class GuidesResolver implements Resolve<Observable<Guide[]>> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
-    return this.store.select(store => store.guides.guides).pipe(
+    return this.store.select(selectGuides).pipe(
       take(1),
       switchMap(guides => {
         if (guides.length === 0) {

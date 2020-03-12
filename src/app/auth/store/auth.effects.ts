@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
 
@@ -16,12 +16,13 @@ import {
 } from './auth.actions';
 import {AuthService} from '../../core/services/auth.service';
 import {of} from 'rxjs';
-import {UpdateExhibitFail} from '../../exhibits/store/exhibit.actions';
 import {AppState} from '../../app.reducer';
 import {Store} from '@ngrx/store';
 import {UserData} from '../models/user-data.model';
 import {Visitor} from '../../visitors/models/visitor.model';
 import {ClearUserInfo, FetchGuideInfoStart, FetchVisitorInfoStart, SetProfileMode} from '../../profile/store/profile.actions';
+import {CatchMessageAlert} from '../../layout/store/layout.actions';
+import {handleError} from '../../layout/utils';
 
 
 export interface LoginResponseData {
@@ -81,7 +82,7 @@ export class AuthEffects {
 
             return new LoginSuccess({name: loginAction.payload.username, token: resData.access_token});
           }),
-          catchError(this.handleError)
+          catchError(err => of(new CatchMessageAlert({module: 'Auth', message: handleError(err)})))
         );
     })
   );
@@ -105,7 +106,7 @@ export class AuthEffects {
 
           return new FetchRole({isAdmin, isGuide, isVisitor});
         }),
-        catchError(this.handleError)
+        catchError(err => of(new CatchMessageAlert({module: 'Auth', message: handleError(err)})))
       )
     )
   );
@@ -156,7 +157,7 @@ export class AuthEffects {
     )
       .pipe(
         map((resData) => new SignUpSuccess({username: resData.username, password: resData.password})),
-        catchError(this.handleError)
+        catchError(err => of(new CatchMessageAlert({module: 'Auth', message: handleError(err)})))
       ))
   );
 
@@ -201,23 +202,5 @@ export class AuthEffects {
     }
   }
 
-  handleError(errorRes: HttpErrorResponse) {
-    let errorMessage = 'An unknown error occurred!';
 
-    if (!errorRes.error || !errorRes.error.error) {
-      return of(new UpdateExhibitFail(errorMessage));
-    }
-
-    switch (errorRes.error.error.message) {
-      case 'EMAIL_EXISTS':
-        errorMessage = 'This email exists already';
-        break;
-      case 'EMAIL_NOT_FOUND':
-      case 'INVALID_PASSWORD':
-        errorMessage = 'Email or password is not correct';
-        break;
-    }
-
-    return of(new UpdateExhibitFail(errorMessage));
-  }
 }

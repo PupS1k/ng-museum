@@ -1,9 +1,5 @@
-<app-alert *ngIf="error" [message]="error" (close)="onCloseAlert()"></app-alert>
 <div class="row">
-  <div *ngIf="isLoading">
-    <app-spinner></app-spinner>
-  </div>
-  <div class="col-xs-12" *ngIf="!isLoading">
+  <div class="col-xs-12">
     <app-create-user-presentation
       [userForm]="signUpForm"
       (submitForm)="onSubmit()"

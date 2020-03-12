@@ -12,5 +12,4 @@ export class VisitorsListComponent {
   visitors$ = this.store.select(selectVisitors);
 
   constructor(private store: Store<AppState>) {}
-
 }

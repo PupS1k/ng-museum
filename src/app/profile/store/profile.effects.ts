@@ -1,6 +1,6 @@
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {of} from 'rxjs';
 import {
@@ -17,6 +17,8 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../app.reducer';
 import {ChangeUsername} from '../../auth/store/auth.actions';
 import {UserData} from '../../auth/models/user-data.model';
+import {CatchMessageAlert} from '../../layout/store/layout.actions';
+import {handleError} from '../../layout/utils';
 
 
 @Injectable()
@@ -31,7 +33,7 @@ export class ProfileEffects {
     )
       .pipe(
         map(userInfo => new FetchVisitorInfoSuccess(userInfo)),
-        catchError(this.handleError)
+        catchError(err => of(new CatchMessageAlert({module: 'Profile', message: handleError(err)})))
       ))
   );
 
@@ -45,7 +47,7 @@ export class ProfileEffects {
     )
       .pipe(
         map(userInfo => new FetchGuideInfoSuccess(userInfo)),
-        catchError(this.handleError)
+        catchError(err => of(new CatchMessageAlert({module: 'Profile', message: handleError(err)})))
       ))
   );
 
@@ -68,27 +70,6 @@ export class ProfileEffects {
       localStorage.setItem('userData', JSON.stringify({...userData, name: userInfo.username}));
       this.store.dispatch(new ChangeUsername(userInfo.username));
     }
-  }
-
-
-  handleError(errorRes: HttpErrorResponse) {
-    let errorMessage = 'An unknown error occurred!';
-
-    if (!errorRes.error || !errorRes.error.error) {
-      return of(errorMessage);
-    }
-
-    switch (errorRes.error.error.message) {
-      case 'EMAIL_EXISTS':
-        errorMessage = 'This email exists already';
-        break;
-      case 'EMAIL_NOT_FOUND':
-      case 'INVALID_PASSWORD':
-        errorMessage = 'Email or password is not correct';
-        break;
-    }
-
-    console.log(errorMessage);
   }
 
   constructor(

@@ -18,10 +18,8 @@ import {CreateVisitorStart, UpdateVisitorStart} from '../../store/visitor.action
 export class VisitorEditComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
   error: string;
-  isLoading = false;
 
   isUpdate: boolean;
-  isUpdateUser = false;
   visitorId: number;
   visitorForm: FormGroup;
   tours?: Tour[] = [];
@@ -42,11 +40,6 @@ export class VisitorEditComponent implements OnInit, OnDestroy {
         if (visitorState.selectedVisitor) {
           this.visitorId = visitorState.selectedVisitor.visitorId;
           this.tours = visitorState.selectedVisitor.tourEntitySet;
-
-          const userData = JSON.parse(localStorage.getItem('userData'));
-          if (userData) {
-            this.isUpdateUser = userData.name === visitorState.selectedVisitor.username;
-          }
         }
 
         this.visitorForm = createFormVisitor(visitorState.selectedVisitor);
@@ -59,8 +52,6 @@ export class VisitorEditComponent implements OnInit, OnDestroy {
     const age = this.visitorForm.value.age;
     const fio = this.visitorForm.value.fio;
     const email = this.visitorForm.value.email;
-
-    this.isLoading = true;
 
     if (this.isUpdate) {
       this.store.dispatch(new UpdateVisitorStart({
@@ -82,11 +73,8 @@ export class VisitorEditComponent implements OnInit, OnDestroy {
         age
       }));
     }
-    this.router.navigate(['/visitors']);
-  }
 
-  onCloseAlert() {
-    this.error = '';
+    this.router.navigate(['/visitors']);
   }
 
   ngOnDestroy(): void {

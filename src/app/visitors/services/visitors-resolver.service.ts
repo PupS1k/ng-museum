@@ -8,6 +8,7 @@ import {Actions, ofType} from '@ngrx/effects';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../app.reducer';
 import {FETCH_VISITORS_SUCCESS, FetchVisitorsStart} from '../store/visitor.actions';
+import {selectVisitors} from '../store/visitor.selectors';
 
 
 @Injectable()
@@ -16,7 +17,7 @@ export class VisitorsResolver implements Resolve<Observable<Visitor[]>> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
-    return this.store.select(store => store.visitors.visitors).pipe(
+    return this.store.select(selectVisitors).pipe(
       take(1),
       switchMap(visitors => {
         if (!visitors.length) {

@@ -1,21 +1,23 @@
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {catchError, map, switchMap, tap} from 'rxjs/operators';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {catchError, map, switchMap} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {of} from 'rxjs';
 
 import {
-  CREATE_GUIDE_START, CREATE_GUIDE_SUCCESS, CreateGuideStart, CreateGuideSuccess,
+  CREATE_GUIDE_START, CreateGuideStart, CreateGuideSuccess,
   DELETE_GUIDE_START, DeleteGuideStart, DeleteGuideSuccess,
   FETCH_GUIDE_START, FETCH_GUIDES_START,
   FetchGuidesSuccess,
   FetchGuideStart,
   FetchGuideSuccess,
-  UPDATE_GUIDE_START, UPDATE_GUIDE_SUCCESS, UpdateGuideFail,
+  UPDATE_GUIDE_START,
   UpdateGuideStart, UpdateGuideSuccess
 } from './guide.actions';
 import {Guide} from '../models/guide.model';
+import {CatchMessageAlert} from '../../layout/store/layout.actions';
+import {handleError} from '../../layout/utils';
 
 
 
@@ -25,7 +27,10 @@ export class GuideEffects {
   fetchGuides = this.actions$.pipe(
     ofType(FETCH_GUIDES_START),
     switchMap(() => this.http.get<Guide[]>('/guide/guides')
-      .pipe(map((guides: Guide[]) => new FetchGuidesSuccess(guides))))
+      .pipe(
+        map((guides: Guide[]) => new FetchGuidesSuccess(guides)),
+        catchError(err => of(new CatchMessageAlert({module: 'Guide', message: handleError(err)})))
+      ))
   );
 
   @Effect()
@@ -33,7 +38,10 @@ export class GuideEffects {
     ofType(FETCH_GUIDE_START),
     switchMap(
       (fetchGuideStart: FetchGuideStart) => this.http.get<Guide>(`/guide/guides/${fetchGuideStart.payload}`)
-        .pipe(map((guide: Guide) => new FetchGuideSuccess(guide))))
+        .pipe(
+          map((guide: Guide) => new FetchGuideSuccess(guide)),
+          catchError(err => of(new CatchMessageAlert({module: 'Guide', message: handleError(err)})))
+        ))
   );
 
   @Effect()
@@ -46,7 +54,7 @@ export class GuideEffects {
       )
         .pipe(
           map((guide: Guide) => new UpdateGuideSuccess(guide)),
-          catchError(this.handleError)
+          catchError(err => of(new CatchMessageAlert({module: 'Guide', message: handleError(err)})))
         )
     )
   );
@@ -58,7 +66,7 @@ export class GuideEffects {
       (deleteGuideStart: DeleteGuideStart) => this.http.get<Guide>(`/guide/guides/delete/${deleteGuideStart.payload}`)
         .pipe(
           map(() => new DeleteGuideSuccess(deleteGuideStart.payload)),
-          catchError(this.handleError)
+          catchError(err => of(new CatchMessageAlert({module: 'Guide', message: handleError(err)})))
         )
     )
   );
@@ -73,31 +81,10 @@ export class GuideEffects {
       )
         .pipe(
           map((guide: Guide) => new CreateGuideSuccess(guide)),
-          catchError(this.handleError)
+          catchError(err => of(new CatchMessageAlert({module: 'Guide', message: handleError(err)})))
         )
     )
   );
-
-
-  handleError(errorRes: HttpErrorResponse) {
-    let errorMessage = 'An unknown error occurred!';
-
-    if (!errorRes.error || !errorRes.error.error) {
-      return of(new UpdateGuideFail(errorMessage));
-    }
-
-    switch (errorRes.error.error.message) {
-      case 'EMAIL_EXISTS':
-        errorMessage = 'This email exists already';
-        break;
-      case 'EMAIL_NOT_FOUND':
-      case 'INVALID_PASSWORD':
-        errorMessage = 'Email or password is not correct';
-        break;
-    }
-
-    return of(new UpdateGuideFail(errorMessage));
-  }
 
   constructor(
     private actions$: Actions,

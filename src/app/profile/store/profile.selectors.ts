@@ -25,6 +25,15 @@ export const selectVisitorInfo = createSelector(
   (state) => state.userVisitorInfo
 );
 
+export const selectFavouriteTours = createSelector(
+  selectVisitorInfo,
+  (visitor) => {
+    if (visitor) {
+      return visitor.tourEntitySet;
+    }
+  }
+);
+
 export const selectGuideInfo = createSelector(
   selectProfileState,
   (state) => state.userGuideInfo
