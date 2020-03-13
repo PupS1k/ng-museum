@@ -1,4 +1,4 @@
-import {HttpErrorResponse} from '@angular/common/http';
+import {HttpErrorResponse, HttpRequest} from '@angular/common/http';
 
 export function handleError(errorRes: HttpErrorResponse) {
   let errorMessage = 'An unknown error occurred!';
@@ -18,4 +18,8 @@ export function handleError(errorRes: HttpErrorResponse) {
   }
 
   return errorMessage;
+}
+
+export function decoratorRequestSpinner(req) {
+  return req.setHeader('no-spinner', 'true');
 }

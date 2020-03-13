@@ -6,10 +6,10 @@ import {Router} from '@angular/router';
 import {of} from 'rxjs';
 
 import {
-  ADD_FAVOURITE_TOUR_START, AddFavouriteTourStart, AddFavouriteTourSuccess,
+  ADD_FAVOURITE_TOUR_START, AddFavouriteTourSuccess,
   CheckFavouriteTourSuccess,
   DELETE_FAVOURITE_TOUR_START,
-  DeleteFavouriteTourStart, DeleteFavouriteTourSuccess,
+  DeleteFavouriteTourSuccess,
   FETCH_TOUR_START, FETCH_TOUR_SUCCESS,
   FETCH_TOURS_START,
   FetchExhibitsTourSuccess, FetchGuideTourSuccess,
@@ -40,7 +40,7 @@ export class TourEffects {
   @Effect()
   fetchTours = this.actions$.pipe(
     ofType(FETCH_TOURS_START),
-    switchMap(() => this.http.get<Tour[]>('/tor/tours')
+    switchMap(() => this.http.get<Tour[]>('/tour/tours')
       .pipe(
         map((tours: Tour[]) => new FetchToursSuccess(tours)),
         catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
