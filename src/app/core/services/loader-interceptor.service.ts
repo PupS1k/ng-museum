@@ -10,7 +10,7 @@ export class LoaderInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const isShowSpinner = !request.headers.get('no-spinner');
+    const isShowSpinner = !request.headers.get('no-spinner') && !this.loaderService.isShow;
     if (isShowSpinner) {
       this.loaderService.showSpinner();
     }

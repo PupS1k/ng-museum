@@ -1,9 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Tour} from '../../models/tour.model';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {selectTour} from '../../store/tour.selectors';
+import {selectExhibitsOfTour, selectGuideOfTour, selectIsTour, selectTour, selectVisitorsOfTour} from '../../store/tour.selectors';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
 import {UpdateTourStart} from '../../store/tour.actions';
@@ -15,10 +14,13 @@ import {UpdateTourStart} from '../../store/tour.actions';
 })
 export class TourEditComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
-  tour: Tour;
+  isTour$ = this.store.select(selectIsTour);
+  exhibits$ = this.store.select(selectExhibitsOfTour);
+  visitors$ = this.store.select(selectVisitorsOfTour);
+  guide$ = this.store.select(selectGuideOfTour);
   tourForm: FormGroup;
 
-  constructor(private store: Store<AppState>,) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.store.select(selectTour).pipe(takeUntil(this.destroy$))
@@ -50,6 +52,12 @@ export class TourEditComponent implements OnInit, OnDestroy {
       duration
     }));
   }
+
+  deleteExhibitFromTour() {
+    console.log('delete exhibit');
+    // this.store.dispatch(new DeleteExhibitFromTour());
+  }
+
 
   ngOnDestroy(): void {
     this.destroy$.next();

@@ -5,7 +5,6 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
 import {selectIsGuide} from '../../../auth/store/auth.selectors';
 import {selectExhibits} from '../../store/exhibits.selectors';
-import {selectIsEditTour} from '../../../tours/store/tour.selectors';
 
 @Component({
   selector: 'app-exhibit-list',

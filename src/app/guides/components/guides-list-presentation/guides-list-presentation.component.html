@@ -12,7 +12,7 @@
     [guide]="guide"
   ></app-guide-item>
 </ul>
-<div class="col-xs-12 text-center guides-list_btn">
+<div *ngIf="!isTour" class="col-xs-12 text-center guides-list_btn">
   <button class="btn btn-success" routerLink="create">Create Guide</button>
 </div>
 

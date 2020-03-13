@@ -11,11 +11,16 @@ export class ExhibitListPresentationComponent {
   @Input() exhibits: Exhibit[];
   @Input() showMode: string;
   @Input() isGuide: boolean;
+  @Input() isTour: boolean;
 
+  @Output() deleteExhibit = new EventEmitter();
   @Output() moveExhibits = new EventEmitter<void>();
 
   onMoveExhibits() {
     this.moveExhibits.emit();
   }
 
+  deleteFromTour() {
+    this.deleteExhibit.emit();
+  }
 }

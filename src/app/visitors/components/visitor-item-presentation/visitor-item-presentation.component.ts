@@ -9,11 +9,17 @@ import {Visitor} from '../../models/visitor.model';
 })
 export class VisitorItemPresentationComponent {
   @Input() visitor: Visitor;
+  @Input() isTour: boolean;
 
   @Output() deleteVisitor = new EventEmitter<void>();
+  @Output() deleteVisitorFromTour = new EventEmitter<void>();
 
   onDeleteVisitor() {
     this.deleteVisitor.emit();
+  }
+
+  onDeleteVisitorFromTour() {
+    this.deleteVisitorFromTour.emit();
   }
 
 }

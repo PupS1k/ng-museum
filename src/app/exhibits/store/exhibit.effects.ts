@@ -14,7 +14,7 @@ import {
   UPDATE_EXHIBIT_START, UPDATE_EXHIBIT_SUCCESS, UpdateExhibitStart, UpdateExhibitSuccess
 } from './exhibit.actions';
 import {Exhibit} from '../models/exhibit.model';
-import {CatchMessageAlert} from '../../layout/store/layout.actions';
+import {ShowMessage} from '../../layout/store/layout.actions';
 import {handleError} from '../../layout/utils';
 import {Action, Store} from '@ngrx/store';
 import {AppState} from '../../app.reducer';
@@ -30,7 +30,7 @@ export class ExhibitEffects {
     switchMap(() => this.http.get<Exhibit[]>('/exhibit/exhibits')
       .pipe(
         map((exhibits: Exhibit[]) => new FetchExhibitsSuccess(exhibits)),
-        catchError(err => of(new CatchMessageAlert({module: 'Exhibit', message: handleError(err)})))
+        catchError(err => of(new ShowMessage({module: 'Exhibit', message: handleError(err)})))
       ))
   );
 
@@ -41,7 +41,7 @@ export class ExhibitEffects {
       (fetchExhibitStart: FetchExhibitStart) => this.http.get<Exhibit>(`/exhibit/exhibits/${fetchExhibitStart.payload}`)
         .pipe(
           map((exhibit: Exhibit) => new FetchExhibitSuccess(exhibit)),
-          catchError(err => of(new CatchMessageAlert({module: 'Exhibit', message: handleError(err)})))
+          catchError(err => of(new ShowMessage({module: 'Exhibit', message: handleError(err)})))
         ))
   );
 
@@ -59,7 +59,7 @@ export class ExhibitEffects {
       )
         .pipe(
           map((exhibit: Exhibit) => new UpdateExhibitSuccess(exhibit)),
-          catchError(err => of(new CatchMessageAlert({module: 'Exhibit', message: handleError(err)})))
+          catchError(err => of(new ShowMessage({module: 'Exhibit', message: handleError(err)})))
         )
     )
   );

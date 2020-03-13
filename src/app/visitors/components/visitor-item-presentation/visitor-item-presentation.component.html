@@ -4,8 +4,11 @@
   <div class="col-xs-2"><span>{{ visitor.fio }}</span></div>
   <div class="col-xs-1"><span>{{ visitor.age }}</span></div>
   <div class="col-xs-2"><span>{{ visitor.email }}</span></div>
-  <div class="col-xs-2 col-xs-offset-1 btn-group">
+  <div *ngIf="!isTour" class="col-xs-2 col-xs-offset-1 btn-group">
     <a class="btn btn-primary" [routerLink]="[visitor.visitorId, 'edit']">Edit</a>
     <button class="btn btn-danger" (click)="onDeleteVisitor()">X</button>
+  </div>
+  <div *ngIf="isTour" class="col-xs-2 col-xs-offset-1 btn-group">
+    <button class="btn btn-danger" (click)="onDeleteVisitorFromTour()">Exclude</button>
   </div>
 </li>

@@ -5,8 +5,11 @@
   <div class="col-xs-1 text-center"><span>{{ guide.experience }}</span></div>
   <div class="col-xs-1 text-center"><span>{{ guide.age }}</span></div>
   <div class="col-xs-2 text-center"><span>{{ guide.languages }}</span></div>
-  <div class="col-xs-2 text-center">
+  <div *ngIf="!isTour" class="col-xs-2 text-center">
     <a class="btn btn-primary" [routerLink]="[guide.guideId, 'edit']">Edit</a>
     <button class="btn btn-danger" (click)="onDeleteGuide()">X</button>
+  </div>
+  <div *ngIf="isTour" class="col-xs-2 text-center">
+    <button class="btn btn-danger" (click)="onDeleteGuideFromTour()">Exclude</button>
   </div>
 </li>

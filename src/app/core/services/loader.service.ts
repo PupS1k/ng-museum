@@ -8,11 +8,15 @@ export class LoaderService {
   constructor(private store: Store<AppState>) {
   }
 
+  isShow = false;
+
   showSpinner() {
     this.store.dispatch(new ShowSpinner());
+    this.isShow = true;
   }
 
   hideSpinner() {
     this.store.dispatch(new HideSpinner());
+    this.isShow = false;
   }
 }

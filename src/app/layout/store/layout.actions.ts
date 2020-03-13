@@ -13,18 +13,18 @@ export class HideSpinner implements Action {
   readonly type = HIDE_SPINNER;
 }
 
-export class CatchMessageAlert implements Action {
+export class ShowMessage implements Action {
   readonly type = CATCH_MESSAGE_ALERT;
   constructor(public payload: {module: string, message: string}) {
   }
 }
 
-export class CloseMessageAlert implements Action {
+export class HideMessage implements Action {
   readonly type = CLOSE_MESSAGE_ALERT;
 }
 
 export type LayoutActions =
   | ShowSpinner
-  | CatchMessageAlert
-  | CloseMessageAlert
+  | ShowMessage
+  | HideMessage
   | HideSpinner;

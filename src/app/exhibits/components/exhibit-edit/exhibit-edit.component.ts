@@ -7,7 +7,7 @@ import {Store} from '@ngrx/store';
 
 import {AppState} from '../../../app.reducer';
 import {UpdateExhibitStart} from '../../store/exhibit.actions';
-import {selectExhibit, selectExhibitTours, selectIsEditExhibit} from '../../store/exhibits.selectors';
+import {selectExhibit, selectExhibitTours, selectIsExhibit} from '../../store/exhibits.selectors';
 
 @Component({
   selector: 'app-exhibit-edit',
@@ -17,7 +17,7 @@ import {selectExhibit, selectExhibitTours, selectIsEditExhibit} from '../../stor
 export class ExhibitEditComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
   tours$ = this.store.select(selectExhibitTours);
-  isEdit$ = this.store.select(selectIsEditExhibit);
+  isEdit$ = this.store.select(selectIsExhibit);
   exhibitForm: FormGroup;
 
   constructor(

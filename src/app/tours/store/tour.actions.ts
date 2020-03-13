@@ -1,11 +1,15 @@
 import {Action} from '@ngrx/store';
 import {Tour} from '../models/tour.model';
 import {Exhibit} from '../../exhibits/models/exhibit.model';
+import {Guide} from '../../guides/models/guide.model';
+import {Visitor} from '../../visitors/models/visitor.model';
 
 
 export const FETCH_TOURS_SUCCESS = '[Tour] Fetch Tours Success';
 export const FETCH_TOURS_START = '[Tour] Fetch Tours Start';
 export const FETCH_EXHIBITS_TOUR_SUCCESS = '[Tour] Fetch Exhibits Tour Success';
+export const FETCH_GUIDE_TOUR_SUCCESS = '[Tour] Fetch Guide Tour Success';
+export const FETCH_VISITORS_TOUR_SUCCESS = '[Tour] Fetch Visitors Tour Success';
 export const CLEAR_SELECTED_TOUR = '[Tour] Clear Selected Tour';
 export const FETCH_TOUR_START = '[Tour] Fetch Tour Start';
 export const FETCH_TOUR_SUCCESS = '[Tour] Fetch Tour Success';
@@ -48,6 +52,16 @@ export class FetchExhibitsTourSuccess implements Action {
   constructor(public payload: Exhibit[]) {}
 }
 
+export class FetchGuideTourSuccess implements Action {
+  readonly type = FETCH_GUIDE_TOUR_SUCCESS;
+  constructor(public payload: Guide) {}
+}
+
+export class FetchVisitorsTourSuccess implements Action {
+  readonly type = FETCH_VISITORS_TOUR_SUCCESS;
+  constructor(public payload: Visitor[]) {}
+}
+
 export class FetchToursSuccess implements Action {
   readonly type = FETCH_TOURS_SUCCESS;
   constructor(public payload: Tour[]) {}
@@ -83,6 +97,8 @@ export class UpdateTourSuccess implements Action {
 }
 
 export type TourActions =
+  | FetchVisitorsTourSuccess
+  | FetchGuideTourSuccess
   | ClearSelectedTour
   | DeleteFavouriteTourSuccess
   | AddFavouriteTourSuccess

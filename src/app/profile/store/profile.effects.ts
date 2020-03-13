@@ -17,7 +17,7 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../app.reducer';
 import {ChangeUsername} from '../../auth/store/auth.actions';
 import {UserData} from '../../auth/models/user-data.model';
-import {CatchMessageAlert} from '../../layout/store/layout.actions';
+import {ShowMessage} from '../../layout/store/layout.actions';
 import {handleError} from '../../layout/utils';
 
 
@@ -33,7 +33,7 @@ export class ProfileEffects {
     )
       .pipe(
         map(userInfo => new FetchVisitorInfoSuccess(userInfo)),
-        catchError(err => of(new CatchMessageAlert({module: 'Profile', message: handleError(err)})))
+        catchError(err => of(new ShowMessage({module: 'Profile', message: handleError(err)})))
       ))
   );
 
@@ -47,7 +47,7 @@ export class ProfileEffects {
     )
       .pipe(
         map(userInfo => new FetchGuideInfoSuccess(userInfo)),
-        catchError(err => of(new CatchMessageAlert({module: 'Profile', message: handleError(err)})))
+        catchError(err => of(new ShowMessage({module: 'Profile', message: handleError(err)})))
       ))
   );
 

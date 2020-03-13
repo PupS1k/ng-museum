@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
-import {selectExhibitsOfTour, selectIsFavouriteTour, selectTour} from '../../store/tour.selectors';
+import {selectExhibitsOfTour, selectIsFavouriteTour, selectIsTour, selectTour} from '../../store/tour.selectors';
 import {AddFavouriteTourStart, DeleteFavouriteTourStart} from '../../store/tour.actions';
+import {selectIsGuide} from '../../../auth/store/auth.selectors';
 
 @Component({
   selector: 'app-tour-details',
@@ -13,7 +14,8 @@ export class TourDetailsComponent {
   tour$ = this.store.select(selectTour);
   exhibits$ = this.store.select(selectExhibitsOfTour);
   isFavouriteTour$ = this.store.select(selectIsFavouriteTour);
-  isGuide$ = this.store.select(state => state.auth.isGuide);
+  isGuide$ = this.store.select(selectIsGuide);
+  isTour$ = this.store.select(selectIsTour);
 
   constructor(private store: Store<AppState>) {}
 

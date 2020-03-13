@@ -21,7 +21,7 @@ import {Store} from '@ngrx/store';
 import {UserData} from '../models/user-data.model';
 import {Visitor} from '../../visitors/models/visitor.model';
 import {ClearUserInfo, FetchGuideInfoStart, FetchVisitorInfoStart, SetProfileMode} from '../../profile/store/profile.actions';
-import {CatchMessageAlert} from '../../layout/store/layout.actions';
+import {ShowMessage} from '../../layout/store/layout.actions';
 import {handleError} from '../../layout/utils';
 
 
@@ -82,7 +82,7 @@ export class AuthEffects {
 
             return new LoginSuccess({name: loginAction.payload.username, token: resData.access_token});
           }),
-          catchError(err => of(new CatchMessageAlert({module: 'Auth', message: handleError(err)})))
+          catchError(err => of(new ShowMessage({module: 'Auth', message: handleError(err)})))
         );
     })
   );
@@ -106,7 +106,7 @@ export class AuthEffects {
 
           return new FetchRole({isAdmin, isGuide, isVisitor});
         }),
-        catchError(err => of(new CatchMessageAlert({module: 'Auth', message: handleError(err)})))
+        catchError(err => of(new ShowMessage({module: 'Auth', message: handleError(err)})))
       )
     )
   );
@@ -157,7 +157,7 @@ export class AuthEffects {
     )
       .pipe(
         map((resData) => new SignUpSuccess({username: resData.username, password: resData.password})),
-        catchError(err => of(new CatchMessageAlert({module: 'Auth', message: handleError(err)})))
+        catchError(err => of(new ShowMessage({module: 'Auth', message: handleError(err)})))
       ))
   );
 

@@ -20,7 +20,7 @@ import {
   UpdateVisitorStart,
   UpdateVisitorSuccess
 } from './visitor.actions';
-import {CatchMessageAlert} from '../../layout/store/layout.actions';
+import {ShowMessage} from '../../layout/store/layout.actions';
 import {handleError} from '../../layout/utils';
 import {UpdateGuideStart} from '../../guides/store/guide.actions';
 import {AppState} from '../../app.reducer';
@@ -38,7 +38,7 @@ export class VisitorEffects {
     switchMap(() => this.http.get<Visitor[]>('/visitor/visitors')
       .pipe(
         map((visitors: Visitor[]) => new FetchVisitorsSuccess(visitors)),
-        catchError(err => of(new CatchMessageAlert({module: 'Visitor', message: handleError(err)})))
+        catchError(err => of(new ShowMessage({module: 'Visitor', message: handleError(err)})))
       ))
   );
 
@@ -49,7 +49,7 @@ export class VisitorEffects {
       (fetchVisitorStart: FetchVisitorStart) => this.http.get<Visitor>(`/visitor/visitors/${fetchVisitorStart.payload}`)
         .pipe(
           map((visitor: Visitor) => new FetchVisitorSuccess(visitor)),
-          catchError(err => of(new CatchMessageAlert({module: 'Visitor', message: handleError(err)})))
+          catchError(err => of(new ShowMessage({module: 'Visitor', message: handleError(err)})))
         ))
   );
 
@@ -68,7 +68,7 @@ export class VisitorEffects {
         )
           .pipe(
             map((visitor: Visitor) => new UpdateVisitorSuccess(visitor)),
-            catchError(err => of(new CatchMessageAlert({module: 'Visitor', message: handleError(err)})))
+            catchError(err => of(new ShowMessage({module: 'Visitor', message: handleError(err)})))
           );
       }
     )
@@ -84,7 +84,7 @@ export class VisitorEffects {
       )
         .pipe(
           map(() => new DeleteVisitorSuccess(deleteVisitorStart.payload.visitorId)),
-          catchError(err => of(new CatchMessageAlert({module: 'Visitor', message: handleError(err)})))
+          catchError(err => of(new ShowMessage({module: 'Visitor', message: handleError(err)})))
         )
     )
   );
@@ -102,7 +102,7 @@ export class VisitorEffects {
       )
         .pipe(
           map((visitor: Visitor) => new CreateVisitorSuccess(visitor)),
-          catchError(err => of(new CatchMessageAlert({module: 'Visitor', message: handleError(err)})))
+          catchError(err => of(new ShowMessage({module: 'Visitor', message: handleError(err)})))
         )
     )
   );

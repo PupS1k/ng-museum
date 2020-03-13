@@ -9,4 +9,5 @@ import {Guide} from '../../models/guide.model';
 })
 export class GuidesListPresentationComponent {
   @Input() guides: Guide[];
+  @Input() isTour: boolean;
 }

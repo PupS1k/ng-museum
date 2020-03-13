@@ -1,4 +1,6 @@
 <app-guide-item-presentation
   [guide]="guide"
-  (deleteVisitor)="onDeleteGuide()"
+  [isTour]="isTour$ | async"
+  (deleteGuide)="onDeleteGuide()"
+  (deleteGuideFromTour)="onDeleteGuideFromTour()"
 ></app-guide-item-presentation>

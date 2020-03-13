@@ -9,11 +9,17 @@ import {Guide} from '../../models/guide.model';
 })
 export class GuideItemPresentationComponent {
   @Input() guide: Guide;
+  @Input() isTour: boolean;
 
-  @Output() deleteVisitor = new EventEmitter<void>();
+  @Output() deleteGuide = new EventEmitter<void>();
+  @Output() deleteGuideFromTour = new EventEmitter<void>();
 
   onDeleteGuide() {
-    this.deleteVisitor.emit();
+    this.deleteGuide.emit();
+  }
+
+  onDeleteGuideFromTour() {
+    this.deleteGuideFromTour.emit();
   }
 
 }

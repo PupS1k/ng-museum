@@ -9,4 +9,5 @@ import {Visitor} from '../../models/visitor.model';
 })
 export class VisitorsListPresentationComponent {
   @Input() visitors: Visitor[];
+  @Input() isTour: boolean;
 }

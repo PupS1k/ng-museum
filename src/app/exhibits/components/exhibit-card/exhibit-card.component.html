@@ -22,8 +22,8 @@
     >
       Edit
     </a>
-<!--    <button class="btn-danger btn" (click)="deleteFromTour()">-->
-<!--      Delete From Tour-->
-<!--    </button>-->
+    <button *ngIf="isTour" class="btn-danger btn" (click)="deleteFromTour()">
+      Delete From Tour
+    </button>
   </div>
 </div>

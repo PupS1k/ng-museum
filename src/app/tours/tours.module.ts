@@ -13,17 +13,21 @@ import {ToursResolver} from './service/tours-resolver.service';
 import {TourResolver} from './service/tour-resolver.service';
 import {TourDetailsPresentationComponent} from './components/tour-details-presentation/tour-details-presentation.component';
 import {ExhibitsSharedModule} from '../exhibits/exhibits-shared.module';
+import {GuidesModule} from '../guides/guides.module';
+import {VisitorsModule} from '../visitors/visitors.module';
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    RouterModule,
-    ToursRouting,
-    ToursSharedModule,
-    ExhibitsSharedModule
-  ],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        RouterModule,
+        ToursRouting,
+        ToursSharedModule,
+        ExhibitsSharedModule,
+        GuidesModule,
+        VisitorsModule
+    ],
   declarations: [
     TourComponent,
     TourDetailsComponent,

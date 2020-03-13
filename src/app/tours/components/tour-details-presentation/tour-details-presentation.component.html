@@ -34,11 +34,4 @@
       <a *ngIf="isGuide" routerLink="edit" class="btn btn-primary">Edit</a>
     </div>
   </div>
-  <div class="container text-center col-xs-12" *ngIf="exhibits">
-    <span class="heading-text" *ngIf="exhibits.length">Exhibits in tour</span>
-    <app-exhibit-item
-      *ngFor="let exhibit of exhibits"
-      [exhibit]="exhibit"
-    ></app-exhibit-item>
-  </div>
 </div>

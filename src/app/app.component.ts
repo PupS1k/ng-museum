@@ -3,7 +3,7 @@ import {AppState} from './app.reducer';
 import {Store} from '@ngrx/store';
 import {AutoLoginStart} from './auth/store/auth.actions';
 import {selectIsLoading, selectMessage} from './layout/store/layout.selectors';
-import {CloseMessageAlert} from './layout/store/layout.actions';
+import {HideMessage} from './layout/store/layout.actions';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +23,6 @@ export class AppComponent implements OnInit {
   }
 
   onCloseAlert() {
-    this.store.dispatch(new CloseMessageAlert());
+    this.store.dispatch(new HideMessage());
   }
 }

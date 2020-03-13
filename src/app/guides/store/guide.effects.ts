@@ -16,7 +16,7 @@ import {
   UpdateGuideStart, UpdateGuideSuccess
 } from './guide.actions';
 import {Guide} from '../models/guide.model';
-import {CatchMessageAlert} from '../../layout/store/layout.actions';
+import {ShowMessage} from '../../layout/store/layout.actions';
 import {handleError} from '../../layout/utils';
 import {UpdateExhibitStart} from '../../exhibits/store/exhibit.actions';
 import {AppState} from '../../app.reducer';
@@ -33,7 +33,7 @@ export class GuideEffects {
     switchMap(() => this.http.get<Guide[]>('/guide/guides')
       .pipe(
         map((guides: Guide[]) => new FetchGuidesSuccess(guides)),
-        catchError(err => of(new CatchMessageAlert({module: 'Guide', message: handleError(err)})))
+        catchError(err => of(new ShowMessage({module: 'Guide', message: handleError(err)})))
       ))
   );
 
@@ -44,7 +44,7 @@ export class GuideEffects {
       (fetchGuideStart: FetchGuideStart) => this.http.get<Guide>(`/guide/guides/${fetchGuideStart.payload}`)
         .pipe(
           map((guide: Guide) => new FetchGuideSuccess(guide)),
-          catchError(err => of(new CatchMessageAlert({module: 'Guide', message: handleError(err)})))
+          catchError(err => of(new ShowMessage({module: 'Guide', message: handleError(err)})))
         ))
   );
 
@@ -63,7 +63,7 @@ export class GuideEffects {
         )
           .pipe(
             map((guide: Guide) => new UpdateGuideSuccess(guide)),
-            catchError(err => of(new CatchMessageAlert({module: 'Guide', message: handleError(err)})))
+            catchError(err => of(new ShowMessage({module: 'Guide', message: handleError(err)})))
           );
       }
     )
@@ -76,7 +76,7 @@ export class GuideEffects {
       (deleteGuideStart: DeleteGuideStart) => this.http.get<Guide>(`/guide/guides/delete/${deleteGuideStart.payload}`)
         .pipe(
           map(() => new DeleteGuideSuccess(deleteGuideStart.payload)),
-          catchError(err => of(new CatchMessageAlert({module: 'Guide', message: handleError(err)})))
+          catchError(err => of(new ShowMessage({module: 'Guide', message: handleError(err)})))
         )
     )
   );
@@ -91,7 +91,7 @@ export class GuideEffects {
       )
         .pipe(
           map((guide: Guide) => new CreateGuideSuccess(guide)),
-          catchError(err => of(new CatchMessageAlert({module: 'Guide', message: handleError(err)})))
+          catchError(err => of(new ShowMessage({module: 'Guide', message: handleError(err)})))
         )
     )
   );

@@ -3,11 +3,11 @@ import {
   CHECK_FAVOURITE_TOUR_SUCCESS,
   CLEAR_SELECTED_TOUR,
   DELETE_FAVOURITE_TOUR_SUCCESS,
-  FETCH_EXHIBITS_TOUR_SUCCESS,
+  FETCH_EXHIBITS_TOUR_SUCCESS, FETCH_GUIDE_TOUR_SUCCESS,
   FETCH_TOUR_START,
   FETCH_TOUR_SUCCESS,
   FETCH_TOURS_START,
-  FETCH_TOURS_SUCCESS,
+  FETCH_TOURS_SUCCESS, FETCH_VISITORS_TOUR_SUCCESS,
   TourActions,
   UPDATE_TOUR_FAIL,
   UPDATE_TOUR_START,
@@ -15,11 +15,15 @@ import {
 } from './tour.actions';
 import {Tour} from '../models/tour.model';
 import {Exhibit} from '../../exhibits/models/exhibit.model';
+import {Guide} from '../../guides/models/guide.model';
+import {Visitor} from '../../visitors/models/visitor.model';
 
 
 export interface State {
   selectedTour: Tour;
   exhibitsOfTour: Exhibit[];
+  tourGuide: Guide;
+  tourVisitors: Visitor[];
   isFavouriteTour: boolean;
   tours: Tour[];
   isLoading: boolean;
@@ -28,6 +32,8 @@ export interface State {
 const initialState: State = {
   selectedTour: null,
   exhibitsOfTour: [],
+  tourGuide: null,
+  tourVisitors: [],
   isFavouriteTour: false,
   isLoading: false,
   tours: [],
@@ -40,7 +46,9 @@ export function tourReducer(state: State = initialState, action: TourActions) {
         ...state,
         exhibitsOfTour: [],
         selectedTour: null,
-        isFavouriteTour: false
+        isFavouriteTour: false,
+        tourGuide: null,
+        tourVisitors: []
       };
     }
     case DELETE_FAVOURITE_TOUR_SUCCESS: {
@@ -59,6 +67,18 @@ export function tourReducer(state: State = initialState, action: TourActions) {
       return {
         ...state,
         exhibitsOfTour: [...action.payload]
+      };
+    }
+    case FETCH_VISITORS_TOUR_SUCCESS: {
+      return {
+        ...state,
+        tourVisitors: [...action.payload]
+      };
+    }
+    case FETCH_GUIDE_TOUR_SUCCESS: {
+      return {
+        ...state,
+        tourGuide: {...action.payload}
       };
     }
     case CHECK_FAVOURITE_TOUR_SUCCESS: {

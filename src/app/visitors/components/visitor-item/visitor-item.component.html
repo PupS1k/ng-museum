@@ -1,5 +1,7 @@
 <app-visitor-item-presentation
   [visitor]="visitor"
+  [isTour]="isTour$ | async"
   (deleteVisitor)="onDeleteVisitor()"
+  (deleteVisitorFromTour)="onDeleteVisitorFromTour()"
 ></app-visitor-item-presentation>
 

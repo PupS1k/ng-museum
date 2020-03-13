@@ -10,7 +10,7 @@
     >
     <p class="description">{{ exhibit.description }}</p>
   </div>
-  <div class="btn-group text-center list-item_footer">
+  <div *ngIf="!isTour" class="btn-group text-center list-item_footer">
     <a
       class="btn btn-primary"
       role="link"

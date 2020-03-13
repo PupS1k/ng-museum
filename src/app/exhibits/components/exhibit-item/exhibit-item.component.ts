@@ -10,4 +10,5 @@ import {Exhibit} from '../../models/exhibit.model';
 export class ExhibitItemComponent {
   @Input() exhibit: Exhibit;
   @Input() isGuide: boolean;
+  @Input() isTour: boolean;
 }
