@@ -7,4 +7,12 @@
       (edit)="onSubmit()"
     ></app-exhibit-edit-presentation>
   </div>
+  <div class="container-fluid col-xs-12 footer-container" *ngIf="(tours$ | async)">
+    <span class="heading">Tours with the exhibit</span>
+    <app-tours-list-presentation
+      [tours]="tours$ | async"
+      [isEdit]="isEdit$ | async"
+      (deleteExhibit)="deleteFromTour()"
+    ></app-tours-list-presentation>
+  </div>
 </div>

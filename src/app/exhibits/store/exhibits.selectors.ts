@@ -23,3 +23,8 @@ export const selectExhibitTours = createSelector(
   selectExhibit,
   (exhibit) => exhibit.tourEntitySet
 );
+
+export const selectIsEditExhibit = createSelector(
+  selectExhibit,
+  (exhibit) => !!exhibit
+);

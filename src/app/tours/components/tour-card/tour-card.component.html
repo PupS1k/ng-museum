@@ -1,0 +1,29 @@
+<div class="col-xs-4 list-group-item card-item">
+  <div class="list-group-item-heading card-item_header text-center">
+    <span>{{ tour.theme }}</span>
+  </div>
+  <img
+    class="exhibit-img img-responsive center-block"
+    src="{{ tour.imageUrl }}"
+    alt="{{ tour.theme }}"
+  >
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <span class="heading">Duration: </span> <span>{{ tour.duration }}</span>
+    </div>
+    <div class="panel-body">
+      <span class="heading">Cost: </span> <span>{{ tour.cost }}</span>
+    </div>
+  </div>
+  <div class="btn-group card-item_btn-group text-center bottom">
+    <a
+      class="btn btn-primary"
+      [routerLink]="['/tours', tour.tourId]"
+    >
+      View
+    </a>
+    <button class="btn-danger btn" (click)="deleteFromTour()">
+      Delete From Tour
+    </button>
+  </div>
+</div>

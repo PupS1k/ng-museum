@@ -24,7 +24,10 @@ export const selectTourId = createSelector(
   }
 );
 
-
+export const selectIsEditTour = createSelector(
+  selectTour,
+  tour => !!tour
+);
 
 export const selectExhibitsOfTour = createSelector(
   selectToursState,

@@ -6,6 +6,7 @@ import {TourItemComponent} from './components/tour-item/tour-item.component';
 import {ToursListPresentationComponent} from './components/tours-list-presentation/tours-list-presentation.component';
 import {EffectsModule} from '@ngrx/effects';
 import {TourEffects} from './store/tour.effects';
+import {TourCardComponent} from './components/tour-card/tour-card.component';
 
 
 @NgModule({
@@ -18,11 +19,13 @@ import {TourEffects} from './store/tour.effects';
     ToursListComponent,
     ToursListPresentationComponent,
     TourItemComponent,
+    TourCardComponent
   ],
   exports: [
     ToursListComponent,
     ToursListPresentationComponent,
-    TourItemComponent
+    TourItemComponent,
+    TourCardComponent
   ]
 })
 export class ToursSharedModule {}
