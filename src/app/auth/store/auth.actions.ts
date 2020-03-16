@@ -58,8 +58,6 @@ export class FetchRole implements Action {
 export type AuthActions =
   | AutoLoginSuccess
   | ChangeUsername
-  | SignUpStart
   | FetchRole
   | Logout
-  | LoginSuccess
-  | LoginStart;
+  | LoginSuccess;

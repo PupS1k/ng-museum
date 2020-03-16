@@ -3,24 +3,24 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
 import {SignUpStart} from '../../store/auth.actions';
 import {createFormVisitor} from '../../../visitors/utils';
+import {VisitorForm} from '../../../visitors/models/visitor-form.model';
 
 @Component({
   selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss']
+  template: `
+    <app-visitor-edit-presentation
+      [userForm]="signUpForm"
+      (create)="onSubmit($event)"
+      [isUpdate]="false"
+    ></app-visitor-edit-presentation>
+  `
 })
 export class SignUpComponent {
   signUpForm = createFormVisitor(null);
 
   constructor(private store: Store<AppState>) {}
 
-  onSubmit() {
-    const username = this.signUpForm.value.name;
-    const password = this.signUpForm.value.password;
-    const age = this.signUpForm.value.age;
-    const fio = this.signUpForm.value.fio;
-    const email = this.signUpForm.value.email;
-
-    this.store.dispatch(new SignUpStart({username, password, age, fio, email}));
+  onSubmit(visitorFormData: VisitorForm) {
+    this.store.dispatch(new SignUpStart(visitorFormData));
   }
 }

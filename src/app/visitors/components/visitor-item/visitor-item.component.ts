@@ -7,11 +7,18 @@ import {selectIsTour} from '../../../tours/store/tour.selectors';
 
 @Component({
   selector: 'app-visitor-item',
-  templateUrl: './visitor-item.component.html',
-  styleUrls: ['./visitor-item.component.scss']
+  template: `
+    <app-visitor-item-presentation
+      [visitor]="visitor"
+      [isTour]="isTour$ | async"
+      (deleteVisitor)="onDeleteVisitor()"
+      (deleteVisitorFromTour)="onDeleteVisitorFromTour()"
+    ></app-visitor-item-presentation>
+  `
 })
 export class VisitorItemComponent {
   @Input() visitor: Visitor;
+
   isTour$ = this.store.select(selectIsTour);
 
   constructor(private store: Store<AppState>) { }

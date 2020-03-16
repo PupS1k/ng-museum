@@ -25,19 +25,16 @@ export function exhibitReducer(state: State = initialState, action: ExhibitActio
     case FETCH_EXHIBITS_SUCCESS:
       return {
         ...state,
-        exhibits: [...action.payload],
-        loading: false
+        exhibits: [...action.payload]
       };
     case FETCH_EXHIBIT_SUCCESS:
       return {
         ...state,
-        selectedExhibit: {...action.payload},
-        loading: false
+        selectedExhibit: {...action.payload}
       };
     case UPDATE_EXHIBIT_SUCCESS:
       return {
         ...state,
-        loading: false,
         exhibits: state.exhibits.map(exhibit => exhibit.exhibitId === action.payload.exhibitId ? action.payload : exhibit)
       };
     case UPDATE_EXHIBIT_START:
@@ -45,7 +42,6 @@ export function exhibitReducer(state: State = initialState, action: ExhibitActio
     case FETCH_EXHIBITS_START:
       return {
         ...state,
-        loading: true,
         errorMessage: ''
       };
     default:

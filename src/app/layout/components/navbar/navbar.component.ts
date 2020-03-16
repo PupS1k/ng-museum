@@ -7,8 +7,17 @@ import {selectIsAdmin, selectIsAuthenticated, selectIsGuide, selectIsVisitor, se
 
 @Component({
   selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  template: `
+    <app-navbar-presentation
+      [isGuide]="isGuide$ | async"
+      [isAdmin]="isAdmin$ | async"
+      [isVisitor]="isVisitor$ | async"
+      [isAuthenticated]="isAuthenticated$ | async"
+      [username]="username$ | async"
+      [profileMode]="profileMode$ | async"
+      (logout)="onLogout()"
+    ></app-navbar-presentation>
+  `
 })
 export class NavbarComponent {
   isAuthenticated$ = this.store.select(selectIsAuthenticated);

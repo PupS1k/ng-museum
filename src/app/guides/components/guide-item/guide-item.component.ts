@@ -7,11 +7,19 @@ import {selectIsTour} from '../../../tours/store/tour.selectors';
 
 @Component({
   selector: 'app-guide-item',
-  templateUrl: './guide-item.component.html',
-  styleUrls: ['./guide-item.component.scss']
+  template: `
+    <app-guide-item-presentation
+      [guide]="guide"
+      [isTour]="isTour$ | async"
+      (deleteGuide)="onDeleteGuide()"
+      (deleteGuideFromTour)="onDeleteGuideFromTour()"
+    ></app-guide-item-presentation>
+
+  `
 })
 export class GuideItemComponent {
   @Input() guide: Guide;
+
   isTour$ = this.store.select(selectIsTour);
 
   constructor(private store: Store<AppState>) { }

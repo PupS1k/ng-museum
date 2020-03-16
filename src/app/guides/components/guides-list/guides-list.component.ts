@@ -6,8 +6,11 @@ import {selectGuides} from '../../store/guide.selectors';
 
 @Component({
   selector: 'app-guides-list',
-  templateUrl: './guides-list.component.html',
-  styleUrls: ['./guides-list.component.scss']
+  template: `
+    <app-guides-list-presentation
+      [guides]="guides$ | async"
+    ></app-guides-list-presentation>
+  `
 })
 export class GuidesListComponent {
   guides$ = this.store.select(selectGuides);

@@ -3,10 +3,8 @@ import {
   AUTO_LOGIN_SUCCESS,
   CHANGE_USERNAME,
   FETCH_ROLE,
-  LOGIN_START,
   LOGIN_SUCCESS,
-  LOGOUT,
-  SIGN_UP_START
+  LOGOUT
 } from './auth.actions';
 
 
@@ -16,7 +14,6 @@ export interface State {
   isAdmin: boolean;
   isGuide: boolean;
   isVisitor: boolean;
-  isLoading: boolean;
 }
 
 const initialState: State =  {
@@ -24,20 +21,12 @@ const initialState: State =  {
   token: '',
   isAdmin: false,
   isGuide: false,
-  isVisitor: false,
-  isLoading: false
+  isVisitor: false
 };
 
 
 export function authReducer(state: State = initialState, action: AuthActions) {
   switch (action.type) {
-    case SIGN_UP_START:
-    case LOGIN_START: {
-      return {
-        ...state,
-        isLoading: true
-      };
-    }
     case AUTO_LOGIN_SUCCESS: {
       return {
         ...state,
@@ -60,8 +49,7 @@ export function authReducer(state: State = initialState, action: AuthActions) {
         ...state,
         isAdmin: action.payload.isAdmin,
         isGuide: action.payload.isGuide,
-        isVisitor: action.payload.isVisitor,
-        isLoading: false
+        isVisitor: action.payload.isVisitor
       };
     }
     case CHANGE_USERNAME: {

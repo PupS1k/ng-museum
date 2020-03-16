@@ -6,8 +6,13 @@ import {selectExhibit} from '../../store/exhibits.selectors';
 
 @Component({
   selector: 'app-exhibit-details',
-  templateUrl: './exhibit-details.component.html',
-  styleUrls: ['./exhibit-details.component.scss']
+  template: `
+    <app-exhibit-details-presentation
+      [exhibit]="exhibit$ | async"
+      [isGuide]="isGuide$ | async"
+      [isVisitor]="isVisitor$ | async"
+    ></app-exhibit-details-presentation>
+  `
 })
 export class ExhibitDetailsComponent {
   exhibit$ = this.store.select(selectExhibit);

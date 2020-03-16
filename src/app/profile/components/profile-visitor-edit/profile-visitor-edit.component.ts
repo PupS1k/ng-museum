@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {FetchVisitorInfoStart} from '../../store/profile.actions';
 import {UpdateVisitorStart} from '../../../visitors/store/visitor.actions';
 import {selectUserForm} from '../../store/profile.selectors';
 import {Store} from '@ngrx/store';

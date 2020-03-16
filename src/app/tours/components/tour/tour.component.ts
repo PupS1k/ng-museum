@@ -5,8 +5,7 @@ import {AppState} from '../../../app.reducer';
 
 @Component({
   selector: 'app-tour',
-  templateUrl: './tour.component.html',
-  styleUrls: ['./tour.component.scss']
+  template: `<router-outlet></router-outlet>`
 })
 export class TourComponent implements OnDestroy {
   constructor(private store: Store<AppState>) {

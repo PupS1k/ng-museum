@@ -4,13 +4,9 @@ import {
   CLEAR_SELECTED_TOUR,
   DELETE_FAVOURITE_TOUR_SUCCESS,
   FETCH_EXHIBITS_TOUR_SUCCESS, FETCH_GUIDE_TOUR_SUCCESS,
-  FETCH_TOUR_START,
   FETCH_TOUR_SUCCESS,
-  FETCH_TOURS_START,
   FETCH_TOURS_SUCCESS, FETCH_VISITORS_TOUR_SUCCESS,
   TourActions,
-  UPDATE_TOUR_FAIL,
-  UPDATE_TOUR_START,
   UPDATE_TOUR_SUCCESS,
 } from './tour.actions';
 import {Tour} from '../models/tour.model';
@@ -26,7 +22,6 @@ export interface State {
   tourVisitors: Visitor[];
   isFavouriteTour: boolean;
   tours: Tour[];
-  isLoading: boolean;
 }
 
 const initialState: State = {
@@ -35,7 +30,6 @@ const initialState: State = {
   tourGuide: null,
   tourVisitors: [],
   isFavouriteTour: false,
-  isLoading: false,
   tours: [],
 };
 
@@ -90,33 +84,17 @@ export function tourReducer(state: State = initialState, action: TourActions) {
     case FETCH_TOURS_SUCCESS:
       return {
         ...state,
-        tours: [...action.payload],
-        isLoading: false
+        tours: [...action.payload]
       };
     case FETCH_TOUR_SUCCESS:
       return {
         ...state,
-        selectedTour: {...action.payload},
-        isLoading: false
+        selectedTour: {...action.payload}
       };
     case UPDATE_TOUR_SUCCESS:
       return {
         ...state,
-        isLoading: false,
         tours: state.tours.map(tour => tour.tourId === action.payload.tourId ? action.payload : tour)
-      };
-    case UPDATE_TOUR_FAIL:
-      return {
-        ...state,
-        isLoading: false
-      };
-    case UPDATE_TOUR_START:
-    case FETCH_TOUR_START:
-    case FETCH_TOURS_START:
-      return {
-        ...state,
-        isLoading: true,
-        errorMessage: ''
       };
     default:
       return state;

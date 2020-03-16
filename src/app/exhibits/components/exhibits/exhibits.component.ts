@@ -2,9 +2,10 @@ import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-exhibits',
-  templateUrl: './exhibits.component.html',
-  styleUrls: ['./exhibits.component.scss']
+  template: `
+    <app-exhibit-list
+      [showMode]="'list'"
+    ></app-exhibit-list>
+  `
 })
-export class ExhibitsComponent {
-
-}
+export class ExhibitsComponent {}

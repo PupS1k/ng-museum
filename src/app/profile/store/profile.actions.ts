@@ -22,7 +22,7 @@ export class ClearUserInfo implements Action {
 
 export class FetchVisitorInfoStart implements Action {
   readonly type = FETCH_VISITOR_INFO_START;
-  constructor(public payload: string) {}
+  constructor(public payload?: string) {}
 }
 
 export class FetchVisitorInfoSuccess implements Action {
@@ -32,7 +32,7 @@ export class FetchVisitorInfoSuccess implements Action {
 
 export class FetchGuideInfoStart implements Action {
   readonly type = FETCH_GUIDE_INFO_START;
-  constructor(public payload: string) {}
+  constructor(public payload?: string) {}
 }
 
 export class FetchGuideInfoSuccess implements Action {

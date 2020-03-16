@@ -128,10 +128,6 @@ export type TourActions =
   | AddFavouriteTourSuccess
   | FetchToursSuccess
   | FetchTourSuccess
-  | UpdateTourFail
-  | UpdateTourStart
   | UpdateTourSuccess
   | CheckFavouriteTourSuccess
-  | FetchExhibitsTourSuccess
-  | FetchToursStart
-  | FetchTourStart;
+  | FetchExhibitsTourSuccess;

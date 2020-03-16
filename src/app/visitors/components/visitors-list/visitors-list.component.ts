@@ -5,8 +5,11 @@ import {selectVisitors} from '../../store/visitor.selectors';
 
 @Component({
   selector: 'app-visitors-list',
-  templateUrl: './visitors-list.component.html',
-  styleUrls: ['./visitors-list.component.scss']
+  template: `
+    <app-visitors-list-presentation
+      [visitors]="visitors$ | async"
+    ></app-visitors-list-presentation>
+  `
 })
 export class VisitorsListComponent {
   visitors$ = this.store.select(selectVisitors);

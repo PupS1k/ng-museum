@@ -7,8 +7,17 @@ import {selectIsGuide} from '../../../auth/store/auth.selectors';
 
 @Component({
   selector: 'app-tour-details',
-  templateUrl: './tour-details.component.html',
-  styleUrls: ['./tour-details.component.scss']
+  template: `
+    <app-tour-details-presentation
+      [tour]="tour$ | async"
+      [exhibits]="exhibits$ | async"
+      [isFavouriteTour]="isFavouriteTour$ | async"
+      [isGuide]="isGuide$ | async"
+      (delete)="onDeleteTourFromFavourites()"
+      (add)="onAddTourIntoFavourites()"
+      [isTour]="isTour$ | async"
+    ></app-tour-details-presentation>
+  `
 })
 export class TourDetailsComponent {
   tour$ = this.store.select(selectTour);

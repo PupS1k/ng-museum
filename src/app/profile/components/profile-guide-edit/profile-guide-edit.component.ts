@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {UpdateGuideStart} from '../../../guides/store/guide.actions';
-import {FetchGuideInfoStart, FetchGuideInfoSuccess} from '../../store/profile.actions';
-import {selectGuideInfo, selectUserForm, selectUserId} from '../../store/profile.selectors';
+import {selectUserForm} from '../../store/profile.selectors';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
 import {GuideForm} from '../../../guides/models/guide-form.model';

@@ -1,11 +1,11 @@
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {catchError, map, switchMap, tap, withLatestFrom} from 'rxjs/operators';
+import {catchError, map, switchMap, withLatestFrom} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {of} from 'rxjs';
 import {
-  FETCH_GUIDE_INFO_START, FETCH_GUIDE_INFO_SUCCESS,
-  FETCH_VISITOR_INFO_START, FETCH_VISITOR_INFO_SUCCESS,
+  FETCH_GUIDE_INFO_START,
+  FETCH_VISITOR_INFO_START,
   FetchGuideInfoStart,
   FetchGuideInfoSuccess,
   FetchVisitorInfoStart,
@@ -13,13 +13,10 @@ import {
 } from './profile.actions';
 import {Guide} from '../../guides/models/guide.model';
 import {Visitor} from '../../visitors/models/visitor.model';
-import {Action, Store} from '@ngrx/store';
+import {Store} from '@ngrx/store';
 import {AppState} from '../../app.reducer';
-import {ChangeUsername} from '../../auth/store/auth.actions';
-import {UserData} from '../../auth/models/user-data.model';
 import {ShowMessage} from '../../layout/store/layout.actions';
 import {handleError} from '../../layout/utils';
-import {UpdateVisitorStart} from '../../visitors/store/visitor.actions';
 import {selectUsername} from '../../auth/store/auth.selectors';
 
 

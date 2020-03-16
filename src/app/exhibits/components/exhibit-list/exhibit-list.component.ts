@@ -8,8 +8,15 @@ import {selectExhibits} from '../../store/exhibits.selectors';
 
 @Component({
   selector: 'app-exhibit-list',
-  templateUrl: './exhibit-list.component.html',
-  styleUrls: ['./exhibit-list.component.scss']
+  template: `
+    <app-exhibit-list-presentation
+      [exhibits]="exhibits$ | async"
+      [showMode]="showMode"
+      [isGuide]="isGuide$ | async"
+      (moveExhibits)="onNavigateExhibits()"
+    ></app-exhibit-list-presentation>
+
+  `
 })
 export class ExhibitListComponent {
   exhibits$ = this.store.select(selectExhibits);

@@ -13,6 +13,7 @@ export class TourDetailsPresentationComponent {
   @Input() exhibits: Exhibit[] = null;
   @Input() isFavouriteTour: boolean;
   @Input() isGuide: boolean;
+  @Input() isTour: boolean;
 
   @Output() delete = new EventEmitter<void>();
   @Output() add = new EventEmitter<void>();

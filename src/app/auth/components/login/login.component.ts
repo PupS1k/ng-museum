@@ -7,8 +7,12 @@ import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  template: `
+    <app-login-presentation
+      [loginForm]="loginForm"
+      (submitLoginForm)="onSubmit()"
+    ></app-login-presentation>
+  `
 })
 export class LoginComponent {
   loginForm = new FormGroup({

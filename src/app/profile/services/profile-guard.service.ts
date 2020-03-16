@@ -3,7 +3,7 @@ import {AppState} from '../../app.reducer';
 import {Actions, ofType} from '@ngrx/effects';
 import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
-import {map, switchMap} from 'rxjs/operators';
+import {map, switchMap, take} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {selectProfileMode} from '../store/profile.selectors';
 import {FETCH_GUIDE_INFO_SUCCESS, FETCH_VISITOR_INFO_SUCCESS, FetchGuideInfoStart, FetchVisitorInfoStart} from '../store/profile.actions';
@@ -16,6 +16,7 @@ export class ProfileGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.store.pipe(
+      take(1),
       switchMap((store) => {
         if (selectProfileMode(store) === 'visitor') {
           this.store.dispatch(new FetchVisitorInfoStart(selectUsername(store)));
