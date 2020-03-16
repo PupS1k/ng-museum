@@ -1,56 +1,36 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subject} from 'rxjs';
-import {FormGroup} from '@angular/forms';
+import {Component, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
-import {takeUntil} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
 import {ClearSelectedGuide, CreateGuideStart, UpdateGuideStart} from '../../store/guide.actions';
 import {selectFormGuide, selectIsUpdateGuide} from '../../store/guide.selectors';
+import {GuideForm} from '../../models/guide-form.model';
 
 @Component({
   selector: 'app-guide-edit',
-  templateUrl: './guide-edit.component.html',
-  styleUrls: ['./guide-edit.component.scss']
-})
-export class GuideEditComponent implements OnInit, OnDestroy {
-  destroy$ = new Subject();
+  template: `
+    <app-guide-edit-presentation
+      [guideForm]="guideForm$ | async"
+      [isUpdate]="isUpdate$ | async"
+      (submitForm)="onSubmit($event)"
+    ></app-guide-edit-presentation>
 
-  isUpdate: boolean;
-  guideForm: FormGroup;
+  `
+})
+export class GuideEditComponent implements OnDestroy {
+  isUpdate$ = this.store.select(selectIsUpdateGuide);
+  guideForm$ = this.store.select(selectFormGuide);
 
   constructor(
     private router: Router,
     private store: Store<AppState>
-  ) {
-  }
+  ) {}
 
-  ngOnInit(): void {
-    this.store.select(selectFormGuide)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(formGuide => this.guideForm = formGuide);
-
-    this.store.select(selectIsUpdateGuide)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(isUpdate => this.isUpdate = isUpdate);
-  }
-
-  onSubmit() {
-    const username = this.guideForm.value.name;
-    const password = this.guideForm.value.password;
-    const experience = this.guideForm.value.experience;
-    const age = this.guideForm.value.age;
-    const fio = this.guideForm.value.fio;
-    const languages = this.guideForm.value.languages;
-
-    if (this.isUpdate) {
-      this.store.dispatch(
-        new UpdateGuideStart({guideId: null, username, password, fio, age, experience, languages})
-      );
+  onSubmit(guideFormDate: GuideForm) {
+    if (guideFormDate.isUpdate) {
+      this.store.dispatch(new UpdateGuideStart(guideFormDate.guide));
     } else {
-      this.store.dispatch(
-        new CreateGuideStart({username, password, fio, age, experience, languages})
-      );
+      this.store.dispatch(new CreateGuideStart(guideFormDate.guide));
     }
 
     this.router.navigate(['/guides']);
@@ -58,7 +38,5 @@ export class GuideEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.store.dispatch(new ClearSelectedGuide());
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }

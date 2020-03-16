@@ -44,7 +44,7 @@ export class CreateGuideSuccess implements Action {
 
 export class CreateGuideStart implements Action {
   readonly type = CREATE_GUIDE_START;
-  constructor(public payload: Omit<Guide, 'guideId'>) {}
+  constructor(public payload: Guide) {}
 }
 
 export class FetchGuideSuccess implements Action {
