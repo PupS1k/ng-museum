@@ -11,7 +11,8 @@ export class GuideEditPresentationComponent {
   @Input() guideForm: FormGroup;
   @Input() isUpdate: boolean;
 
-  @Output() submitForm = new EventEmitter<GuideForm>();
+  @Output() create = new EventEmitter<GuideForm>();
+  @Output() update = new EventEmitter<GuideForm>();
 
   onSubmit() {
     const username = this.guideForm.value.name;
@@ -21,13 +22,10 @@ export class GuideEditPresentationComponent {
     const fio = this.guideForm.value.fio;
     const languages = this.guideForm.value.languages;
 
-    this.submitForm.emit(
-      {
-        guide: {
-          guideId: null, username, password, fio, age, experience, languages
-        },
-        isUpdate: this.isUpdate
-      }
-    );
+    if (this.isUpdate) {
+      this.update.emit({username, password, fio, age, experience, languages});
+    } else {
+      this.create.emit({username, password, fio, age, experience, languages});
+    }
   }
 }

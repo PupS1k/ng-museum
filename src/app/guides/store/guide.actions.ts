@@ -1,5 +1,6 @@
 import {Action} from '@ngrx/store';
 import {Guide} from '../models/guide.model';
+import {GuideForm} from '../models/guide-form.model';
 
 
 export const FETCH_GUIDES_SUCCESS = '[Guide] Fetch Guides Success';
@@ -44,7 +45,7 @@ export class CreateGuideSuccess implements Action {
 
 export class CreateGuideStart implements Action {
   readonly type = CREATE_GUIDE_START;
-  constructor(public payload: Guide) {}
+  constructor(public payload: GuideForm) {}
 }
 
 export class FetchGuideSuccess implements Action {
@@ -58,7 +59,7 @@ export class FetchGuideStart implements Action {
 }
 export class UpdateGuideStart implements Action {
   readonly type = UPDATE_GUIDE_START;
-  constructor(public payload: Guide) {}
+  constructor(public payload: GuideForm) {}
 }
 
 export class UpdateGuideSuccess implements Action {

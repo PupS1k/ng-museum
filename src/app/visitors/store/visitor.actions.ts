@@ -1,5 +1,6 @@
 import {Action} from '@ngrx/store';
 import {Visitor} from '../models/visitor.model';
+import {VisitorForm} from '../models/visitor-form.model';
 
 
 export const FETCH_VISITORS_SUCCESS = '[Visitor] Fetch Visitors Success';
@@ -59,7 +60,7 @@ export class FetchVisitorStart implements Action {
 
 export class UpdateVisitorStart implements Action {
   readonly type = UPDATE_VISITOR_START;
-  constructor(public payload: Visitor) {}
+  constructor(public payload: VisitorForm) {}
 }
 
 export class UpdateVisitorSuccess implements Action {

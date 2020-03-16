@@ -1,6 +1,7 @@
-import {Guide} from './guide.model';
+import {SubUser} from '../../auth/models/sub-user.model';
 
-export interface GuideForm {
-  guide: Guide;
-  isUpdate: boolean;
+export interface GuideForm extends SubUser {
+  guideId?: number;
+  experience: number;
+  languages: string;
 }

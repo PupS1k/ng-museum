@@ -5,6 +5,7 @@ import {AppState} from '../../../app.reducer';
 import {ClearSelectedGuide, CreateGuideStart, UpdateGuideStart} from '../../store/guide.actions';
 import {selectFormGuide, selectIsUpdateGuide} from '../../store/guide.selectors';
 import {GuideForm} from '../../models/guide-form.model';
+import {selectUserId} from '../../../profile/store/profile.selectors';
 
 @Component({
   selector: 'app-guide-edit',
@@ -12,7 +13,8 @@ import {GuideForm} from '../../models/guide-form.model';
     <app-guide-edit-presentation
       [guideForm]="guideForm$ | async"
       [isUpdate]="isUpdate$ | async"
-      (submitForm)="onSubmit($event)"
+      (create)="onCreate($event)"
+      (update)="onUpdate($event)"
     ></app-guide-edit-presentation>
 
   `
@@ -24,15 +26,17 @@ export class GuideEditComponent implements OnDestroy {
   constructor(
     private router: Router,
     private store: Store<AppState>
-  ) {}
+  ) {
+  }
 
-  onSubmit(guideFormDate: GuideForm) {
-    if (guideFormDate.isUpdate) {
-      this.store.dispatch(new UpdateGuideStart(guideFormDate.guide));
-    } else {
-      this.store.dispatch(new CreateGuideStart(guideFormDate.guide));
-    }
 
+  onCreate(guideFormData: GuideForm) {
+    this.store.dispatch(new CreateGuideStart(guideFormData));
+    this.router.navigate(['/guides']);
+  }
+
+  onUpdate(guideFormData: GuideForm) {
+    this.store.dispatch(new UpdateGuideStart(guideFormData));
     this.router.navigate(['/guides']);
   }
 

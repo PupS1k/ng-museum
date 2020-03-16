@@ -8,6 +8,9 @@ import {AuthSharedModule} from '../auth/auth-shared.module';
 import {ToursSharedModule} from '../tours/tours-shared.module';
 import {ProfileResolver} from './services/profile-resolver.service';
 import {GuidesSharedModule} from '../guides/guides-shared.module';
+import { ProfilePresentationComponent } from './components/profile-presentation/profile-presentation.component';
+import { ProfileVisitorEditComponent } from './components/profile-visitor-edit/profile-visitor-edit.component';
+import { ProfileGuideEditComponent } from './components/profile-guide-edit/profile-guide-edit.component';
 
 
 @NgModule({
@@ -20,7 +23,12 @@ import {GuidesSharedModule} from '../guides/guides-shared.module';
     AuthSharedModule,
     ToursSharedModule,
   ],
-  declarations: [ProfileComponent],
+  declarations: [
+    ProfileComponent,
+    ProfilePresentationComponent,
+    ProfileVisitorEditComponent,
+    ProfileGuideEditComponent
+  ],
   providers: [ProfileResolver]
 })
 export class ProfileModule {

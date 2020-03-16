@@ -1,5 +1,5 @@
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {catchError, map, switchMap, tap} from 'rxjs/operators';
+import {catchError, map, switchMap, tap, withLatestFrom} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {of} from 'rxjs';
@@ -13,22 +13,25 @@ import {
 } from './profile.actions';
 import {Guide} from '../../guides/models/guide.model';
 import {Visitor} from '../../visitors/models/visitor.model';
-import {Store} from '@ngrx/store';
+import {Action, Store} from '@ngrx/store';
 import {AppState} from '../../app.reducer';
 import {ChangeUsername} from '../../auth/store/auth.actions';
 import {UserData} from '../../auth/models/user-data.model';
 import {ShowMessage} from '../../layout/store/layout.actions';
 import {handleError} from '../../layout/utils';
+import {UpdateVisitorStart} from '../../visitors/store/visitor.actions';
+import {selectUsername} from '../../auth/store/auth.selectors';
 
 
 @Injectable()
 export class ProfileEffects {
   @Effect()
-  fetchUserInfo = this.actions$.pipe(
+  fetchVisitorInfo = this.actions$.pipe(
     ofType(FETCH_VISITOR_INFO_START),
-    switchMap((fetchVisitorInfo: FetchVisitorInfoStart) => this.http.post<Visitor>(
+    withLatestFrom(this.store),
+    switchMap(([fetchVisitorInfo, state]: [FetchVisitorInfoStart, AppState]) => this.http.post<Visitor>(
       'visitor/visitors/getByUsername',
-      JSON.stringify(fetchVisitorInfo.payload),
+      JSON.stringify(fetchVisitorInfo.payload || selectUsername(state)),
       {headers: {'Content-Type': 'application/json'}}
     )
       .pipe(
@@ -40,9 +43,10 @@ export class ProfileEffects {
   @Effect()
   fetchGuideInfo = this.actions$.pipe(
     ofType(FETCH_GUIDE_INFO_START),
-    switchMap((fetchGuideInfo: FetchGuideInfoStart) => this.http.post<Guide>(
+    withLatestFrom(this.store),
+    switchMap(([fetchGuideInfo, state]: [FetchGuideInfoStart, AppState]) => this.http.post<Guide>(
       'guide/guides/getByUsername',
-      JSON.stringify(fetchGuideInfo.payload),
+      JSON.stringify(fetchGuideInfo.payload || selectUsername(state)),
       {headers: {'Content-Type': 'application/json'}}
     )
       .pipe(
@@ -50,27 +54,6 @@ export class ProfileEffects {
         catchError(err => of(new ShowMessage({module: 'Profile', message: handleError(err)})))
       ))
   );
-
-  @Effect({dispatch: false})
-  updateVisitorInfo = this.actions$.pipe(
-    ofType(FETCH_VISITOR_INFO_SUCCESS),
-    map((fetchVisitorInfo: FetchVisitorInfoSuccess) => this.updateUserData(fetchVisitorInfo.payload))
-  );
-
-  @Effect({dispatch: false})
-  updateGuideInfo = this.actions$.pipe(
-    ofType(FETCH_GUIDE_INFO_SUCCESS),
-    tap((fetchGuideInfo: FetchGuideInfoSuccess) => this.updateUserData(fetchGuideInfo.payload))
-  );
-
-
-  updateUserData(userInfo) {
-    const userData: UserData = JSON.parse(localStorage.getItem('userData'));
-    if (userData.name !== userInfo.username) {
-      localStorage.setItem('userData', JSON.stringify({...userData, name: userInfo.username}));
-      this.store.dispatch(new ChangeUsername(userInfo.username));
-    }
-  }
 
   constructor(
     private actions$: Actions,

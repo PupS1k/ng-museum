@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormGroup} from '@angular/forms';
+import {VisitorForm} from '../../../visitors/models/visitor-form.model';
 
 @Component({
   selector: 'app-create-user-presentation',
@@ -10,10 +11,18 @@ import {FormGroup} from '@angular/forms';
 export class CreateUserPresentationComponent {
   @Input() userForm: FormGroup;
   @Input() isUpdate: boolean;
-  @Output() submitForm = new EventEmitter<void>();
+  @Output() submitForm = new EventEmitter<VisitorForm>();
 
   onSubmit() {
-    this.submitForm.emit();
+    const username = this.userForm.value.name;
+    const password = this.userForm.value.password;
+    const age = this.userForm.value.age;
+    const fio = this.userForm.value.fio;
+    const email = this.userForm.value.email;
+
+    this.submitForm.emit({
+      username, password, age, fio, email
+    });
   }
 
 }

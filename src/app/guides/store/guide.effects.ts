@@ -20,6 +20,7 @@ import {handleError} from '../../layout/utils';
 import {AppState} from '../../app.reducer';
 import {Store} from '@ngrx/store';
 import {selectGuideId} from './guide.selectors';
+import {selectUserId} from '../../profile/store/profile.selectors';
 
 
 
@@ -51,7 +52,7 @@ export class GuideEffects {
     ofType(UPDATE_GUIDE_START),
     withLatestFrom(this.store),
     switchMap(([updateGuideStart, state]: [UpdateGuideStart, AppState]) => {
-      const id = updateGuideStart.payload.guideId || selectGuideId(state);
+      const id = selectGuideId(state) || selectUserId(state);
       return this.http.post<Guide>(
           `/guide/guides/update/${id}`,
           {

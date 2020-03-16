@@ -26,7 +26,7 @@ import {UpdateGuideStart} from '../../guides/store/guide.actions';
 import {AppState} from '../../app.reducer';
 import {Store} from '@ngrx/store';
 import {UpdateExhibitStart} from '../../exhibits/store/exhibit.actions';
-import {selectVisitorInfoId} from '../../profile/store/profile.selectors';
+import {selectFavouriteTours, selectUserId, selectVisitorInfoId} from '../../profile/store/profile.selectors';
 import {selectVisitorId} from './visitor.selectors';
 
 
@@ -58,12 +58,13 @@ export class VisitorEffects {
     ofType(UPDATE_VISITOR_START),
     withLatestFrom(this.store),
     switchMap(([updateVisitorStart, state]: [UpdateVisitorStart, AppState]) => {
-      const id = updateVisitorStart.payload.visitorId || selectVisitorId(state);
+      const id = selectVisitorId(state) || selectUserId(state);
       return this.http.post<Visitor>(
           `/visitor/visitors/update/${id}`,
         {
           ...updateVisitorStart.payload,
-          visitorId: id
+          visitorId: id,
+          tourEntitySet: selectFavouriteTours(state)
         }
         )
           .pipe(

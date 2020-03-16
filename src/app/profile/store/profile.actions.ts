@@ -1,6 +1,7 @@
 import {Action} from '@ngrx/store';
 import {Visitor} from '../../visitors/models/visitor.model';
 import {Guide} from '../../guides/models/guide.model';
+import {GuideForm} from '../../guides/models/guide-form.model';
 
 
 export const SET_PROFILE_MODE = '[Profile] Set Profile Mode';
@@ -36,7 +37,7 @@ export class FetchGuideInfoStart implements Action {
 
 export class FetchGuideInfoSuccess implements Action {
   readonly type = FETCH_GUIDE_INFO_SUCCESS;
-  constructor(public payload: Guide) {}
+  constructor(public payload: GuideForm) {}
 }
 
 
