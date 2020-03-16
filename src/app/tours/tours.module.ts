@@ -9,12 +9,12 @@ import {TourDetailsComponent} from './components/tour-details/tour-details.compo
 import {TourEditComponent} from './components/tour-edit/tour-edit.component';
 import {ToursSharedModule} from './tours-shared.module';
 import {TourEditPresentationComponent} from './components/tour-edit-presentation/tour-edit-presentation.component';
-import {ToursResolver} from './service/tours-resolver.service';
-import {TourResolver} from './service/tour-resolver.service';
 import {TourDetailsPresentationComponent} from './components/tour-details-presentation/tour-details-presentation.component';
 import {ExhibitsSharedModule} from '../exhibits/exhibits-shared.module';
 import {GuidesModule} from '../guides/guides.module';
 import {VisitorsModule} from '../visitors/visitors.module';
+import {TourGuard} from './service/tour-guard.service';
+import {ToursGuard} from './service/tours-guard.service';
 
 
 @NgModule({
@@ -36,8 +36,8 @@ import {VisitorsModule} from '../visitors/visitors.module';
     TourEditPresentationComponent,
   ],
   providers: [
-    ToursResolver,
-    TourResolver
+    TourGuard,
+    ToursGuard
   ]
 })
 export class ToursModule {

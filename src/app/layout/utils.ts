@@ -1,4 +1,4 @@
-import {HttpErrorResponse, HttpRequest} from '@angular/common/http';
+import {HttpErrorResponse, HttpHeaders, HttpRequest} from '@angular/common/http';
 
 export function handleError(errorRes: HttpErrorResponse) {
   let errorMessage = 'An unknown error occurred!';
@@ -20,6 +20,23 @@ export function handleError(errorRes: HttpErrorResponse) {
   return errorMessage;
 }
 
-export function decoratorRequestSpinner(req) {
-  return req.setHeader('no-spinner', 'true');
+// export function decoratorRequestSpinner(req: Observable<any>) {
+//   const headers = new HttpHeaders({'no-spinner': 'true'});
+//   console.log(req);
+// }
+// export function decoratorRequestSpinner(req: Observable<any>) {
+//  return  req.pipe(tap(aaa => console.log(aaa)));
+// }
+export function decoratorRequestSpinner(method: string, url: string, body, headers, isShowSpinner: boolean): HttpRequest<any> {
+  return new HttpRequest(
+    method,
+    url,
+    body,
+    {
+      headers: new HttpHeaders({
+        ...headers,
+        'no-spinner': (isShowSpinner ? 'true' : '')
+      }),
+    },
+  );
 }

@@ -6,14 +6,14 @@ import {GuidesListComponent} from './components/guides-list/guides-list.componen
 import {GuidesListPresentationComponent} from './components/guides-list-presentation/guides-list-presentation.component';
 import {GuideItemComponent} from './components/guide-item/guide-item.component';
 import {GuideItemPresentationComponent} from './components/guide-item-presentation/guide-item-presentation.component';
-import {GuidesResolver} from './services/guides-resolver.service';
 import {GuidesRouting} from './guides-routing.module';
 import {GuideEditComponent} from './components/guide-edit/guide-edit.component';
 import {GuideEditPresentationComponent} from './components/guide-edit-presentation/guide-edit-presentation.component';
-import {GuideResolver} from './services/guide-resolver.service';
 import {EffectsModule} from '@ngrx/effects';
 import {GuideEffects} from './store/guide.effects';
 import {ReactiveFormsModule} from '@angular/forms';
+import {GuideGuard} from './services/guide-guard.service';
+import {GuidesGuard} from './services/guides-guard.service';
 
 
 @NgModule({
@@ -41,8 +41,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     GuideItemPresentationComponent
   ],
   providers: [
-    GuidesResolver,
-    GuideResolver
+    GuidesGuard,
+    GuideGuard
   ]
 })
 export class GuidesModule {}

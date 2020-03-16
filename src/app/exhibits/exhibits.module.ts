@@ -10,8 +10,8 @@ import {ExhibitEditComponent} from './components/exhibit-edit/exhibit-edit.compo
 import {ExhibitEditPresentationComponent} from './components/exhibit-edit-presentation/exhibit-edit-presentation.component';
 import {ExhibitComponent} from './components/exhibit/exhibit.component';
 import {ToursSharedModule} from '../tours/tours-shared.module';
-import {ExhibitResolver} from './services/exhibit-resolver.service';
 import {ExhibitDetailsPresentationComponent} from './components/exhibit-details-presentation/exhibit-details-presentation.component';
+import {ExhibitGuard} from './services/exhibit-guard.service';
 
 
 @NgModule({
@@ -32,7 +32,7 @@ import {ExhibitDetailsPresentationComponent} from './components/exhibit-details-
     ExhibitDetailsPresentationComponent
   ],
   providers: [
-    ExhibitResolver
+    ExhibitGuard,
   ]
 })
 export class ExhibitsModule {

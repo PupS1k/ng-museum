@@ -16,7 +16,7 @@ import {
 import {Exhibit} from '../models/exhibit.model';
 import {ShowMessage} from '../../layout/store/layout.actions';
 import {handleError} from '../../layout/utils';
-import {Action, Store} from '@ngrx/store';
+import {Store} from '@ngrx/store';
 import {AppState} from '../../app.reducer';
 import {selectExhibitId, selectExhibitTours} from './exhibits.selectors';
 
@@ -38,7 +38,7 @@ export class ExhibitEffects {
   fetchExhibit = this.actions$.pipe(
     ofType(FETCH_EXHIBIT_START),
     switchMap(
-      (fetchExhibitStart: FetchExhibitStart) => this.http.get<Exhibit>(`/exhibit/exhibits/${fetchExhibitStart.payload}`)
+      (fetchExhibitStart: FetchExhibitStart) => this.http.get<Exhibit>(`/exhibit/sexhibits/${fetchExhibitStart.payload}`)
         .pipe(
           map((exhibit: Exhibit) => new FetchExhibitSuccess(exhibit)),
           catchError(err => of(new ShowMessage({module: 'Exhibit', message: handleError(err)})))

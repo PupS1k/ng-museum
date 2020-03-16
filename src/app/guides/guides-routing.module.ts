@@ -1,14 +1,14 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {GuidesListComponent} from './components/guides-list/guides-list.component';
-import {GuidesResolver} from './services/guides-resolver.service';
-import {GuideResolver} from './services/guide-resolver.service';
 import {GuideEditComponent} from './components/guide-edit/guide-edit.component';
+import {GuidesGuard} from './services/guides-guard.service';
+import {GuideGuard} from './services/guide-guard.service';
 
 
 const guidesRoutes: Routes = [
-  {path: '', component: GuidesListComponent, resolve: {guides: GuidesResolver}},
-  {path: ':id/edit', component: GuideEditComponent, resolve: {guide: GuideResolver}},
+  {path: '', component: GuidesListComponent, canActivate: [GuidesGuard]},
+  {path: ':id/edit', component: GuideEditComponent, canActivate: [GuideGuard]},
   {path: 'create', component: GuideEditComponent}
 ];
 

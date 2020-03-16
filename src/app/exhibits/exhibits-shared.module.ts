@@ -5,10 +5,10 @@ import {ExhibitListPresentationComponent} from './components/exhibit-list-presen
 import {ExhibitCardComponent} from './components/exhibit-card/exhibit-card.component';
 import {ExhibitItemComponent} from './components/exhibit-item/exhibit-item.component';
 import {RouterModule} from '@angular/router';
-import {ExhibitsResolver} from './services/exhibits-resolver.service';
 import {ToursSharedModule} from '../tours/tours-shared.module';
 import {EffectsModule} from '@ngrx/effects';
 import {ExhibitEffects} from './store/exhibit.effects';
+import {ExhibitsGuard} from './services/exhibits-guard.service';
 
 
 @NgModule({
@@ -31,7 +31,7 @@ import {ExhibitEffects} from './store/exhibit.effects';
     ExhibitItemComponent
   ],
   providers: [
-    ExhibitsResolver
+    ExhibitsGuard
   ],
 })
 export class ExhibitsSharedModule {}
