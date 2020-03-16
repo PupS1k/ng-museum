@@ -2,7 +2,6 @@ import {Actions, Effect, ofType} from '@ngrx/effects';
 import {catchError, map, switchMap, withLatestFrom} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
 import {of} from 'rxjs';
 
 import {
@@ -18,7 +17,6 @@ import {
 import {Guide} from '../models/guide.model';
 import {ShowMessage} from '../../layout/store/layout.actions';
 import {handleError} from '../../layout/utils';
-import {UpdateExhibitStart} from '../../exhibits/store/exhibit.actions';
 import {AppState} from '../../app.reducer';
 import {Store} from '@ngrx/store';
 import {selectGuideId} from './guide.selectors';

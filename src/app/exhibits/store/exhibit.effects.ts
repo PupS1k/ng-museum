@@ -38,7 +38,7 @@ export class ExhibitEffects {
   fetchExhibit = this.actions$.pipe(
     ofType(FETCH_EXHIBIT_START),
     switchMap(
-      (fetchExhibitStart: FetchExhibitStart) => this.http.get<Exhibit>(`/exhibit/sexhibits/${fetchExhibitStart.payload}`)
+      (fetchExhibitStart: FetchExhibitStart) => this.http.get<Exhibit>(`/exhibit/exhibits/${fetchExhibitStart.payload}`)
         .pipe(
           map((exhibit: Exhibit) => new FetchExhibitSuccess(exhibit)),
           catchError(err => of(new ShowMessage({module: 'Exhibit', message: handleError(err)})))

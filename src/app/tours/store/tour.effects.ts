@@ -6,16 +6,16 @@ import {Router} from '@angular/router';
 import {of} from 'rxjs';
 
 import {
-  ADD_FAVOURITE_TOUR_START, AddFavouriteTourSuccess,
+  ADD_FAVOURITE_TOUR_START, AddFavouriteTourSuccess, CHECK_FAVOURITE_TOUR_START, CheckFavouriteTourStart,
   CheckFavouriteTourSuccess,
   DELETE_FAVOURITE_TOUR_START,
-  DeleteFavouriteTourSuccess,
+  DeleteFavouriteTourSuccess, FETCH_EXHIBITS_TOUR_START, FETCH_GUIDE_TOUR_START,
   FETCH_TOUR_START, FETCH_TOUR_SUCCESS,
-  FETCH_TOURS_START,
-  FetchExhibitsTourSuccess, FetchGuideTourSuccess,
+  FETCH_TOURS_START, FETCH_VISITORS_TOUR_START, FetchExhibitsTourStart,
+  FetchExhibitsTourSuccess, FetchGuideTourStart, FetchGuideTourSuccess,
   FetchToursSuccess,
   FetchTourStart,
-  FetchTourSuccess, FetchVisitorsTourSuccess,
+  FetchTourSuccess, FetchVisitorsTourStart, FetchVisitorsTourSuccess,
   UPDATE_TOUR_START,
   UPDATE_TOUR_SUCCESS,
   UpdateTourStart,
@@ -79,10 +79,10 @@ export class TourEffects {
 
   @Effect()
   fetchExhibitsTour = this.actions$.pipe(
-    ofType(FETCH_TOUR_SUCCESS),
+    ofType(FETCH_EXHIBITS_TOUR_START),
     switchMap(
-      (fetchTour: FetchTourSuccess) => this.http.get<Exhibit[]>(
-        `tour/exhibits/${fetchTour.payload.tourId}`
+      (fetchExhibitsTour: FetchExhibitsTourStart) => this.http.get<Exhibit[]>(
+        `tour/exhibits/${fetchExhibitsTour.payload}`
       )
         .pipe(
           map((exhibits: Exhibit[]) => new FetchExhibitsTourSuccess(exhibits)),
@@ -92,71 +92,70 @@ export class TourEffects {
   );
 
   @Effect()
-  fetchGuideTour = this.actions$.pipe(
+  fetchAdditionalData = this.actions$.pipe(
     ofType(FETCH_TOUR_SUCCESS),
     withLatestFrom(this.store),
     switchMap(([fetchTour, state]: [FetchTourSuccess, AppState]) => {
-        if (selectIsGuide(state)) {
-          return this.http.get<Guide>(
-            `tour/tours/guide/${fetchTour.payload.tourId}`
-          )
-            .pipe(
-              map((guide: Guide) => new FetchGuideTourSuccess(guide)),
-              catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
-            );
-        } else {
-          return of(new FetchGuideTourSuccess(null));
-        }
+      if (selectIsGuide(state)) {
+        this.store.dispatch(new FetchGuideTourStart(fetchTour.payload.tourId));
+      } else {
+        this.store.dispatch(new CheckFavouriteTourStart({
+          tourId: fetchTour.payload.tourId,
+          visitorId: selectUserVisitorId(state)
+        }));
       }
+
+      if (selectIsAdmin(state)) {
+        this.store.dispatch(new FetchVisitorsTourStart(fetchTour.payload.tourId));
+      }
+
+      return of(new FetchExhibitsTourStart(fetchTour.payload.tourId));
+    }),
+    catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
+  );
+
+  @Effect()
+  fetchGuideTour = this.actions$.pipe(
+    ofType(FETCH_GUIDE_TOUR_START),
+    switchMap((fetchGuideTour: FetchGuideTourStart) =>
+      this.http.get<Guide>(
+        `tour/tours/guide/${fetchGuideTour.payload}`
+      )
+        .pipe(
+          map((guide: Guide) => new FetchGuideTourSuccess(guide)),
+          catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
+        )
     )
   );
 
   @Effect()
   fetchVisitorsTour = this.actions$.pipe(
-    ofType(FETCH_TOUR_SUCCESS),
-    withLatestFrom(this.store),
-    switchMap(([fetchTour, state]: [FetchTourSuccess, AppState]) => {
-        if (selectIsAdmin(state)) {
-          return this.http.get<Visitor[]>(
-            `tour/tours/visitors/${fetchTour.payload.tourId}`
-          )
-            .pipe(
-              map((visitors: Visitor[]) => new FetchVisitorsTourSuccess(visitors)),
-              catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
-            );
-        } else {
-          return of(new FetchVisitorsTourSuccess([]));
-        }
-      }
+    ofType(FETCH_VISITORS_TOUR_START),
+    switchMap((fetchVisitorsTour: FetchVisitorsTourStart) =>
+      this.http.get<Visitor[]>(
+        `tour/tours/visitors/${fetchVisitorsTour.payload}`
+      )
+        .pipe(
+          map((visitors: Visitor[]) => new FetchVisitorsTourSuccess(visitors)),
+          catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
+        )
     )
   );
 
   @Effect()
   checkFavouriteTour = this.actions$.pipe(
-    ofType(FETCH_TOUR_SUCCESS),
-    withLatestFrom(this.store),
-    switchMap(([action, state]: [Action, AppState]) => {
-        if (!selectIsGuide(state)) {
-          return this.http.post<boolean>(
+    ofType(CHECK_FAVOURITE_TOUR_START),
+    switchMap((checkFavouriteTour: CheckFavouriteTourStart) => this.http.post<boolean>(
             `visitor/toursCheck`,
             {
-              tourId: selectTourId(state),
-              visitorId: selectUserVisitorId(state)
-            },
-            {
-              headers: {
-                'no-spinner': 'true'
-              }
+              tourId: checkFavouriteTour.payload.tourId,
+              visitorId: checkFavouriteTour.payload.visitorId
             }
           )
             .pipe(
               map((isFavouriteTour: boolean) => new CheckFavouriteTourSuccess(isFavouriteTour)),
               catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
-            );
-        } else {
-          return of(new CheckFavouriteTourSuccess(false));
-        }
-      }
+            )
     )
   );
 
