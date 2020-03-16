@@ -12,6 +12,8 @@ import {ExhibitComponent} from './components/exhibit/exhibit.component';
 import {ToursSharedModule} from '../tours/tours-shared.module';
 import {ExhibitDetailsPresentationComponent} from './components/exhibit-details-presentation/exhibit-details-presentation.component';
 import {ExhibitGuard} from './services/exhibit-guard.service';
+import {ExhibitFormComponent} from './components/exhibit-form/exhibit-form.component';
+import {ExhibitFormPresentationComponent} from './components/exhibit-form-presentation/exhibit-form-presentation.component';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import {ExhibitGuard} from './services/exhibit-guard.service';
     ExhibitEditComponent,
     ExhibitEditPresentationComponent,
     ExhibitComponent,
-    ExhibitDetailsPresentationComponent
+    ExhibitDetailsPresentationComponent,
+    ExhibitFormComponent,
+    ExhibitFormPresentationComponent
   ],
   providers: [
     ExhibitGuard,

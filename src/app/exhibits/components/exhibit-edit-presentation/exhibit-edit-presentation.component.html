@@ -1,76 +1,13 @@
-<form [formGroup]="exhibitForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="title">Title</label>
-    <input
-      id="title"
-      type="text"
-      class="form-control"
-      name="title"
-      formControlName="title"
-    >
+<div class="container exhibit-edit">
+  <div class="col-md-8 col-md-offset-2">
+    <app-exhibit-form></app-exhibit-form>
   </div>
-  <div class="form-group">
-    <label for="dated">Dated</label>
-    <input
-      id="dated"
-      type="text"
-      class="form-control"
-      name="dated"
-      formControlName="dated"
-    >
+  <div class="container-fluid col-xs-12 footer-container" *ngIf="tours.length">
+    <span class="heading">Tours with the exhibit</span>
+    <app-tours-list-presentation
+      [tours]="tours"
+      [isEdit]="isEdit"
+      (deleteExhibit)="deleteExhibitFromTour()"
+    ></app-tours-list-presentation>
   </div>
-  <div class="form-group">
-    <label for="material">Material</label>
-    <input
-      id="material"
-      type="text"
-      class="form-control"
-      name="material"
-      formControlName="material"
-    >
-  </div>
-  <div class="form-group">
-    <label for="archiveNum">Archive Number</label>
-    <input
-      id="archiveNum"
-      type="text"
-      class="form-control"
-      name="archiveNum"
-      formControlName="archiveNum"
-    >
-  </div>
-  <div class="form-group">
-    <label for="description">Description</label>
-    <textarea
-      id="description"
-      class="form-control"
-      name="description"
-      formControlName="description"
-      rows="5"
-    ></textarea>
-  </div>
-  <div class="form-group">
-    <label for="imageUrl">Image URL</label>
-    <input
-      id="imageUrl"
-      type="text"
-      class="form-control"
-      name="imageUrl"
-      formControlName="imageUrl"
-    >
-  </div>
-  <div class="no-image">
-    <img
-      class="img-responsive exhibit-img"
-      src="{{ exhibitForm.get('imageUrl').value }}"
-      alt=""
-    >
-  </div>
-  <button
-    class="btn btn-primary"
-    type="submit"
-    [disabled]="exhibitForm.invalid"
-  >
-    Update
-  </button>
-</form>
+</div>

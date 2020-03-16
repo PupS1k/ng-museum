@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
-import {FormGroup} from '@angular/forms';
 import {Tour} from '../../../tours/models/tour.model';
 
 @Component({
@@ -9,13 +8,12 @@ import {Tour} from '../../../tours/models/tour.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExhibitEditPresentationComponent {
-
-  @Input() exhibitForm: FormGroup;
   @Input() tours: Tour[];
-  @Output() edit = new EventEmitter<void>();
+  @Input() isEdit: boolean;
 
-  onSubmit() {
-    this.edit.emit();
+  @Output() deleteExhibit = new EventEmitter();
+
+  deleteExhibitFromTour() {
+    this.deleteExhibit.emit();
   }
-
 }

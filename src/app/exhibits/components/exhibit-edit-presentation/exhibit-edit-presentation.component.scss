@@ -1,7 +1,14 @@
-textarea {
-  resize: none;
+.exhibit-edit {
+  margin: 20px 0;
 }
 
-.exhibit-img {
-  min-width: 300px;
+.footer-container {
+  margin-top: 30px;
+  border-top: 1px solid #bebebe;
+  text-align: center;
+
+  span {
+    font-size: 16px;
+    font-weight: bold;
+  }
 }
