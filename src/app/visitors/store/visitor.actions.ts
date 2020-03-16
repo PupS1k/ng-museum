@@ -74,7 +74,4 @@ export type VisitorActions =
   | DeleteVisitorSuccess
   | FetchVisitorsSuccess
   | FetchVisitorSuccess
-  | UpdateVisitorStart
-  | UpdateVisitorSuccess
-  | FetchVisitorsStart
-  | FetchVisitorStart;
+  | UpdateVisitorSuccess;

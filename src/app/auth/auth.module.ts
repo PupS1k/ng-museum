@@ -7,7 +7,8 @@ import {LoginPresentationComponent} from './components/login-presentation/login-
 import {RouterModule} from '@angular/router';
 import {AuthRouting} from './auth-routing.module';
 import {ExhibitsSharedModule} from '../exhibits/exhibits-shared.module';
-import {AuthSharedModule} from './auth-shared.module';
+
+import {VisitorsSharedModule} from '../visitors/visitors-shared.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import {AuthSharedModule} from './auth-shared.module';
     RouterModule,
     AuthRouting,
     ExhibitsSharedModule,
-    AuthSharedModule
+    VisitorsSharedModule
   ],
   declarations: [
     LoginComponent,

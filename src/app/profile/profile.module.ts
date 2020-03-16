@@ -4,13 +4,12 @@ import {RouterModule} from '@angular/router';
 import {ProfileRouting} from './profile-routing.module';
 import {VisitorsSharedModule} from '../visitors/visitors-shared.module';
 import {ProfileComponent} from './components/profile/profile.component';
-import {AuthSharedModule} from '../auth/auth-shared.module';
 import {ToursSharedModule} from '../tours/tours-shared.module';
-import {ProfileResolver} from './services/profile-resolver.service';
 import {GuidesSharedModule} from '../guides/guides-shared.module';
 import { ProfilePresentationComponent } from './components/profile-presentation/profile-presentation.component';
 import { ProfileVisitorEditComponent } from './components/profile-visitor-edit/profile-visitor-edit.component';
 import { ProfileGuideEditComponent } from './components/profile-guide-edit/profile-guide-edit.component';
+import {ProfileGuard} from './services/profile-guard.service';
 
 
 @NgModule({
@@ -20,7 +19,6 @@ import { ProfileGuideEditComponent } from './components/profile-guide-edit/profi
     ProfileRouting,
     VisitorsSharedModule,
     GuidesSharedModule,
-    AuthSharedModule,
     ToursSharedModule,
   ],
   declarations: [
@@ -29,7 +27,7 @@ import { ProfileGuideEditComponent } from './components/profile-guide-edit/profi
     ProfileVisitorEditComponent,
     ProfileGuideEditComponent
   ],
-  providers: [ProfileResolver]
+  providers: [ProfileGuard]
 })
 export class ProfileModule {
 }

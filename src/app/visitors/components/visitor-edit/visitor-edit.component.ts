@@ -1,79 +1,43 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
-import {Tour} from '../../../tours/models/tour.model';
+import {Component, OnDestroy} from '@angular/core';
+import {Router} from '@angular/router';
 import {AppState} from '../../../app.reducer';
 import {Store} from '@ngrx/store';
-import {createFormVisitor} from '../../utils';
-import {selectVisitorState} from '../../store/visitor.selectors';
+import {selectIsUpdateVisitor, selectVisitorForm} from '../../store/visitor.selectors';
 import {ClearSelectedVisitor, CreateVisitorStart, UpdateVisitorStart} from '../../store/visitor.actions';
+import {VisitorForm} from '../../models/visitor-form.model';
 
 @Component({
   selector: 'app-visitor-edit',
-  templateUrl: './visitor-edit.component.html',
-  styleUrls: ['./visitor-edit.component.scss']
+  template: `
+    <app-visitor-edit-presentation
+      [userForm]="visitorForm$ | async"
+      [isUpdate]="isUpdate$ | async"
+      (create)="onCreate($event)"
+      (update)="onUpdate($event)"
+    ></app-visitor-edit-presentation>
+
+  `
 })
-export class VisitorEditComponent implements OnInit, OnDestroy {
-  destroy$ = new Subject();
-  isUpdate: boolean;
-  visitorForm: FormGroup;
-  tours?: Tour[] = [];
+export class VisitorEditComponent implements OnDestroy {
+  isUpdate$ = this.store.select(selectIsUpdateVisitor);
+  visitorForm$ = this.store.select(selectVisitorForm);
 
   constructor(
     private router: Router,
     private store: Store<AppState>
-  ) {
+  ) {}
+
+  onUpdate(visitorFormData: VisitorForm) {
+    this.store.dispatch(new UpdateVisitorStart(visitorFormData));
+    this.router.navigate(['/visitors']);
   }
 
-  ngOnInit(): void {
-    this.store.select(selectVisitorState)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(visitorState => {
-        this.isUpdate = !!visitorState.selectedVisitor;
-
-        if (visitorState.selectedVisitor) {
-          this.tours = visitorState.selectedVisitor.tourEntitySet;
-        }
-
-        this.visitorForm = createFormVisitor(visitorState.selectedVisitor);
-      });
-  }
-
-  onSubmit() {
-    const username = this.visitorForm.value.name;
-    const password = this.visitorForm.value.password;
-    const age = this.visitorForm.value.age;
-    const fio = this.visitorForm.value.fio;
-    const email = this.visitorForm.value.email;
-
-    if (this.isUpdate) {
-      this.store.dispatch(new UpdateVisitorStart({
-        visitorId: null,
-        username,
-        password,
-        fio,
-        email,
-        age,
-        tourEntitySet: this.tours
-      }));
-    } else {
-      this.store.dispatch(new CreateVisitorStart({
-        username,
-        password,
-        fio,
-        email,
-        age
-      }));
-    }
-
+  onCreate(visitorFormData: VisitorForm) {
+    this.store.dispatch(new CreateVisitorStart(visitorFormData));
     this.router.navigate(['/visitors']);
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
     this.store.dispatch(new ClearSelectedVisitor());
   }
 }

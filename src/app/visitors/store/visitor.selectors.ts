@@ -1,5 +1,6 @@
 import {AppState} from '../../app.reducer';
 import {createSelector} from '@ngrx/store';
+import {createFormVisitor} from '../utils';
 
 
 export const selectVisitorState = (state: AppState) => state.visitors;
@@ -14,7 +15,21 @@ export const selectVisitor = createSelector(
   (state) => state.selectedVisitor
 );
 
+export const selectIsUpdateVisitor = createSelector(
+  selectVisitor,
+  (visitor) => !!visitor
+);
+
+export const selectVisitorForm = createSelector(
+  selectVisitor,
+  (visitor) => createFormVisitor(visitor)
+);
+
 export const selectVisitorId = createSelector(
   selectVisitor,
-  (visitor) => visitor.visitorId
+  (visitor) => {
+    if (visitor) {
+      return visitor.visitorId;
+    }
+  }
 );

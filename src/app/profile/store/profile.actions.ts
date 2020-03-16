@@ -37,7 +37,7 @@ export class FetchGuideInfoStart implements Action {
 
 export class FetchGuideInfoSuccess implements Action {
   readonly type = FETCH_GUIDE_INFO_SUCCESS;
-  constructor(public payload: GuideForm) {}
+  constructor(public payload: Guide) {}
 }
 
 
