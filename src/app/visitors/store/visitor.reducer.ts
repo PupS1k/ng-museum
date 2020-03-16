@@ -2,7 +2,7 @@ import {
   CLEAR_SELECTED_VISITOR, CREATE_VISITOR_SUCCESS,
   DELETE_VISITOR_SUCCESS, FETCH_VISITOR_START,
   FETCH_VISITOR_SUCCESS, FETCH_VISITORS_START,
-  FETCH_VISITORS_SUCCESS, UPDATE_VISITOR_FAIL, UPDATE_VISITOR_START, UPDATE_VISITOR_SUCCESS,
+  FETCH_VISITORS_SUCCESS, UPDATE_VISITOR_START, UPDATE_VISITOR_SUCCESS,
   VisitorActions
 } from './visitor.actions';
 import {Visitor} from '../models/visitor.model';
@@ -11,13 +11,11 @@ import {Visitor} from '../models/visitor.model';
 export interface State {
   selectedVisitor: Visitor;
   visitors: Visitor[];
-  isLoading: boolean;
 }
 
 const initialState: State = {
   selectedVisitor: null,
-  visitors: [],
-  isLoading: false
+  visitors: []
 };
 
 export function visitorReducer(state: State = initialState, action: VisitorActions) {
@@ -39,12 +37,6 @@ export function visitorReducer(state: State = initialState, action: VisitorActio
         ...state,
         isLoading: false,
         visitors: state.visitors.map(visitor => visitor.visitorId === action.payload.visitorId ? action.payload : visitor)
-      };
-    case UPDATE_VISITOR_FAIL:
-      return {
-        ...state,
-        errorMessage: action.payload,
-        isLoading: false
       };
     case DELETE_VISITOR_SUCCESS: {
       return {

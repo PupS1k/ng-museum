@@ -8,7 +8,7 @@ import {AppState} from '../../../app.reducer';
 import {Store} from '@ngrx/store';
 import {createFormVisitor} from '../../utils';
 import {selectVisitorState} from '../../store/visitor.selectors';
-import {CreateVisitorStart, UpdateVisitorStart} from '../../store/visitor.actions';
+import {ClearSelectedVisitor, CreateVisitorStart, UpdateVisitorStart} from '../../store/visitor.actions';
 
 @Component({
   selector: 'app-visitor-edit',
@@ -74,5 +74,6 @@ export class VisitorEditComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+    this.store.dispatch(new ClearSelectedVisitor());
   }
 }

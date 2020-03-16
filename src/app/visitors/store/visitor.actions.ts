@@ -9,7 +9,6 @@ export const CLEAR_SELECTED_VISITOR = '[Visitor] Clear Selected Visitor';
 export const FETCH_VISITOR_SUCCESS = '[Visitor] Fetch Visitor Success';
 export const UPDATE_VISITOR_START = '[Visitor] Update Visitor Start';
 export const UPDATE_VISITOR_SUCCESS = '[Visitor] Update Visitor Success';
-export const UPDATE_VISITOR_FAIL = '[Visitor] Update Visitor Fail';
 export const DELETE_VISITOR_SUCCESS = '[Visitor] Delete Visitor Success';
 export const DELETE_VISITOR_START = '[Visitor] Delete Visitor Start';
 export const CREATE_VISITOR_SUCCESS = '[Visitor] Create Visitor Success';
@@ -58,11 +57,6 @@ export class FetchVisitorStart implements Action {
   constructor(public payload: number) {}
 }
 
-export class UpdateVisitorFail implements Action {
-  readonly type = UPDATE_VISITOR_FAIL;
-  constructor(public payload: string) {}
-}
-
 export class UpdateVisitorStart implements Action {
   readonly type = UPDATE_VISITOR_START;
   constructor(public payload: Visitor) {}
@@ -79,7 +73,6 @@ export type VisitorActions =
   | DeleteVisitorSuccess
   | FetchVisitorsSuccess
   | FetchVisitorSuccess
-  | UpdateVisitorFail
   | UpdateVisitorStart
   | UpdateVisitorSuccess
   | FetchVisitorsStart

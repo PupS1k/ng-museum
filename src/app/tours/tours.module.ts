@@ -11,8 +11,8 @@ import {ToursSharedModule} from './tours-shared.module';
 import {TourEditPresentationComponent} from './components/tour-edit-presentation/tour-edit-presentation.component';
 import {TourDetailsPresentationComponent} from './components/tour-details-presentation/tour-details-presentation.component';
 import {ExhibitsSharedModule} from '../exhibits/exhibits-shared.module';
-import {GuidesModule} from '../guides/guides.module';
-import {VisitorsModule} from '../visitors/visitors.module';
+import {GuidesSharedModule} from '../guides/guides-shared.module';
+import {VisitorsSharedModule} from '../visitors/visitors-shared.module';
 import {TourGuard} from './service/tour-guard.service';
 import {ToursGuard} from './service/tours-guard.service';
 
@@ -25,8 +25,8 @@ import {ToursGuard} from './service/tours-guard.service';
         ToursRouting,
         ToursSharedModule,
         ExhibitsSharedModule,
-        GuidesModule,
-        VisitorsModule
+      GuidesSharedModule,
+        VisitorsSharedModule
     ],
   declarations: [
     TourComponent,
