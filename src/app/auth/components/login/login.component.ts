@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {Store} from '@ngrx/store';
+
 import {LoginStart} from '../../store/auth.actions';
 import {AppState} from '../../../app.reducer';
-import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-login',
@@ -20,11 +20,7 @@ export class LoginComponent {
     password: new FormControl('', [Validators.required, Validators.minLength(5)])
   });
 
-  constructor(
-    private router: Router,
-    private store: Store<AppState>,
-  ) {
-  }
+  constructor(private store: Store<AppState>) {}
 
   onSubmit() {
     const name = this.loginForm.value.name;

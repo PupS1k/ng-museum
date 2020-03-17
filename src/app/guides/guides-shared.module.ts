@@ -1,6 +1,8 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
+import {ReactiveFormsModule} from '@angular/forms';
+import {EffectsModule} from '@ngrx/effects';
 
 import {GuidesListComponent} from './components/guides-list/guides-list.component';
 import {GuidesListPresentationComponent} from './components/guides-list-presentation/guides-list-presentation.component';
@@ -9,9 +11,7 @@ import {GuideItemPresentationComponent} from './components/guide-item-presentati
 import {GuidesRouting} from './guides-routing.module';
 import {GuideEditComponent} from './components/guide-edit/guide-edit.component';
 import {GuideEditPresentationComponent} from './components/guide-edit-presentation/guide-edit-presentation.component';
-import {EffectsModule} from '@ngrx/effects';
 import {GuideEffects} from './store/guide.effects';
-import {ReactiveFormsModule} from '@angular/forms';
 import {GuideGuard} from './services/guide-guard.service';
 import {GuidesGuard} from './services/guides-guard.service';
 

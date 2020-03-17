@@ -2,8 +2,8 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
-import {ToursRouting} from './tours-routing.module';
 
+import {ToursRouting} from './tours-routing.module';
 import {TourComponent} from './components/tour/tour.component';
 import {TourDetailsComponent} from './components/tour-details/tour-details.component';
 import {ToursSharedModule} from './tours-shared.module';

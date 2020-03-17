@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
-import {AppState} from '../../../app.reducer';
 import {Store} from '@ngrx/store';
+
+import {AppState} from '../../../app.reducer';
 import {selectIsGuide, selectIsVisitor} from '../../../auth/store/auth.selectors';
 import {selectExhibit} from '../../store/exhibits.selectors';
 

@@ -1,7 +1,6 @@
 import {Action} from '@ngrx/store';
 import {Visitor} from '../../visitors/models/visitor.model';
 import {Guide} from '../../guides/models/guide.model';
-import {GuideForm} from '../../guides/models/guide-form.model';
 
 
 export const SET_PROFILE_MODE = '[Profile] Set Profile Mode';

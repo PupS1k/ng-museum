@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {selectTourForm} from '../../store/tour.selectors';
 import {Store} from '@ngrx/store';
+
+import {selectTourForm} from '../../store/tour.selectors';
 import {AppState} from '../../../app.reducer';
 import {UpdateTourStart} from '../../store/tour.actions';
 import {TourForm} from '../../models/tour-form.model';

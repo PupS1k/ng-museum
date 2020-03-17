@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {Store} from '@ngrx/store';
+
 import {UpdateVisitorStart} from '../../../visitors/store/visitor.actions';
 import {selectUserForm} from '../../store/profile.selectors';
-import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
 import {VisitorForm} from '../../../visitors/models/visitor-form.model';
-import {Router} from '@angular/router';
 import {AuthService} from '../../../core/services/auth.service';
 
 @Component({

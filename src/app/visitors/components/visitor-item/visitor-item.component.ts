@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
-import {Visitor} from '../../models/visitor.model';
 import {Store} from '@ngrx/store';
+
+import {Visitor} from '../../models/visitor.model';
 import {AppState} from '../../../app.reducer';
 import {DeleteVisitorStart} from '../../store/visitor.actions';
 import {selectIsTour} from '../../../tours/store/tour.selectors';

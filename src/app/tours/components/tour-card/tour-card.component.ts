@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
-import {Tour} from '../../models/tour.model';
 import {Store} from '@ngrx/store';
+
+import {Tour} from '../../models/tour.model';
 import {AppState} from '../../../app.reducer';
 import {DeleteExhibitFromTourStart} from '../../../exhibits/store/exhibit.actions';
 

@@ -3,6 +3,8 @@ import {catchError, map, switchMap, withLatestFrom} from 'rxjs/operators';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {of} from 'rxjs';
+import {Store} from '@ngrx/store';
+
 import {
   DELETE_FAVOURITE_TOUR_START, DeleteFavouriteTourStart, DeleteFavouriteTourSuccess,
   FETCH_GUIDE_INFO_START,
@@ -14,12 +16,10 @@ import {
 } from './profile.actions';
 import {Guide} from '../../guides/models/guide.model';
 import {Visitor} from '../../visitors/models/visitor.model';
-import {Action, Store} from '@ngrx/store';
 import {AppState} from '../../app.reducer';
 import {ShowMessage} from '../../layout/store/layout.actions';
 import {handleError, prepareErrorUrlParams} from '../../layout/utils';
 import {selectUsername} from '../../auth/store/auth.selectors';
-import {selectTourId} from '../../tours/store/tour.selectors';
 import {selectVisitorInfoId} from './profile.selectors';
 
 

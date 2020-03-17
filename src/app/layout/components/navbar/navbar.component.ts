@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Store} from '@ngrx/store';
+
 import {AppState} from '../../../app.reducer';
 import {Logout} from '../../../auth/store/auth.actions';
 import {selectProfileMode} from '../../../profile/store/profile.selectors';

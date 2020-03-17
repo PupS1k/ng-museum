@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Store} from '@ngrx/store';
+
 import {AppState} from '../../../app.reducer';
 import {selectIsGuide} from '../../../auth/store/auth.selectors';
 import {selectIsTour} from '../../../tours/store/tour.selectors';

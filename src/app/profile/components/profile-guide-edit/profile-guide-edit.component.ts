@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {Store} from '@ngrx/store';
+
 import {UpdateGuideStart} from '../../../guides/store/guide.actions';
 import {selectUserForm} from '../../store/profile.selectors';
-import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
 import {GuideForm} from '../../../guides/models/guide-form.model';
-import {Router} from '@angular/router';
 import {AuthService} from '../../../core/services/auth.service';
 
 @Component({

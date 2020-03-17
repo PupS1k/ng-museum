@@ -2,8 +2,8 @@ import {Action} from '@ngrx/store';
 
 export const SHOW_SPINNER = '[Layout] Show Spinner';
 export const HIDE_SPINNER = '[Layout] Hide Spinner';
-export const CATCH_MESSAGE_ALERT = '[Layout] Catch Message Alert';
-export const CLOSE_MESSAGE_ALERT = '[Layout] Close Message Alert';
+export const SHOW_MESSAGE = '[Layout] Show Message';
+export const HIDE_MESSAGE = '[Layout] Hide Message';
 
 export class ShowSpinner implements Action {
   readonly type = SHOW_SPINNER;
@@ -14,13 +14,13 @@ export class HideSpinner implements Action {
 }
 
 export class ShowMessage implements Action {
-  readonly type = CATCH_MESSAGE_ALERT;
+  readonly type = SHOW_MESSAGE;
   constructor(public payload: {module: string, message: string}) {
   }
 }
 
 export class HideMessage implements Action {
-  readonly type = CLOSE_MESSAGE_ALERT;
+  readonly type = HIDE_MESSAGE;
 }
 
 export type LayoutActions =

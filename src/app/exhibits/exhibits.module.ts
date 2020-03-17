@@ -1,10 +1,11 @@
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {RouterModule} from '@angular/router';
+
 import {ExhibitsRouting} from './exhibits-routing.module';
 import {ExhibitsComponent} from './components/exhibits/exhibits.component';
 import {ExhibitDetailsComponent} from './components/exhibit-details/exhibit-details.component';
-import {CommonModule} from '@angular/common';
-import {RouterModule} from '@angular/router';
 import {ExhibitsSharedModule} from './exhibits-shared.module';
 import {ExhibitEditComponent} from './components/exhibit-edit/exhibit-edit.component';
 import {ExhibitEditPresentationComponent} from './components/exhibit-edit-presentation/exhibit-edit-presentation.component';

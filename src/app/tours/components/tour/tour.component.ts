@@ -1,6 +1,7 @@
 import {Component, OnDestroy} from '@angular/core';
-import {ClearSelectedTour} from '../../store/tour.actions';
 import {Store} from '@ngrx/store';
+
+import {ClearSelectedTour} from '../../store/tour.actions';
 import {AppState} from '../../../app.reducer';
 
 @Component({

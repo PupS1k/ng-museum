@@ -5,6 +5,7 @@ import {Store} from '@ngrx/store';
 import {map} from 'rxjs/operators';
 
 import {AppState} from '../../app.reducer';
+import {selectIsAdmin} from '../../auth/store/auth.selectors';
 
 
 @Injectable()
@@ -12,7 +13,7 @@ export class AdminGuard implements CanActivate {
   constructor(private store: Store<AppState>, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.store.select(store => store.auth.isAdmin)
+    return this.store.select(selectIsAdmin)
       .pipe(map(isAdmin => {
       if (isAdmin) {
         return true;

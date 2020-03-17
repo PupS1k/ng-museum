@@ -3,6 +3,7 @@ import {catchError, map, switchMap, tap, withLatestFrom} from 'rxjs/operators';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
+import {Action, Store} from '@ngrx/store';
 import {of} from 'rxjs';
 
 import {
@@ -44,7 +45,6 @@ import {
 } from './tour.actions';
 import {Tour} from '../models/tour.model';
 import {Exhibit} from '../../exhibits/models/exhibit.model';
-import {Action, Store} from '@ngrx/store';
 import {AppState} from '../../app.reducer';
 import {selectTourId} from './tour.selectors';
 import {selectUserVisitorId, selectVisitorInfoId} from '../../profile/store/profile.selectors';

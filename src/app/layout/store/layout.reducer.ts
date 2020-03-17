@@ -1,4 +1,4 @@
-import {CATCH_MESSAGE_ALERT, CLOSE_MESSAGE_ALERT, HIDE_SPINNER, SHOW_SPINNER, LayoutActions} from './layout.actions';
+import {SHOW_MESSAGE, HIDE_MESSAGE, HIDE_SPINNER, SHOW_SPINNER, LayoutActions} from './layout.actions';
 
 export interface State {
   isLoading: boolean;
@@ -24,14 +24,14 @@ export function layoutReducer(state: State = initialState, action: LayoutActions
         isLoading: false
       };
     }
-    case CATCH_MESSAGE_ALERT: {
+    case SHOW_MESSAGE: {
       return {
         ...state,
         message: `${action.payload.module}: ${action.payload.message}`,
         isLoading: false
       };
     }
-    case CLOSE_MESSAGE_ALERT: {
+    case HIDE_MESSAGE: {
       return {
         ...state,
         message: '',

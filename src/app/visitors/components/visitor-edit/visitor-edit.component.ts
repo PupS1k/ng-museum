@@ -1,7 +1,8 @@
 import {Component, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
-import {AppState} from '../../../app.reducer';
 import {Store} from '@ngrx/store';
+
+import {AppState} from '../../../app.reducer';
 import {selectIsUpdateVisitor, selectVisitorForm} from '../../store/visitor.selectors';
 import {ClearSelectedVisitor, CreateVisitorStart, UpdateVisitorStart} from '../../store/visitor.actions';
 import {VisitorForm} from '../../models/visitor-form.model';

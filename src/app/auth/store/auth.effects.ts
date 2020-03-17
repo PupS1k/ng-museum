@@ -3,6 +3,8 @@ import {Actions, Effect, ofType} from '@ngrx/effects';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
+import {Store} from '@ngrx/store';
+import {of} from 'rxjs';
 
 import {
   AUTO_LOGIN_START, AutoLoginSuccess, FETCH_ROLE, FetchRole,
@@ -15,9 +17,7 @@ import {
   SignUpSuccess
 } from './auth.actions';
 import {AuthService} from '../../core/services/auth.service';
-import {of} from 'rxjs';
 import {AppState} from '../../app.reducer';
-import {Store} from '@ngrx/store';
 import {UserData} from '../models/user-data.model';
 import {Visitor} from '../../visitors/models/visitor.model';
 import {ClearUserInfo, FetchGuideInfoStart, FetchVisitorInfoStart, SetProfileMode} from '../../profile/store/profile.actions';
@@ -50,6 +50,7 @@ export class AuthEffects {
     private store: Store<AppState>
   ) {
   }
+
   @Effect()
   login = this.actions$.pipe(
     ofType(LOGIN_START),

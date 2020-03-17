@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Store} from '@ngrx/store';
+
 import {AppState} from '../../../app.reducer';
 import {selectExhibitsOfTour, selectIsFavouriteTour, selectIsTour, selectTour} from '../../store/tour.selectors';
 import {AddFavouriteTourStart, DeleteFavouriteTourStart} from '../../store/tour.actions';

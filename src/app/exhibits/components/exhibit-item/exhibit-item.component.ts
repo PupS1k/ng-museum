@@ -1,6 +1,7 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {Exhibit} from '../../models/exhibit.model';
+import {Component, Input} from '@angular/core';
 import {Store} from '@ngrx/store';
+
+import {Exhibit} from '../../models/exhibit.model';
 import {AppState} from '../../../app.reducer';
 import {selectIsGuide} from '../../../auth/store/auth.selectors';
 import {selectIsTour} from '../../../tours/store/tour.selectors';

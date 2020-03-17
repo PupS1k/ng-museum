@@ -5,6 +5,7 @@ import {map} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
 
 import {AppState} from '../../app.reducer';
+import {selectIsGuide} from '../../auth/store/auth.selectors';
 
 @Injectable()
 export class GuideGuard implements CanActivate {
@@ -12,7 +13,7 @@ export class GuideGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.store.select(store => store.auth.isGuide)
+    return this.store.select(selectIsGuide)
       .pipe(map(isGuide => {
         if (isGuide) {
           return true;

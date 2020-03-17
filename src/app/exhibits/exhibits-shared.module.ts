@@ -1,12 +1,13 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {EffectsModule} from '@ngrx/effects';
+import {RouterModule} from '@angular/router';
+
 import {ExhibitListComponent} from './components/exhibit-list/exhibit-list.component';
 import {ExhibitListPresentationComponent} from './components/exhibit-list-presentation/exhibit-list-presentation.component';
 import {ExhibitCardComponent} from './components/exhibit-card/exhibit-card.component';
 import {ExhibitItemComponent} from './components/exhibit-item/exhibit-item.component';
-import {RouterModule} from '@angular/router';
 import {ToursSharedModule} from '../tours/tours-shared.module';
-import {EffectsModule} from '@ngrx/effects';
 import {ExhibitEffects} from './store/exhibit.effects';
 import {ExhibitsGuard} from './services/exhibits-guard.service';
 import {ExhibitCardPresentationComponent} from './components/exhibit-card-presentation/exhibit-card-presentation.component';

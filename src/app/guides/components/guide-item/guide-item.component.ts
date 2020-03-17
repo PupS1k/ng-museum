@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {Guide} from '../../models/guide.model';
 import {Store} from '@ngrx/store';
+
 import {AppState} from '../../../app.reducer';
 import {DeleteGuideStart} from '../../store/guide.actions';
 import {selectIsTour} from '../../../tours/store/tour.selectors';

@@ -14,9 +14,7 @@ export class AppComponent implements OnInit {
   message$ = this.store.select(selectMessage);
   isLoading$ = this.store.select(selectIsLoading);
 
-  constructor(
-    private store: Store<AppState>
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.store.dispatch(new AutoLoginStart());

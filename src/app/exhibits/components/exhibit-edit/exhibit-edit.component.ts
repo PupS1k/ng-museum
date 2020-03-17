@@ -3,7 +3,6 @@ import {Store} from '@ngrx/store';
 
 import {AppState} from '../../../app.reducer';
 import {selectExhibitTours, selectIsExhibit} from '../../store/exhibits.selectors';
-import {DeleteExhibitFromTourStart} from '../../store/exhibit.actions';
 
 @Component({
   selector: 'app-exhibit-edit',
@@ -11,7 +10,6 @@ import {DeleteExhibitFromTourStart} from '../../store/exhibit.actions';
     <app-exhibit-edit-presentation
       [isEdit]="isEdit$ | async"
       [tours]="tours$ | async"
-      (deleteExhibit)="deleteFromTour($event)"
     ></app-exhibit-edit-presentation>
   `
 })
@@ -20,8 +18,4 @@ export class ExhibitEditComponent {
   isEdit$ = this.store.select(selectIsExhibit);
 
   constructor(private store: Store<AppState>) {}
-
-  deleteFromTour(tourId: number) {
-    this.store.dispatch(new DeleteExhibitFromTourStart(tourId));
-  }
 }

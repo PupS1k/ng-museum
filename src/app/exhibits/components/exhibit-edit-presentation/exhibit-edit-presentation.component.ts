@@ -1,4 +1,5 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+
 import {Tour} from '../../../tours/models/tour.model';
 
 @Component({
@@ -10,10 +11,4 @@ import {Tour} from '../../../tours/models/tour.model';
 export class ExhibitEditPresentationComponent {
   @Input() tours: Tour[];
   @Input() isEdit: boolean;
-
-  @Output() deleteExhibit = new EventEmitter<number>();
-
-  deleteExhibitFromTour(tourId) {
-    this.deleteExhibit.emit(tourId);
-  }
 }

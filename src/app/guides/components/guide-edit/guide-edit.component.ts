@@ -1,11 +1,11 @@
 import {Component, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
+
 import {AppState} from '../../../app.reducer';
 import {ClearSelectedGuide, CreateGuideStart, UpdateGuideStart} from '../../store/guide.actions';
 import {selectFormGuide, selectIsUpdateGuide} from '../../store/guide.selectors';
 import {GuideForm} from '../../models/guide-form.model';
-import {selectUserId} from '../../../profile/store/profile.selectors';
 
 @Component({
   selector: 'app-guide-edit',
