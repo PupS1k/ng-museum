@@ -4,6 +4,7 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
 import {DeleteGuideStart} from '../../store/guide.actions';
 import {selectIsTour} from '../../../tours/store/tour.selectors';
+import {DeleteGuideTourStart} from '../../../tours/store/tour.actions';
 
 @Component({
   selector: 'app-guide-item',
@@ -14,7 +15,6 @@ import {selectIsTour} from '../../../tours/store/tour.selectors';
       (deleteGuide)="onDeleteGuide()"
       (deleteGuideFromTour)="onDeleteGuideFromTour()"
     ></app-guide-item-presentation>
-
   `
 })
 export class GuideItemComponent {
@@ -29,7 +29,6 @@ export class GuideItemComponent {
   }
 
   onDeleteGuideFromTour() {
-    console.log('deleteGuideFromTour');
-    // this.store.dispatch(new DeleteGuideFromTour(this.guide.guideId));
+    this.store.dispatch(new DeleteGuideTourStart(this.guide.guideId));
   }
 }

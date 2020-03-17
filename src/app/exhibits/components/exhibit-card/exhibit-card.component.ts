@@ -1,20 +1,30 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../app.reducer';
+import {selectIsGuide} from '../../../auth/store/auth.selectors';
+import {selectIsTour} from '../../../tours/store/tour.selectors';
+import {DeleteExhibitTourStart} from '../../../tours/store/tour.actions';
 import {Exhibit} from '../../models/exhibit.model';
 
 @Component({
   selector: 'app-exhibit-card',
-  templateUrl: './exhibit-card.component.html',
-  styleUrls: ['./exhibit-card.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  template: `
+    <app-exhibit-card-presentation
+      [exhibit]="exhibit"
+      [isGuide]="isGuide$ | async"
+      [isTour]="isTour$ | async"
+      (deleteExhibit)="deleteFromTour($event)"
+    ></app-exhibit-card-presentation>
+  `
 })
 export class ExhibitCardComponent {
   @Input() exhibit: Exhibit;
-  @Input() isGuide: boolean;
-  @Input() isTour: boolean;
+  isGuide$ = this.store.select(selectIsGuide);
+  isTour$ = this.store.select(selectIsTour);
 
-  @Output() deleteExhibit = new EventEmitter();
+  constructor(private store: Store<AppState>) {}
 
-  deleteFromTour() {
-    this.deleteExhibit.emit();
+  deleteFromTour(exhibitId: number) {
+    this.store.dispatch(new DeleteExhibitTourStart(exhibitId));
   }
 }

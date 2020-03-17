@@ -1,5 +1,7 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {Visitor} from '../../../visitors/models/visitor.model';
+import {Guide} from '../../../guides/models/guide.model';
+import {Exhibit} from '../../../exhibits/models/exhibit.model';
 
 @Component({
   selector: 'app-tour-edit-presentation',
@@ -8,11 +10,8 @@ import {FormGroup} from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TourEditPresentationComponent {
-  @Input() tourForm: FormGroup;
-
-  @Output() edit = new EventEmitter<void>();
-
-  onSubmit() {
-    this.edit.emit();
-  }
+  @Input() isTour: boolean;
+  @Input() visitors: Visitor[];
+  @Input() guide: Guide[];
+  @Input() exhibits: Exhibit[];
 }

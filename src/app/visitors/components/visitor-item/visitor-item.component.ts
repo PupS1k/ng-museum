@@ -4,6 +4,7 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
 import {DeleteVisitorStart} from '../../store/visitor.actions';
 import {selectIsTour} from '../../../tours/store/tour.selectors';
+import {DeleteVisitorTourStart} from '../../../tours/store/tour.actions';
 
 @Component({
   selector: 'app-visitor-item',
@@ -28,7 +29,6 @@ export class VisitorItemComponent {
   }
 
   onDeleteVisitorFromTour() {
-    console.log('DeleteVisitorFromTour');
-    // this.store.dispatch(new DeleteVisitorFromTour(this.visitor));
+    this.store.dispatch(new DeleteVisitorTourStart(this.visitor.visitorId));
   }
 }

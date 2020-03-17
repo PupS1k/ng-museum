@@ -3,18 +3,13 @@
     <app-exhibit-card
       *ngFor="let exhibit of (exhibits | displayExhibitCards: isTour)"
       [exhibit]="exhibit"
-      [isGuide]="isGuide"
-      [isTour]="isTour"
-      (deleteExhibit)="deleteFromTour()"
     ></app-exhibit-card>
-    <button *ngIf="!isTour" class="btn btn-default" (click)="onMoveExhibits()">See all</button>
+    <button *ngIf="!isTour" class="btn btn-default" routerLink="/exhibits">See all</button>
   </div>
   <div class="col-xs-12" *ngIf="showMode === 'list'">
     <app-exhibit-item
       *ngFor="let exhibit of exhibits"
       [exhibit]="exhibit"
-      [isGuide]="isGuide"
-      [isTour]="isTour"
     ></app-exhibit-item>
   </div>
 </div>

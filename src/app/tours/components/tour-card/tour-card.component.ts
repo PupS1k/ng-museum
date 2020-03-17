@@ -1,19 +1,24 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Tour} from '../../models/tour.model';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../app.reducer';
+import {DeleteExhibitFromTourStart} from '../../../exhibits/store/exhibit.actions';
 
 @Component({
   selector: 'app-tour-card',
-  templateUrl: './tour-card.component.html',
-  styleUrls: ['./tour-card.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  template: `
+    <app-tour-card-presentation
+      [tour]="tour"
+      (deleteExhibitFormTour)="deleteFromTour($event)"
+    ></app-tour-card-presentation>
+  `
 })
 export class TourCardComponent {
   @Input() tour: Tour;
 
-  @Output() deleteExhibit = new EventEmitter<number>();
+  constructor(private store: Store<AppState>) {}
 
-  deleteFromTour() {
-    const tourId = this.tour.tourId;
-    this.deleteExhibit.emit(tourId);
+  deleteFromTour(tourId: number) {
+    this.store.dispatch(new DeleteExhibitFromTourStart(tourId));
   }
 }

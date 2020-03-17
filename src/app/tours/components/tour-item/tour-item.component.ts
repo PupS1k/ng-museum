@@ -1,13 +1,21 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Tour} from '../../models/tour.model';
+import {AppState} from '../../../app.reducer';
+import {Store} from '@ngrx/store';
+import {selectIsGuide} from '../../../auth/store/auth.selectors';
 
 @Component({
   selector: 'app-tour-item',
-  templateUrl: './tour-item.component.html',
-  styleUrls: ['./tour-item.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  template: `
+    <app-tour-item-presentation
+      [isGuide]="isGuide$ | async"
+      [tour]="tour"
+    ></app-tour-item-presentation>
+  `
 })
 export class TourItemComponent {
   @Input() tour: Tour;
-  @Input() isGuide: boolean;
+  isGuide$ = this.store.select(selectIsGuide);
+
+  constructor(private store: Store<AppState>) {}
 }

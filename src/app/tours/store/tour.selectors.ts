@@ -2,6 +2,7 @@ import {AppState} from '../../app.reducer';
 import {createSelector} from '@ngrx/store';
 import {selectVisitorInfo} from '../../profile/store/profile.selectors';
 import {selectIsGuide, selectIsVisitor} from '../../auth/store/auth.selectors';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 
 export const selectToursState = (state: AppState) => state.tours;
@@ -25,6 +26,17 @@ export const selectTourId = createSelector(
   }
 );
 
+export const selectTourForm = createSelector(
+  selectTour,
+  (tour) => new FormGroup({
+    duration: new FormControl(tour.duration, [Validators.required]),
+    cost: new FormControl(tour.cost, [Validators.required]),
+    imageUrl: new FormControl(tour.imageUrl, [Validators.required]),
+    typeOfExhibits: new FormControl(tour.typeOfExhibits, [Validators.required]),
+    theme: new FormControl(tour.theme, [Validators.required]),
+  })
+);
+
 export const selectIsTour = createSelector(
   selectTour,
   tour => !!tour
@@ -36,6 +48,8 @@ export const selectExhibitsOfTour = createSelector(
   (tourState, isVisitor) => {
     if (isVisitor) {
       return tourState.exhibitsOfTour;
+    } else {
+      return [];
     }
   }
 );
@@ -45,7 +59,7 @@ export const selectGuideOfTour = createSelector(
   selectToursState,
   selectIsGuide,
   (tourState, isGuide) => {
-    if (isGuide && tourState.tourGuide) {
+    if (isGuide && tourState.tourGuide.username) {
       return [tourState.tourGuide];
     } else {
       return [];
@@ -59,6 +73,8 @@ export const selectVisitorsOfTour = createSelector(
   (tourState, isGuide) => {
     if (isGuide) {
       return tourState.tourVisitors;
+    } else {
+      return [];
     }
   }
 );

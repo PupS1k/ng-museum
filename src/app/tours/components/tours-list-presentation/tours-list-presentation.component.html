@@ -2,13 +2,11 @@
   <app-tour-item
     *ngFor="let tour of tours"
     [tour]="tour"
-    [isGuide]="isGuide"
   ></app-tour-item>
 </div>
 <div *ngIf="isEdit">
   <app-tour-card
     *ngFor="let tour of tours"
     [tour]="tour"
-    (deleteExhibit)="deleteExhibitFromTour($event)"
   ></app-tour-card>
 </div>

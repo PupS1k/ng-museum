@@ -1,66 +1,31 @@
-<form [formGroup]="tourForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="theme">Theme</label>
-    <input
-      id="theme"
-      type="text"
-      class="form-control"
-      name="theme"
-      formControlName="theme"
-    >
+<div class="container tour-edit">
+  <div class="col-md-8 col-md-offset-2">
+    <app-tour-form></app-tour-form>
   </div>
-  <div class="form-group">
-    <label for="typeOfExhibits">TypeOfExhibits</label>
-    <input
-      id="typeOfExhibits"
-      type="text"
-      class="form-control"
-      name="typeOfExhibits"
-      formControlName="typeOfExhibits"
-    >
+
+  <div class="container-fluid text-center col-xs-12" *ngIf="exhibits.length">
+    <span class="heading-text">Tour Exhibits</span>
+    <app-exhibit-list-presentation
+      [exhibits]="exhibits"
+      [showMode]="'card'"
+      [isTour]="isTour"
+    ></app-exhibit-list-presentation>
   </div>
-  <div class="form-group">
-    <label for="duration">Duration</label>
-    <input
-      id="duration"
-      type="number"
-      class="form-control"
-      name="duration"
-      formControlName="duration"
-    >
+
+  <div class="container-fluid text-center col-xs-12" *ngIf="guide.length">
+    <span class="heading-text">Tour Guide</span>
+    <app-guides-list-presentation
+      [guides]="guide"
+      [isTour]="isTour"
+    ></app-guides-list-presentation>
   </div>
-  <div class="form-group">
-    <label for="cost">Cost</label>
-    <input
-      id="cost"
-      type="number"
-      class="form-control"
-      name="cost"
-      formControlName="cost"
-    >
+
+  <div class="container-fluid text-center col-xs-12" *ngIf="visitors.length">
+    <span class="heading-text">Tour Visitors</span>
+    <app-visitors-list-presentation
+      [visitors]="visitors"
+      [isTour]="isTour"
+    ></app-visitors-list-presentation>
   </div>
-  <div class="form-group">
-    <label for="imageUrl">Image URL</label>
-    <input
-      id="imageUrl"
-      type="text"
-      class="form-control"
-      name="imageUrl"
-      formControlName="imageUrl"
-    >
-  </div>
-  <div class="no-image">
-    <img
-      class="img-responsive tour-img"
-      src="{{ tourForm.get('imageUrl').value }}"
-      alt=""
-    >
-  </div>
-  <button
-    class="btn btn-primary"
-    type="submit"
-    [disabled]="tourForm.invalid"
-  >
-    Update
-  </button>
-</form>
+
+</div>

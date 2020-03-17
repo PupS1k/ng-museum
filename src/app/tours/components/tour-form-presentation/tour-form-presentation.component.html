@@ -1,0 +1,66 @@
+<form [formGroup]="tourForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="theme">Theme</label>
+    <input
+      id="theme"
+      type="text"
+      class="form-control"
+      name="theme"
+      formControlName="theme"
+    >
+  </div>
+  <div class="form-group">
+    <label for="typeOfExhibits">TypeOfExhibits</label>
+    <input
+      id="typeOfExhibits"
+      type="text"
+      class="form-control"
+      name="typeOfExhibits"
+      formControlName="typeOfExhibits"
+    >
+  </div>
+  <div class="form-group">
+    <label for="duration">Duration</label>
+    <input
+      id="duration"
+      type="number"
+      class="form-control"
+      name="duration"
+      formControlName="duration"
+    >
+  </div>
+  <div class="form-group">
+    <label for="cost">Cost</label>
+    <input
+      id="cost"
+      type="number"
+      class="form-control"
+      name="cost"
+      formControlName="cost"
+    >
+  </div>
+  <div class="form-group">
+    <label for="imageUrl">Image URL</label>
+    <input
+      id="imageUrl"
+      type="text"
+      class="form-control"
+      name="imageUrl"
+      formControlName="imageUrl"
+    >
+  </div>
+  <div class="no-image">
+    <img
+      class="img-responsive tour-img"
+      src="{{ tourForm.get('imageUrl').value }}"
+      alt=""
+    >
+  </div>
+  <button
+    class="btn btn-primary"
+    type="submit"
+    [disabled]="tourForm.invalid"
+  >
+    Update
+  </button>
+</form>

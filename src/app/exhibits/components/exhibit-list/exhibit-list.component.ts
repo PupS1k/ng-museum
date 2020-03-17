@@ -5,6 +5,7 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
 import {selectIsGuide} from '../../../auth/store/auth.selectors';
 import {selectExhibits} from '../../store/exhibits.selectors';
+import {selectIsTour} from '../../../tours/store/tour.selectors';
 
 @Component({
   selector: 'app-exhibit-list',
@@ -12,24 +13,15 @@ import {selectExhibits} from '../../store/exhibits.selectors';
     <app-exhibit-list-presentation
       [exhibits]="exhibits$ | async"
       [showMode]="showMode"
-      [isGuide]="isGuide$ | async"
-      (moveExhibits)="onNavigateExhibits()"
+      [isTour]="isTour$ | async"
     ></app-exhibit-list-presentation>
-
   `
 })
 export class ExhibitListComponent {
   exhibits$ = this.store.select(selectExhibits);
-  isGuide$ = this.store.select(selectIsGuide);
+  isTour$ = this.store.select(selectIsTour);
 
   @Input() showMode: string;
 
-  constructor(
-    private router: Router,
-    private store: Store<AppState>
-  ) {}
-
-  onNavigateExhibits() {
-    this.router.navigate(['/exhibits']);
-  }
+  constructor(private store: Store<AppState>) {}
 }

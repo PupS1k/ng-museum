@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {Exhibit} from '../../models/exhibit.model';
 
 @Component({
@@ -10,17 +10,5 @@ import {Exhibit} from '../../models/exhibit.model';
 export class ExhibitListPresentationComponent {
   @Input() exhibits: Exhibit[];
   @Input() showMode: string;
-  @Input() isGuide: boolean;
   @Input() isTour: boolean;
-
-  @Output() deleteExhibit = new EventEmitter();
-  @Output() moveExhibits = new EventEmitter<void>();
-
-  onMoveExhibits() {
-    this.moveExhibits.emit();
-  }
-
-  deleteFromTour() {
-    this.deleteExhibit.emit();
-  }
 }

@@ -9,6 +9,8 @@ import {ToursSharedModule} from '../tours/tours-shared.module';
 import {EffectsModule} from '@ngrx/effects';
 import {ExhibitEffects} from './store/exhibit.effects';
 import {ExhibitsGuard} from './services/exhibits-guard.service';
+import {ExhibitCardPresentationComponent} from './components/exhibit-card-presentation/exhibit-card-presentation.component';
+import {ExhibitItemPresentationComponent} from './components/exhibit-item-presentation/exhibit-item-presentation.component';
 
 
 @NgModule({
@@ -23,6 +25,8 @@ import {ExhibitsGuard} from './services/exhibits-guard.service';
     ExhibitListPresentationComponent,
     ExhibitCardComponent,
     ExhibitItemComponent,
+    ExhibitCardPresentationComponent,
+    ExhibitItemPresentationComponent,
   ],
   exports: [
     ExhibitListComponent,

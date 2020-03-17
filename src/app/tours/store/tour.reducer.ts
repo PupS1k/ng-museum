@@ -48,13 +48,13 @@ export function tourReducer(state: State = initialState, action: TourActions) {
     case DELETE_VISITOR_TOUR_SUCCESS: {
       return {
         ...state,
-        tourVisitors: state.tourVisitors.filter((visitor: Visitor) => visitor.visitorId === action.payload)
+        tourVisitors: state.tourVisitors.filter((visitor: Visitor) => visitor.visitorId !== action.payload)
       };
     }
     case DELETE_EXHIBIT_TOUR_SUCCESS: {
       return {
         ...state,
-        exhibitsOfTour: state.exhibitsOfTour.filter((exhibit: Exhibit) => exhibit.exhibitId === action.payload)
+        exhibitsOfTour: state.exhibitsOfTour.filter((exhibit: Exhibit) => exhibit.exhibitId !== action.payload)
       };
     }
     case CLEAR_SELECTED_TOUR: {
