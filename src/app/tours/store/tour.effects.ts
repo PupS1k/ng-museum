@@ -16,7 +16,7 @@ import {
   DELETE_GUIDE_TOUR_START,
   DELETE_VISITOR_TOUR_START,
   DeleteExhibitTourStart,
-  DeleteExhibitTourSuccess,
+  DeleteExhibitTourSuccess, DeleteFavouriteTourStart,
   DeleteFavouriteTourSuccess,
   DeleteGuideTourStart,
   DeleteGuideTourSuccess,

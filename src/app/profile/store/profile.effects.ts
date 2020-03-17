@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {of} from 'rxjs';
 import {
+  DELETE_FAVOURITE_TOUR_START, DeleteFavouriteTourStart, DeleteFavouriteTourSuccess,
   FETCH_GUIDE_INFO_START,
   FETCH_VISITOR_INFO_START,
   FetchGuideInfoStart,
@@ -13,11 +14,13 @@ import {
 } from './profile.actions';
 import {Guide} from '../../guides/models/guide.model';
 import {Visitor} from '../../visitors/models/visitor.model';
-import {Store} from '@ngrx/store';
+import {Action, Store} from '@ngrx/store';
 import {AppState} from '../../app.reducer';
 import {ShowMessage} from '../../layout/store/layout.actions';
 import {handleError} from '../../layout/utils';
 import {selectUsername} from '../../auth/store/auth.selectors';
+import {selectTourId} from '../../tours/store/tour.selectors';
+import {selectVisitorInfoId} from './profile.selectors';
 
 
 @Injectable()
@@ -50,6 +53,27 @@ export class ProfileEffects {
         map(userInfo => new FetchGuideInfoSuccess(userInfo)),
         catchError(err => of(new ShowMessage({module: 'Profile', message: handleError(err)})))
       ))
+  );
+
+  @Effect()
+  deleteFavouriteTour = this.actions$.pipe(
+    ofType(DELETE_FAVOURITE_TOUR_START),
+    withLatestFrom(this.store),
+    switchMap(([deleteFavouriteTour, state]: [DeleteFavouriteTourStart, AppState]) =>
+      this.http.post(
+        `visitor/visitors/removeTour`,
+        {tourId: deleteFavouriteTour.payload, visitorId: selectVisitorInfoId(state)},
+        {
+          headers: {
+            'no-spinner': 'true'
+          }
+        }
+      )
+        .pipe(
+          map(() => new DeleteFavouriteTourSuccess(deleteFavouriteTour.payload)),
+          catchError(err => of(new ShowMessage({module: 'Profile', message: handleError(err)})))
+        )
+    )
   );
 
   constructor(

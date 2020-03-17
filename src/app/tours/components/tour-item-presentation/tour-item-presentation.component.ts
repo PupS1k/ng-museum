@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {Tour} from '../../models/tour.model';
 
 @Component({
@@ -10,4 +10,11 @@ import {Tour} from '../../models/tour.model';
 export class TourItemPresentationComponent {
   @Input() tour: Tour;
   @Input() isGuide: boolean;
+  @Input() isProfile: boolean;
+
+  @Output() deleteTourProfile = new EventEmitter<void>();
+
+  deleteTourFromProfile() {
+    this.deleteTourProfile.emit();
+  }
 }

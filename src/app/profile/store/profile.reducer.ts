@@ -1,6 +1,14 @@
 import {Visitor} from '../../visitors/models/visitor.model';
 import {Guide} from '../../guides/models/guide.model';
-import {CLEAR_USER_INFO, FETCH_GUIDE_INFO_SUCCESS, FETCH_VISITOR_INFO_SUCCESS, ProfileActions, SET_PROFILE_MODE} from './profile.actions';
+import {
+  CLEAR_USER_INFO,
+  DELETE_FAVOURITE_TOUR_SUCCESS,
+  FETCH_GUIDE_INFO_SUCCESS,
+  FETCH_VISITOR_INFO_SUCCESS,
+  ProfileActions,
+  SET_PROFILE_MODE
+} from './profile.actions';
+import {Tour} from '../../tours/models/tour.model';
 
 
 export interface State {
@@ -42,6 +50,15 @@ export function profileReducer(state: State = initialState, action: ProfileActio
         ...state,
         userGuideInfo: {...action.payload}
       };
+    }
+    case DELETE_FAVOURITE_TOUR_SUCCESS: {
+      return {
+        ...state,
+        userVisitorInfo: {
+          ...state.userVisitorInfo,
+          tourEntitySet: state.userVisitorInfo.tourEntitySet.filter((tour: Tour) => tour.tourId !== action.payload)
+        }
+      }
     }
     default:
       return state;

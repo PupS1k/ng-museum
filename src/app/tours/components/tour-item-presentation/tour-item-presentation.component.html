@@ -35,6 +35,9 @@
     >
       Edit
     </a>
+    <button *ngIf="isProfile" class="btn-danger btn" (click)="deleteTourFromProfile()">
+      Delete From Tour
+    </button>
   </div>
 </div>
 
