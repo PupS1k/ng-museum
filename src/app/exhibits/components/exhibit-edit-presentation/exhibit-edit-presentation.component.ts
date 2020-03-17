@@ -11,9 +11,9 @@ export class ExhibitEditPresentationComponent {
   @Input() tours: Tour[];
   @Input() isEdit: boolean;
 
-  @Output() deleteExhibit = new EventEmitter();
+  @Output() deleteExhibit = new EventEmitter<number>();
 
-  deleteExhibitFromTour() {
-    this.deleteExhibit.emit();
+  deleteExhibitFromTour(tourId) {
+    this.deleteExhibit.emit(tourId);
   }
 }

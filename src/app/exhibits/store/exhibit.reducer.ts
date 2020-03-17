@@ -1,5 +1,6 @@
 import {Exhibit} from '../models/exhibit.model';
 import {
+  DELETE_EXHIBIT_FROM_TOUR_SUCCESS,
   ExhibitActions,
   FETCH_EXHIBIT_START,
   FETCH_EXHIBIT_SUCCESS,
@@ -8,6 +9,7 @@ import {
   UPDATE_EXHIBIT_START,
   UPDATE_EXHIBIT_SUCCESS
 } from './exhibit.actions';
+import {Tour} from '../../tours/models/tour.model';
 
 
 export interface State {
@@ -22,6 +24,15 @@ const initialState: State = {
 
 export function exhibitReducer(state: State = initialState, action: ExhibitActions) {
   switch (action.type) {
+    case DELETE_EXHIBIT_FROM_TOUR_SUCCESS: {
+      return {
+        ...state,
+        selectedExhibit: {
+          ...state.selectedExhibit,
+          tourEntitySet: state.selectedExhibit.tourEntitySet.filter((tour: Tour) => tour.tourId !== action.payload)
+        }
+      };
+    }
     case FETCH_EXHIBITS_SUCCESS:
       return {
         ...state,

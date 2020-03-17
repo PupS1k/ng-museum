@@ -10,9 +10,10 @@ import {Tour} from '../../models/tour.model';
 export class TourCardComponent {
   @Input() tour: Tour;
 
-  @Output() deleteExhibit = new EventEmitter();
+  @Output() deleteExhibit = new EventEmitter<number>();
 
   deleteFromTour() {
-    this.deleteExhibit.emit();
+    const tourId = this.tour.tourId;
+    this.deleteExhibit.emit(tourId);
   }
 }

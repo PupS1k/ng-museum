@@ -6,16 +6,36 @@ import {Router} from '@angular/router';
 import {of} from 'rxjs';
 
 import {
-  ADD_FAVOURITE_TOUR_START, AddFavouriteTourSuccess, CHECK_FAVOURITE_TOUR_START, CheckFavouriteTourStart,
+  ADD_FAVOURITE_TOUR_START,
+  AddFavouriteTourSuccess,
+  CHECK_FAVOURITE_TOUR_START,
+  CheckFavouriteTourStart,
   CheckFavouriteTourSuccess,
+  DELETE_EXHIBIT_TOUR_START,
   DELETE_FAVOURITE_TOUR_START,
-  DeleteFavouriteTourSuccess, FETCH_EXHIBITS_TOUR_START, FETCH_GUIDE_TOUR_START,
-  FETCH_TOUR_START, FETCH_TOUR_SUCCESS,
-  FETCH_TOURS_START, FETCH_VISITORS_TOUR_START, FetchExhibitsTourStart,
-  FetchExhibitsTourSuccess, FetchGuideTourStart, FetchGuideTourSuccess,
+  DELETE_GUIDE_TOUR_START,
+  DELETE_VISITOR_TOUR_START,
+  DeleteExhibitTourStart,
+  DeleteExhibitTourSuccess,
+  DeleteFavouriteTourSuccess,
+  DeleteGuideTourStart,
+  DeleteGuideTourSuccess,
+  DeleteVisitorTourStart, DeleteVisitorTourSuccess,
+  FETCH_EXHIBITS_TOUR_START,
+  FETCH_GUIDE_TOUR_START,
+  FETCH_TOUR_START,
+  FETCH_TOUR_SUCCESS,
+  FETCH_TOURS_START,
+  FETCH_VISITORS_TOUR_START,
+  FetchExhibitsTourStart,
+  FetchExhibitsTourSuccess,
+  FetchGuideTourStart,
+  FetchGuideTourSuccess,
   FetchToursSuccess,
   FetchTourStart,
-  FetchTourSuccess, FetchVisitorsTourStart, FetchVisitorsTourSuccess,
+  FetchTourSuccess,
+  FetchVisitorsTourStart,
+  FetchVisitorsTourSuccess,
   UPDATE_TOUR_START,
   UPDATE_TOUR_SUCCESS,
   UpdateTourStart,
@@ -33,6 +53,8 @@ import {handleError} from '../../layout/utils';
 import {selectIsAdmin, selectIsGuide} from '../../auth/store/auth.selectors';
 import {Guide} from '../../guides/models/guide.model';
 import {Visitor} from '../../visitors/models/visitor.model';
+import {selectExhibitId} from '../../exhibits/store/exhibits.selectors';
+import {DeleteExhibitFromTourStart} from '../../exhibits/store/exhibit.actions';
 
 
 @Injectable()
@@ -54,6 +76,76 @@ export class TourEffects {
       (fetchTour: FetchTourStart) => this.http.get<Tour>(`/tour/tours/${fetchTour.payload}`)
         .pipe(
           map((tour: Tour) => new FetchTourSuccess(tour)),
+          catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
+        )
+    )
+  );
+
+
+  @Effect()
+  deleteExhibitTour = this.actions$.pipe(
+    ofType(DELETE_EXHIBIT_TOUR_START),
+    withLatestFrom(this.store),
+    switchMap(([deleteExhibitTour, state]: [DeleteExhibitTourStart, AppState]) => this.http.post(
+      `/exhibit/exhibits/removeTour`,
+      {
+        tourId: selectTourId(state),
+        exhibitId: deleteExhibitTour.payload
+      },
+      {
+        headers: {
+          'no-spinner': 'true'
+        }
+      }
+      )
+        .pipe(
+          map(() => new DeleteExhibitTourSuccess(deleteExhibitTour.payload)),
+          catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
+        )
+    )
+  );
+
+  @Effect()
+  deleteGuideTour = this.actions$.pipe(
+    ofType(DELETE_GUIDE_TOUR_START),
+    withLatestFrom(this.store),
+    switchMap(([deleteGuideTour, state]: [DeleteGuideTourStart, AppState]) => this.http.post(
+      `/guide/guides/removeTour`,
+      {
+        tourId: selectTourId(state),
+        guideId: deleteGuideTour.payload
+      },
+      {
+        headers: {
+          'no-spinner': 'true'
+        }
+      }
+      )
+        .pipe(
+          map(() => new DeleteGuideTourSuccess()),
+          catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
+        )
+    )
+  );
+
+  @Effect()
+  deleteVisitorTour = this.actions$.pipe(
+    ofType(DELETE_VISITOR_TOUR_START),
+    withLatestFrom(this.store),
+    switchMap(([deleteVisitorTour, state]: [DeleteVisitorTourStart, AppState]) => this.http.post(
+      `/visitor/visitors/removeTour`,
+      {
+        tourId: selectTourId(state),
+        visitorId: deleteVisitorTour.payload
+      },
+      {
+        headers: {
+          'no-spinner': 'true'
+        }
+      }
+      )
+        .pipe(
+          map(() => new DeleteVisitorTourSuccess(deleteVisitorTour.payload)),
           catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
         )
     )
@@ -146,16 +238,16 @@ export class TourEffects {
   checkFavouriteTour = this.actions$.pipe(
     ofType(CHECK_FAVOURITE_TOUR_START),
     switchMap((checkFavouriteTour: CheckFavouriteTourStart) => this.http.post<boolean>(
-            `visitor/toursCheck`,
-            {
-              tourId: checkFavouriteTour.payload.tourId,
-              visitorId: checkFavouriteTour.payload.visitorId
-            }
-          )
-            .pipe(
-              map((isFavouriteTour: boolean) => new CheckFavouriteTourSuccess(isFavouriteTour)),
-              catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
-            )
+      `visitor/toursCheck`,
+      {
+        tourId: checkFavouriteTour.payload.tourId,
+        visitorId: checkFavouriteTour.payload.visitorId
+      }
+      )
+        .pipe(
+          map((isFavouriteTour: boolean) => new CheckFavouriteTourSuccess(isFavouriteTour)),
+          catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
+        )
     )
   );
 

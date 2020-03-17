@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {of} from 'rxjs';
 
 import {
+  DELETE_EXHIBIT_FROM_TOUR_START, DeleteExhibitFromTourStart, DeleteExhibitFromTourSuccess,
   FETCH_EXHIBIT_START,
   FETCH_EXHIBITS_START,
   FetchExhibitsSuccess,
@@ -18,8 +19,7 @@ import {ShowMessage} from '../../layout/store/layout.actions';
 import {handleError} from '../../layout/utils';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../app.reducer';
-import {selectExhibitId, selectExhibitTours} from './exhibits.selectors';
-
+import {selectExhibit, selectExhibitId, selectExhibitTours} from './exhibits.selectors';
 
 
 @Injectable()
@@ -50,7 +50,7 @@ export class ExhibitEffects {
     ofType(UPDATE_EXHIBIT_START),
     withLatestFrom(this.store),
     switchMap(([updateExhibitStart, state]: [UpdateExhibitStart, AppState]) => this.http.post<Exhibit>(
-        `/exhibit/exhibits/update/${selectExhibitId(state)}`,
+      `/exhibit/exhibits/update/${selectExhibitId(state)}`,
       {
         exhibitId: selectExhibitId(state),
         ...updateExhibitStart.payload,
@@ -59,6 +59,29 @@ export class ExhibitEffects {
       )
         .pipe(
           map((exhibit: Exhibit) => new UpdateExhibitSuccess(exhibit)),
+          catchError(err => of(new ShowMessage({module: 'Exhibit', message: handleError(err)})))
+        )
+    )
+  );
+
+  @Effect()
+  deleteExhibit = this.actions$.pipe(
+    ofType(DELETE_EXHIBIT_FROM_TOUR_START),
+    withLatestFrom(this.store),
+    switchMap(([deleteExhibitStart, state]: [DeleteExhibitFromTourStart, AppState]) => this.http.post(
+      `/exhibit/exhibits/removeTour`,
+      {
+        tourId: deleteExhibitStart.payload,
+        exhibitId: selectExhibitId(state)
+      },
+      {
+        headers: {
+          'no-spinner': 'true'
+        }
+      }
+      )
+        .pipe(
+          map(() => new DeleteExhibitFromTourSuccess(deleteExhibitStart.payload)),
           catchError(err => of(new ShowMessage({module: 'Exhibit', message: handleError(err)})))
         )
     )

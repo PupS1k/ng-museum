@@ -2,10 +2,14 @@ import {
   ADD_FAVOURITE_TOUR_SUCCESS,
   CHECK_FAVOURITE_TOUR_SUCCESS,
   CLEAR_SELECTED_TOUR,
-  DELETE_FAVOURITE_TOUR_SUCCESS,
-  FETCH_EXHIBITS_TOUR_SUCCESS, FETCH_GUIDE_TOUR_SUCCESS,
+  DELETE_EXHIBIT_TOUR_SUCCESS,
+  DELETE_FAVOURITE_TOUR_SUCCESS, DELETE_GUIDE_TOUR_SUCCESS,
+  DELETE_VISITOR_TOUR_SUCCESS,
+  FETCH_EXHIBITS_TOUR_SUCCESS,
+  FETCH_GUIDE_TOUR_SUCCESS,
   FETCH_TOUR_SUCCESS,
-  FETCH_TOURS_SUCCESS, FETCH_VISITORS_TOUR_SUCCESS,
+  FETCH_TOURS_SUCCESS,
+  FETCH_VISITORS_TOUR_SUCCESS,
   TourActions,
   UPDATE_TOUR_SUCCESS,
 } from './tour.actions';
@@ -35,6 +39,24 @@ const initialState: State = {
 
 export function tourReducer(state: State = initialState, action: TourActions) {
   switch (action.type) {
+    case DELETE_GUIDE_TOUR_SUCCESS: {
+      return {
+        ...state,
+        tourGuide: null
+      };
+    }
+    case DELETE_VISITOR_TOUR_SUCCESS: {
+      return {
+        ...state,
+        tourVisitors: state.tourVisitors.filter((visitor: Visitor) => visitor.visitorId === action.payload)
+      };
+    }
+    case DELETE_EXHIBIT_TOUR_SUCCESS: {
+      return {
+        ...state,
+        exhibitsOfTour: state.exhibitsOfTour.filter((exhibit: Exhibit) => exhibit.exhibitId === action.payload)
+      };
+    }
     case CLEAR_SELECTED_TOUR: {
       return {
         ...state,

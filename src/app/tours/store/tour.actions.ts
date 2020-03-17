@@ -7,6 +7,12 @@ import {Visitor} from '../../visitors/models/visitor.model';
 
 export const FETCH_TOURS_SUCCESS = '[Tour] Fetch Tours Success';
 export const FETCH_TOURS_START = '[Tour] Fetch Tours Start';
+export const DELETE_EXHIBIT_TOUR_SUCCESS = '[Tour] Delete Exhibit Tour Success';
+export const DELETE_EXHIBIT_TOUR_START = '[Tour] Delete Exhibit Tour Start';
+export const DELETE_GUIDE_TOUR_SUCCESS = '[Tour] Delete Guide Tour Success';
+export const DELETE_GUIDE_TOUR_START = '[Tour] Delete Guide Tour Start';
+export const DELETE_VISITOR_TOUR_SUCCESS = '[Tour] Delete Visitor Tour Success';
+export const DELETE_VISITOR_TOUR_START = '[Tour] Delete Visitor Tour Start';
 export const FETCH_EXHIBITS_TOUR_SUCCESS = '[Tour] Fetch Exhibits Tour Success';
 export const FETCH_EXHIBITS_TOUR_START = '[Tour] Fetch Exhibits Tour Start';
 export const FETCH_GUIDE_TOUR_SUCCESS = '[Tour] Fetch Guide Tour Success';
@@ -18,7 +24,6 @@ export const FETCH_TOUR_START = '[Tour] Fetch Tour Start';
 export const FETCH_TOUR_SUCCESS = '[Tour] Fetch Tour Success';
 export const UPDATE_TOUR_START = '[Tour] Update Tour Start';
 export const UPDATE_TOUR_SUCCESS = '[Tour] Update Tour Success';
-export const UPDATE_TOUR_FAIL = '[Tour] Update Tour Fail';
 export const CHECK_FAVOURITE_TOUR_SUCCESS = '[Tour] Check Favourite Tour Success';
 export const CHECK_FAVOURITE_TOUR_START = '[Tour] Check Favourite Tour Start';
 export const DELETE_FAVOURITE_TOUR_SUCCESS = '[Tour] Delete Favourite Tour Success';
@@ -32,6 +37,35 @@ export class DeleteFavouriteTourSuccess implements Action {
 
 export class ClearSelectedTour implements Action {
   readonly type = CLEAR_SELECTED_TOUR;
+}
+
+export class DeleteExhibitTourStart implements Action {
+  readonly type = DELETE_EXHIBIT_TOUR_START;
+  constructor(public payload: number) {}
+}
+
+export class DeleteExhibitTourSuccess implements Action {
+  readonly type = DELETE_EXHIBIT_TOUR_SUCCESS;
+  constructor(public payload: number) {}
+}
+
+export class DeleteGuideTourStart implements Action {
+  readonly type = DELETE_GUIDE_TOUR_START;
+  constructor(public payload: number) {}
+}
+
+export class DeleteGuideTourSuccess implements Action {
+  readonly type = DELETE_GUIDE_TOUR_SUCCESS;
+}
+
+export class DeleteVisitorTourStart implements Action {
+  readonly type = DELETE_VISITOR_TOUR_START;
+  constructor(public payload: number) {}
+}
+
+export class DeleteVisitorTourSuccess implements Action {
+  readonly type = DELETE_VISITOR_TOUR_SUCCESS;
+  constructor(public payload: number) {}
 }
 
 export class DeleteFavouriteTourStart implements Action {
@@ -105,11 +139,6 @@ export class FetchTourStart implements Action {
   constructor(public payload: number) {}
 }
 
-export class UpdateTourFail implements Action {
-  readonly type = UPDATE_TOUR_FAIL;
-  constructor(public payload: string) {}
-}
-
 export class UpdateTourStart implements Action {
   readonly type = UPDATE_TOUR_START;
   constructor(public payload: Omit<Tour, 'tourId'>) {}
@@ -130,4 +159,7 @@ export type TourActions =
   | FetchTourSuccess
   | UpdateTourSuccess
   | CheckFavouriteTourSuccess
-  | FetchExhibitsTourSuccess;
+  | FetchExhibitsTourSuccess
+  | DeleteGuideTourSuccess
+  | DeleteVisitorTourSuccess
+  | DeleteExhibitTourSuccess;

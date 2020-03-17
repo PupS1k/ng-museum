@@ -12,9 +12,9 @@ export class ToursListPresentationComponent {
   @Input() isGuide: boolean;
   @Input() isEdit: boolean;
 
-  @Output() deleteExhibit = new EventEmitter();
+  @Output() deleteExhibit = new EventEmitter<number>();
 
-  deleteExhibitFromTour() {
-    this.deleteExhibit.emit();
+  deleteExhibitFromTour(tourId: number) {
+    this.deleteExhibit.emit(tourId);
   }
 }
