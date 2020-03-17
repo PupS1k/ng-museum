@@ -1,6 +1,6 @@
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {catchError, map, switchMap, withLatestFrom} from 'rxjs/operators';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {of} from 'rxjs';
 import {
@@ -17,7 +17,7 @@ import {Visitor} from '../../visitors/models/visitor.model';
 import {Action, Store} from '@ngrx/store';
 import {AppState} from '../../app.reducer';
 import {ShowMessage} from '../../layout/store/layout.actions';
-import {handleError} from '../../layout/utils';
+import {handleError, prepareErrorUrlParams} from '../../layout/utils';
 import {selectUsername} from '../../auth/store/auth.selectors';
 import {selectTourId} from '../../tours/store/tour.selectors';
 import {selectVisitorInfoId} from './profile.selectors';
@@ -59,20 +59,18 @@ export class ProfileEffects {
   deleteFavouriteTour = this.actions$.pipe(
     ofType(DELETE_FAVOURITE_TOUR_START),
     withLatestFrom(this.store),
-    switchMap(([deleteFavouriteTour, state]: [DeleteFavouriteTourStart, AppState]) =>
-      this.http.post(
-        `visitor/visitors/removeTour`,
-        {tourId: deleteFavouriteTour.payload, visitorId: selectVisitorInfoId(state)},
-        {
-          headers: {
-            'no-spinner': 'true'
-          }
-        }
-      )
-        .pipe(
-          map(() => new DeleteFavouriteTourSuccess(deleteFavouriteTour.payload)),
-          catchError(err => of(new ShowMessage({module: 'Profile', message: handleError(err)})))
+    switchMap(([deleteFavouriteTour, state]: [DeleteFavouriteTourStart, AppState]) => {
+      const headers: HttpHeaders = prepareErrorUrlParams();
+      return this.http.post(
+          `visitor/visitors/removeTour`,
+          {tourId: deleteFavouriteTour.payload, visitorId: selectVisitorInfoId(state)},
+        {headers}
         )
+          .pipe(
+            map(() => new DeleteFavouriteTourSuccess(deleteFavouriteTour.payload)),
+            catchError(err => of(new ShowMessage({module: 'Profile', message: handleError(err)})))
+          );
+      }
     )
   );
 

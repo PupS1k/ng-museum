@@ -1,6 +1,5 @@
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {catchError, map, switchMap, tap, withLatestFrom} from 'rxjs/operators';
-import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {of} from 'rxjs';
@@ -16,10 +15,11 @@ import {
 } from './exhibit.actions';
 import {Exhibit} from '../models/exhibit.model';
 import {ShowMessage} from '../../layout/store/layout.actions';
-import {handleError} from '../../layout/utils';
+import {handleError, prepareErrorUrlParams} from '../../layout/utils';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../app.reducer';
-import {selectExhibit, selectExhibitId, selectExhibitTours} from './exhibits.selectors';
+import {selectExhibitId, selectExhibitTours} from './exhibits.selectors';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 
 @Injectable()
@@ -31,7 +31,8 @@ export class ExhibitEffects {
       .pipe(
         map((exhibits: Exhibit[]) => new FetchExhibitsSuccess(exhibits)),
         catchError(err => of(new ShowMessage({module: 'Exhibit', message: handleError(err)})))
-      ))
+      )
+    )
   );
 
   @Effect()
@@ -68,22 +69,21 @@ export class ExhibitEffects {
   deleteExhibit = this.actions$.pipe(
     ofType(DELETE_EXHIBIT_FROM_TOUR_START),
     withLatestFrom(this.store),
-    switchMap(([deleteExhibitStart, state]: [DeleteExhibitFromTourStart, AppState]) => this.http.post(
-      `/exhibit/exhibits/removeTour`,
-      {
-        tourId: deleteExhibitStart.payload,
-        exhibitId: selectExhibitId(state)
-      },
-      {
-        headers: {
-          'no-spinner': 'true'
-        }
-      }
-      )
-        .pipe(
-          map(() => new DeleteExhibitFromTourSuccess(deleteExhibitStart.payload)),
-          catchError(err => of(new ShowMessage({module: 'Exhibit', message: handleError(err)})))
+    switchMap(([deleteExhibitStart, state]: [DeleteExhibitFromTourStart, AppState]) => {
+      const headers: HttpHeaders = prepareErrorUrlParams();
+      return this.http.post(
+          `/exhibit/exhibits/removeTour`,
+          {
+            tourId: deleteExhibitStart.payload,
+            exhibitId: selectExhibitId(state)
+          },
+        {headers}
         )
+          .pipe(
+            map(() => new DeleteExhibitFromTourSuccess(deleteExhibitStart.payload)),
+            catchError(err => of(new ShowMessage({module: 'Exhibit', message: handleError(err)})))
+          );
+      }
     )
   );
 

@@ -1,6 +1,6 @@
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {catchError, map, switchMap, tap, withLatestFrom} from 'rxjs/operators';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {of} from 'rxjs';
@@ -49,7 +49,7 @@ import {AppState} from '../../app.reducer';
 import {selectTourId} from './tour.selectors';
 import {selectUserVisitorId, selectVisitorInfoId} from '../../profile/store/profile.selectors';
 import {ShowMessage} from '../../layout/store/layout.actions';
-import {handleError} from '../../layout/utils';
+import {handleError, prepareErrorUrlParams} from '../../layout/utils';
 import {selectIsAdmin, selectIsGuide} from '../../auth/store/auth.selectors';
 import {Guide} from '../../guides/models/guide.model';
 import {Visitor} from '../../visitors/models/visitor.model';
@@ -84,22 +84,21 @@ export class TourEffects {
   deleteExhibitTour = this.actions$.pipe(
     ofType(DELETE_EXHIBIT_TOUR_START),
     withLatestFrom(this.store),
-    switchMap(([deleteExhibitTour, state]: [DeleteExhibitTourStart, AppState]) => this.http.post(
-      `/exhibit/exhibits/removeTour`,
-      {
-        tourId: selectTourId(state),
-        exhibitId: deleteExhibitTour.payload
-      },
-      {
-        headers: {
-          'no-spinner': 'true'
-        }
-      }
-      )
-        .pipe(
-          map(() => new DeleteExhibitTourSuccess(deleteExhibitTour.payload)),
-          catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
+    switchMap(([deleteExhibitTour, state]: [DeleteExhibitTourStart, AppState]) => {
+        const headers: HttpHeaders = prepareErrorUrlParams();
+        return this.http.post(
+          `/exhibit/exhibits/removeTour`,
+          {
+            tourId: selectTourId(state),
+            exhibitId: deleteExhibitTour.payload
+          },
+          {headers}
         )
+          .pipe(
+            map(() => new DeleteExhibitTourSuccess(deleteExhibitTour.payload)),
+            catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
+          );
+      }
     )
   );
 
@@ -107,22 +106,21 @@ export class TourEffects {
   deleteGuideTour = this.actions$.pipe(
     ofType(DELETE_GUIDE_TOUR_START),
     withLatestFrom(this.store),
-    switchMap(([deleteGuideTour, state]: [DeleteGuideTourStart, AppState]) => this.http.post(
-      `/guide/guides/removeTour`,
-      {
-        tourId: selectTourId(state),
-        guideId: deleteGuideTour.payload
-      },
-      {
-        headers: {
-          'no-spinner': 'true'
-        }
-      }
-      )
-        .pipe(
-          map(() => new DeleteGuideTourSuccess()),
-          catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
+    switchMap(([deleteGuideTour, state]: [DeleteGuideTourStart, AppState]) => {
+        const headers: HttpHeaders = prepareErrorUrlParams();
+        return this.http.post(
+          `/guide/guides/removeTour`,
+          {
+            tourId: selectTourId(state),
+            guideId: deleteGuideTour.payload
+          },
+          {headers}
         )
+          .pipe(
+            map(() => new DeleteGuideTourSuccess()),
+            catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
+          );
+      }
     )
   );
 
@@ -130,22 +128,21 @@ export class TourEffects {
   deleteVisitorTour = this.actions$.pipe(
     ofType(DELETE_VISITOR_TOUR_START),
     withLatestFrom(this.store),
-    switchMap(([deleteVisitorTour, state]: [DeleteVisitorTourStart, AppState]) => this.http.post(
-      `/visitor/visitors/removeTour`,
-      {
-        tourId: selectTourId(state),
-        visitorId: deleteVisitorTour.payload
-      },
-      {
-        headers: {
-          'no-spinner': 'true'
-        }
-      }
-      )
-        .pipe(
-          map(() => new DeleteVisitorTourSuccess(deleteVisitorTour.payload)),
-          catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
+    switchMap(([deleteVisitorTour, state]: [DeleteVisitorTourStart, AppState]) => {
+        const headers: HttpHeaders = prepareErrorUrlParams();
+        return this.http.post(
+          `/visitor/visitors/removeTour`,
+          {
+            tourId: selectTourId(state),
+            visitorId: deleteVisitorTour.payload
+          },
+          {headers}
         )
+          .pipe(
+            map(() => new DeleteVisitorTourSuccess(deleteVisitorTour.payload)),
+            catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
+          );
+      }
     )
   );
 
@@ -261,19 +258,18 @@ export class TourEffects {
   deleteFavouriteTour = this.actions$.pipe(
     ofType(DELETE_FAVOURITE_TOUR_START),
     withLatestFrom(this.store),
-    switchMap(([action, state]: [Action, AppState]) => this.http.post(
-      `visitor/visitors/removeTour`,
-      {tourId: selectTourId(state), visitorId: selectVisitorInfoId(state)},
-      {
-        headers: {
-          'no-spinner': 'true'
-        }
-      }
-      )
-        .pipe(
-          map(() => new DeleteFavouriteTourSuccess()),
-          catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
+    switchMap(([action, state]: [Action, AppState]) => {
+        const headers: HttpHeaders = prepareErrorUrlParams();
+        return this.http.post(
+          `visitor/visitors/removeTour`,
+          {tourId: selectTourId(state), visitorId: selectVisitorInfoId(state)},
+          {headers}
         )
+          .pipe(
+            map(() => new DeleteFavouriteTourSuccess()),
+            catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
+          );
+      }
     )
   );
 
@@ -281,19 +277,18 @@ export class TourEffects {
   addFavouriteTour = this.actions$.pipe(
     ofType(ADD_FAVOURITE_TOUR_START),
     withLatestFrom(this.store),
-    switchMap(([action, state]: [Action, AppState]) => this.http.post(
-      `visitor/visitors/addTour`,
-      {tourId: selectTourId(state), visitorId: selectVisitorInfoId(state)},
-      {
-        headers: {
-          'no-spinner': 'true'
-        }
-      }
-      )
-        .pipe(
-          map(() => new AddFavouriteTourSuccess()),
-          catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
+    switchMap(([action, state]: [Action, AppState]) => {
+        const headers: HttpHeaders = prepareErrorUrlParams();
+        return this.http.post(
+          `visitor/visitors/addTour`,
+          {tourId: selectTourId(state), visitorId: selectVisitorInfoId(state)},
+          {headers}
         )
+          .pipe(
+            map(() => new AddFavouriteTourSuccess()),
+            catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
+          );
+      }
     )
   );
 

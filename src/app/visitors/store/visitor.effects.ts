@@ -59,9 +59,6 @@ export class VisitorEffects {
     withLatestFrom(this.store),
     switchMap(([updateVisitorStart, state]: [UpdateVisitorStart, AppState]) => {
       const id = selectVisitorId(state) || selectUserId(state);
-      console.log(id);
-      console.log(selectVisitorId(state));
-      console.log(selectUserId(state));
       return this.http.post<Visitor>(
           `/visitor/visitors/update/${id}`,
         {
