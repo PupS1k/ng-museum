@@ -22,6 +22,8 @@ export const FETCH_VISITORS_TOUR_START = '[Tour] Fetch Visitors Tour Start';
 export const CLEAR_SELECTED_TOUR = '[Tour] Clear Selected Tour';
 export const FETCH_TOUR_START = '[Tour] Fetch Tour Start';
 export const FETCH_TOUR_SUCCESS = '[Tour] Fetch Tour Success';
+export const FETCH_DATA_TOUR_START = '[Tour] Fetch Data Tour Start';
+export const FETCH_DATA_TOUR_SUCCESS = '[Tour] Fetch Data Tour Success';
 export const UPDATE_TOUR_START = '[Tour] Update Tour Start';
 export const UPDATE_TOUR_SUCCESS = '[Tour] Update Tour Success';
 export const CHECK_FAVOURITE_TOUR_SUCCESS = '[Tour] Check Favourite Tour Success';
@@ -127,6 +129,15 @@ export class FetchToursSuccess implements Action {
 
 export class FetchToursStart implements Action {
   readonly type = FETCH_TOURS_START;
+}
+
+export class FetchDataTourSuccess implements Action {
+  readonly type = FETCH_DATA_TOUR_SUCCESS;
+}
+
+export class FetchDataTourStart implements Action {
+  readonly type = FETCH_DATA_TOUR_START;
+  constructor(public payload: Tour) {}
 }
 
 export class FetchTourSuccess implements Action {

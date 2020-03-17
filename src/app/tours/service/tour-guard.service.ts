@@ -5,7 +5,10 @@ import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
-import {CHECK_FAVOURITE_TOUR_SUCCESS, FETCH_GUIDE_TOUR_SUCCESS, FETCH_TOUR_SUCCESS, FetchTourStart} from '../store/tour.actions';
+import {
+  FETCH_DATA_TOUR_SUCCESS,
+  FetchTourStart
+} from '../store/tour.actions';
 
 @Injectable()
 export class TourGuard implements CanActivate {
@@ -16,7 +19,7 @@ export class TourGuard implements CanActivate {
     const id = +route.params.id;
     this.store.dispatch(new FetchTourStart(id));
     return this.actions$.pipe(
-      ofType(CHECK_FAVOURITE_TOUR_SUCCESS, FETCH_GUIDE_TOUR_SUCCESS),
+      ofType(FETCH_DATA_TOUR_SUCCESS),
       map(action => !!action)
     );
   }

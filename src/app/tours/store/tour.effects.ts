@@ -8,7 +8,7 @@ import {of} from 'rxjs';
 import {
   ADD_FAVOURITE_TOUR_START,
   AddFavouriteTourSuccess,
-  CHECK_FAVOURITE_TOUR_START,
+  CHECK_FAVOURITE_TOUR_START, CHECK_FAVOURITE_TOUR_SUCCESS,
   CheckFavouriteTourStart,
   CheckFavouriteTourSuccess,
   DELETE_EXHIBIT_TOUR_START,
@@ -20,13 +20,13 @@ import {
   DeleteFavouriteTourSuccess,
   DeleteGuideTourStart,
   DeleteGuideTourSuccess,
-  DeleteVisitorTourStart, DeleteVisitorTourSuccess,
+  DeleteVisitorTourStart, DeleteVisitorTourSuccess, FETCH_DATA_TOUR_START,
   FETCH_EXHIBITS_TOUR_START,
-  FETCH_GUIDE_TOUR_START,
+  FETCH_GUIDE_TOUR_START, FETCH_GUIDE_TOUR_SUCCESS,
   FETCH_TOUR_START,
   FETCH_TOUR_SUCCESS,
   FETCH_TOURS_START,
-  FETCH_VISITORS_TOUR_START,
+  FETCH_VISITORS_TOUR_START, FetchDataTourStart, FetchDataTourSuccess,
   FetchExhibitsTourStart,
   FetchExhibitsTourSuccess,
   FetchGuideTourStart,
@@ -53,8 +53,6 @@ import {handleError} from '../../layout/utils';
 import {selectIsAdmin, selectIsGuide} from '../../auth/store/auth.selectors';
 import {Guide} from '../../guides/models/guide.model';
 import {Visitor} from '../../visitors/models/visitor.model';
-import {selectExhibitId} from '../../exhibits/store/exhibits.selectors';
-import {DeleteExhibitFromTourStart} from '../../exhibits/store/exhibit.actions';
 
 
 @Injectable()
@@ -184,24 +182,32 @@ export class TourEffects {
   );
 
   @Effect()
-  fetchAdditionalData = this.actions$.pipe(
+  fetchDataTour = this.actions$.pipe(
     ofType(FETCH_TOUR_SUCCESS),
+    switchMap((fetchTour: FetchTourSuccess) => of(new FetchDataTourStart(fetchTour.payload)))
+  );
+
+  @Effect()
+  fetchAdditionalData = this.actions$.pipe(
+    ofType(FETCH_DATA_TOUR_START),
     withLatestFrom(this.store),
-    switchMap(([fetchTour, state]: [FetchTourSuccess, AppState]) => {
+    switchMap(([fetchDataTour, state]: [FetchDataTourStart, AppState]) => {
+      this.store.dispatch(new FetchExhibitsTourStart(fetchDataTour.payload.tourId));
+
       if (selectIsGuide(state)) {
-        this.store.dispatch(new FetchGuideTourStart(fetchTour.payload.tourId));
+        this.store.dispatch(new FetchGuideTourStart(fetchDataTour.payload.tourId));
       } else {
         this.store.dispatch(new CheckFavouriteTourStart({
-          tourId: fetchTour.payload.tourId,
+          tourId: fetchDataTour.payload.tourId,
           visitorId: selectUserVisitorId(state)
         }));
       }
 
       if (selectIsAdmin(state)) {
-        this.store.dispatch(new FetchVisitorsTourStart(fetchTour.payload.tourId));
+        this.store.dispatch(new FetchVisitorsTourStart(fetchDataTour.payload.tourId));
       }
 
-      return of(new FetchExhibitsTourStart(fetchTour.payload.tourId));
+      return of(new FetchDataTourSuccess());
     }),
     catchError(err => of(new ShowMessage({module: 'Tour', message: handleError(err)})))
   );
