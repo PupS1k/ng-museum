@@ -20,7 +20,7 @@ import {selectIsAdmin, selectIsAuthenticated, selectIsGuide, selectIsVisitor, se
     ></app-navbar-presentation>
   `
 })
-export class NavbarComponent {
+export class NavbarSmartComponent {
   isAuthenticated$ = this.store.select(selectIsAuthenticated);
   username$ = this.store.select(selectUsername);
   profileMode$ = this.store.select(selectProfileMode);
