@@ -1,6 +1,7 @@
 import {Action} from '@ngrx/store';
 import {Exhibit} from '../models/exhibit.model';
 import {ExhibitForm} from '../models/exhibit-form.model';
+import {Tour} from '../../tours/models/tour.model';
 
 export const FETCH_EXHIBITS_SUCCESS = '[Exhibit] Fetch Exhibits Success';
 export const FETCH_EXHIBITS_START = '[Exhibit] Fetch Exhibits Start';
@@ -22,12 +23,12 @@ export class FetchExhibitsStart implements Action {
 
 export class DeleteExhibitFromTourStart implements Action {
   readonly type = DELETE_EXHIBIT_FROM_TOUR_START;
-  constructor(public payload: number) {}
+  constructor(public payload: Tour['tourId']) {}
 }
 
 export class DeleteExhibitFromTourSuccess implements Action {
   readonly type = DELETE_EXHIBIT_FROM_TOUR_SUCCESS;
-  constructor(public payload: number) {}
+  constructor(public payload: Tour['tourId']) {}
 }
 
 export class FetchExhibitSuccess implements Action {
@@ -37,7 +38,7 @@ export class FetchExhibitSuccess implements Action {
 
 export class FetchExhibitStart implements Action {
   readonly type = FETCH_EXHIBIT_START;
-  constructor(public payload: number) {}
+  constructor(public payload: Exhibit['exhibitId']) {}
 }
 
 export class UpdateExhibitStart implements Action {
@@ -53,8 +54,5 @@ export class UpdateExhibitSuccess implements Action {
 export type ExhibitActions =
   | FetchExhibitsSuccess
   | FetchExhibitSuccess
-  | UpdateExhibitStart
   | UpdateExhibitSuccess
-  | FetchExhibitsStart
-  | FetchExhibitStart
   | DeleteExhibitFromTourSuccess;

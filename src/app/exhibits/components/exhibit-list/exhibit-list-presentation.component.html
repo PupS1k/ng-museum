@@ -4,7 +4,7 @@
       *ngFor="let exhibit of (exhibits | displayExhibitCards: isTour)"
       [exhibit]="exhibit"
     ></app-exhibit-card>
-    <button *ngIf="!isTour" class="btn btn-default" routerLink="/exhibits">See all</button>
+    <a *ngIf="!isTour" class="btn btn-default" routerLink="/exhibits">See all</a>
   </div>
   <div class="col-xs-12" *ngIf="showMode === 'list'">
     <app-exhibit-item

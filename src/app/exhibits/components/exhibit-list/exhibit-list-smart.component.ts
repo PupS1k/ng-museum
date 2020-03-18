@@ -15,7 +15,7 @@ import {selectIsTour} from '../../../tours/store/tour.selectors';
     ></app-exhibit-list-presentation>
   `
 })
-export class ExhibitListComponent {
+export class ExhibitListSmartComponent {
   exhibits$ = this.store.select(selectExhibits);
   isTour$ = this.store.select(selectIsTour);
 

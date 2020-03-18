@@ -1,12 +1,9 @@
 import {Exhibit} from '../models/exhibit.model';
 import {
-  DELETE_EXHIBIT_FROM_TOUR_SUCCESS,
   ExhibitActions,
-  FETCH_EXHIBIT_START,
+  DELETE_EXHIBIT_FROM_TOUR_SUCCESS,
   FETCH_EXHIBIT_SUCCESS,
-  FETCH_EXHIBITS_START,
   FETCH_EXHIBITS_SUCCESS,
-  UPDATE_EXHIBIT_START,
   UPDATE_EXHIBIT_SUCCESS
 } from './exhibit.actions';
 import {Tour} from '../../tours/models/tour.model';
@@ -22,39 +19,34 @@ const initialState: State = {
   exhibits: [],
 };
 
+const deleteExhibitFromTour = (state: State, tourId) => ({
+  ...state,
+  selectedExhibit: {
+    ...state.selectedExhibit,
+    tourEntitySet: state.selectedExhibit.tourEntitySet.filter((tour: Tour) => tour.tourId !== tourId)
+  }
+});
+
+const setExhibits = (state: State, exhibits) => ({...state, exhibits: [...exhibits]});
+
+const setExhibit = (state: State, exhibit) => ({...state, selectedExhibit: {...exhibit}});
+
+const updateExhibit = (state: State, updatedExhibit) => ({
+  ...state,
+  exhibits: state.exhibits.map(exhibit => exhibit.exhibitId === updatedExhibit.exhibitId ? updatedExhibit : exhibit)
+});
+
 export function exhibitReducer(state: State = initialState, action: ExhibitActions) {
   switch (action.type) {
     case DELETE_EXHIBIT_FROM_TOUR_SUCCESS: {
-      return {
-        ...state,
-        selectedExhibit: {
-          ...state.selectedExhibit,
-          tourEntitySet: state.selectedExhibit.tourEntitySet.filter((tour: Tour) => tour.tourId !== action.payload)
-        }
-      };
+      return deleteExhibitFromTour(state, action.payload);
     }
     case FETCH_EXHIBITS_SUCCESS:
-      return {
-        ...state,
-        exhibits: [...action.payload]
-      };
+      return setExhibits(state, action.payload);
     case FETCH_EXHIBIT_SUCCESS:
-      return {
-        ...state,
-        selectedExhibit: {...action.payload}
-      };
+      return setExhibit(state, action.payload);
     case UPDATE_EXHIBIT_SUCCESS:
-      return {
-        ...state,
-        exhibits: state.exhibits.map(exhibit => exhibit.exhibitId === action.payload.exhibitId ? action.payload : exhibit)
-      };
-    case UPDATE_EXHIBIT_START:
-    case FETCH_EXHIBIT_START:
-    case FETCH_EXHIBITS_START:
-      return {
-        ...state,
-        errorMessage: ''
-      };
+      return updateExhibit(state, action.payload);
     default:
       return state;
   }

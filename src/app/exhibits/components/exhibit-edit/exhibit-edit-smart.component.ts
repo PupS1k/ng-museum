@@ -13,7 +13,7 @@ import {selectExhibitTours, selectIsExhibit} from '../../store/exhibits.selector
     ></app-exhibit-edit-presentation>
   `
 })
-export class ExhibitEditComponent {
+export class ExhibitEditSmartComponent {
   tours$ = this.store.select(selectExhibitTours);
   isEdit$ = this.store.select(selectIsExhibit);
 

@@ -6,13 +6,14 @@ import {of} from 'rxjs';
 import {Action, Store} from '@ngrx/store';
 
 import {
+  AUTO_LOGIN,
   FETCH_ROLE,
   LOGIN_START, LOGIN_SUCCESS,
   LoginStart,
   LOGOUT,
   SIGN_UP_START, SIGN_UP_SUCCESS,
   SignUpStart,
-  SignUpSuccess, UPDATE_TOKEN_EXP_DATE
+  SignUpSuccess
 } from './auth.actions';
 import {AuthService} from '../../core/services/auth.service';
 import {ShowMessage} from '../../layout/store/layout.actions';
@@ -79,7 +80,7 @@ export class AuthEffects {
 
   @Effect()
   autoLogin = this.actions$.pipe(
-    ofType(UPDATE_TOKEN_EXP_DATE),
+    ofType(AUTO_LOGIN),
     withLatestFrom(this.store.select(selectAuthState)),
     map(([action, authState]: [Action, UserData]) => this.authService.updateLogoutTimer(authState))
   );

@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
-
 import {Store} from '@ngrx/store';
-import {AppState} from '../../app.reducer';
-import {FETCH_EXHIBITS_SUCCESS, FetchExhibitsStart} from '../store/exhibit.actions';
 import {map} from 'rxjs/operators';
 import {Actions, ofType} from '@ngrx/effects';
+
+import {AppState} from '../../app.reducer';
+import {FETCH_EXHIBITS_SUCCESS, FetchExhibitsStart} from '../store/exhibit.actions';
 
 
 @Injectable()

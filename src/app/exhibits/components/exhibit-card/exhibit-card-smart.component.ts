@@ -18,7 +18,7 @@ import {Exhibit} from '../../models/exhibit.model';
     ></app-exhibit-card-presentation>
   `
 })
-export class ExhibitCardComponent {
+export class ExhibitCardSmartComponent {
   @Input() exhibit: Exhibit;
   isGuide$ = this.store.select(selectIsGuide);
   isTour$ = this.store.select(selectIsTour);

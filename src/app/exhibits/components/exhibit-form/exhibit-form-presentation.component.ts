@@ -14,12 +14,12 @@ export class ExhibitFormPresentationComponent {
   @Output() edit = new EventEmitter<ExhibitForm>();
 
   onSubmit() {
-    const title = this.exhibitForm.value.title;
-    const dated = this.exhibitForm.value.dated;
-    const material = this.exhibitForm.value.material;
-    const archiveNum = this.exhibitForm.value.archiveNum;
-    const description = this.exhibitForm.value.description;
-    const imageUrl = this.exhibitForm.value.imageUrl;
+    const {
+      title, dated,
+      material, archiveNum,
+      description,
+      imageUrl
+    } = this.exhibitForm.value;
 
     this.edit.emit({
       title, dated,

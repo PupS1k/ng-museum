@@ -5,7 +5,8 @@ import {Router} from '@angular/router';
 import {of} from 'rxjs';
 
 import {
-  DELETE_EXHIBIT_FROM_TOUR_START, DeleteExhibitFromTourStart, DeleteExhibitFromTourSuccess,
+  DELETE_EXHIBIT_FROM_TOUR_START,
+  DeleteExhibitFromTourStart, DeleteExhibitFromTourSuccess,
   FETCH_EXHIBIT_START,
   FETCH_EXHIBITS_START,
   FetchExhibitsSuccess,
@@ -15,11 +16,14 @@ import {
 } from './exhibit.actions';
 import {Exhibit} from '../models/exhibit.model';
 import {ShowMessage} from '../../layout/store/layout.actions';
-import {handleError, prepareErrorUrlParams} from '../../layout/utils';
+import {handleError} from '../../layout/utils';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../app.reducer';
-import {selectExhibitId, selectExhibitTours} from './exhibits.selectors';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {selectExhibit, selectExhibitId} from './exhibits.selectors';
+import {HttpClient} from '@angular/common/http';
+import {ApiExhibitsService} from '../services/api-exhibits.service';
+import {ExhibitForm} from '../models/exhibit-form.model';
+import {Tour} from '../../tours/models/tour.model';
 
 
 @Injectable()
@@ -27,7 +31,7 @@ export class ExhibitEffects {
   @Effect()
   fetchExhibits = this.actions$.pipe(
     ofType(FETCH_EXHIBITS_START),
-    switchMap(() => this.http.get<Exhibit[]>('/exhibit/exhibits')
+    switchMap(() => this.apiExhibitsService.getExhibits()
       .pipe(
         map((exhibits: Exhibit[]) => new FetchExhibitsSuccess(exhibits)),
         catchError(err => of(new ShowMessage({module: 'Exhibit', message: handleError(err)})))
@@ -37,53 +41,40 @@ export class ExhibitEffects {
 
   @Effect()
   fetchExhibit = this.actions$.pipe(
-    ofType(FETCH_EXHIBIT_START),
-    switchMap(
-      (fetchExhibitStart: FetchExhibitStart) => this.http.get<Exhibit>(`/exhibit/exhibits/${fetchExhibitStart.payload}`)
-        .pipe(
-          map((exhibit: Exhibit) => new FetchExhibitSuccess(exhibit)),
-          catchError(err => of(new ShowMessage({module: 'Exhibit', message: handleError(err)})))
-        ))
+    ofType<FetchExhibitStart>(FETCH_EXHIBIT_START),
+    map(action => action.payload),
+    switchMap(exhibitId => this.apiExhibitsService.getExhibit(exhibitId)
+      .pipe(
+        map((exhibit: Exhibit) => new FetchExhibitSuccess(exhibit)),
+        catchError(err => of(new ShowMessage({module: 'Exhibit', message: handleError(err)})))
+      ))
   );
 
   @Effect()
   updateExhibit = this.actions$.pipe(
-    ofType(UPDATE_EXHIBIT_START),
-    withLatestFrom(this.store),
-    switchMap(([updateExhibitStart, state]: [UpdateExhibitStart, AppState]) => this.http.post<Exhibit>(
-      `/exhibit/exhibits/update/${selectExhibitId(state)}`,
-      {
-        exhibitId: selectExhibitId(state),
-        ...updateExhibitStart.payload,
-        tourEntitySet: selectExhibitTours(state)
-      }
+    ofType<UpdateExhibitStart>(UPDATE_EXHIBIT_START),
+    map(action => action.payload),
+    withLatestFrom(this.store.select(selectExhibit)),
+    switchMap(([exhibitFormData, exhibit]: [ExhibitForm, Exhibit]) => this.apiExhibitsService
+      .updateExhibit(exhibit, exhibitFormData)
+      .pipe(
+        map((updatedExhibit: Exhibit) => new UpdateExhibitSuccess(updatedExhibit)),
+        catchError(err => of(new ShowMessage({module: 'Exhibit', message: handleError(err)})))
       )
-        .pipe(
-          map((exhibit: Exhibit) => new UpdateExhibitSuccess(exhibit)),
-          catchError(err => of(new ShowMessage({module: 'Exhibit', message: handleError(err)})))
-        )
     )
   );
 
   @Effect()
   deleteExhibit = this.actions$.pipe(
-    ofType(DELETE_EXHIBIT_FROM_TOUR_START),
-    withLatestFrom(this.store),
-    switchMap(([deleteExhibitStart, state]: [DeleteExhibitFromTourStart, AppState]) => {
-      const headers: HttpHeaders = prepareErrorUrlParams();
-      return this.http.post(
-          `/exhibit/exhibits/removeTour`,
-          {
-            tourId: deleteExhibitStart.payload,
-            exhibitId: selectExhibitId(state)
-          },
-        {headers}
-        )
-          .pipe(
-            map(() => new DeleteExhibitFromTourSuccess(deleteExhibitStart.payload)),
-            catchError(err => of(new ShowMessage({module: 'Exhibit', message: handleError(err)})))
-          );
-      }
+    ofType<DeleteExhibitFromTourStart>(DELETE_EXHIBIT_FROM_TOUR_START),
+    map(action => action.payload),
+    withLatestFrom(this.store.select(selectExhibitId)),
+    switchMap(([tourId, exhibitId]: [Tour['tourId'], Exhibit['exhibitId']]) => this.apiExhibitsService
+      .deleteExhibitFromTour(tourId, exhibitId)
+      .pipe(
+        map(() => new DeleteExhibitFromTourSuccess(tourId)),
+        catchError(err => of(new ShowMessage({module: 'Exhibit', message: handleError(err)})))
+      )
     )
   );
 
@@ -97,6 +88,7 @@ export class ExhibitEffects {
     private actions$: Actions,
     private http: HttpClient,
     private router: Router,
+    private apiExhibitsService: ApiExhibitsService,
     private store: Store<AppState>
   ) {
   }

@@ -16,7 +16,7 @@ import {selectIsTour} from '../../../tours/store/tour.selectors';
     ></app-exhibit-item-presentation>
   `
 })
-export class ExhibitItemComponent {
+export class ExhibitItemSmartComponent {
   @Input() exhibit: Exhibit;
   isGuide$ = this.store.select(selectIsGuide);
   isTour$ = this.store.select(selectIsTour);

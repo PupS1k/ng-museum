@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {LoginSmartComponent} from './components/login/login.component';
+import {LoginSmartComponent} from './components/login/login-smart.component';
 import {SignUpComponent} from './components/sign-up/sign-up.component';
 
 

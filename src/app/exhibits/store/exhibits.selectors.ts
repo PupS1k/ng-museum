@@ -28,7 +28,13 @@ export const selectExhibitForm = createSelector(
 
 export const selectExhibitId = createSelector(
   selectExhibit,
-  (exhibit) => exhibit.exhibitId
+  (exhibit) => {
+    if (exhibit) {
+      return exhibit.exhibitId;
+    } else {
+      return null;
+    }
+  }
 );
 
 export const selectExhibitTours = createSelector(

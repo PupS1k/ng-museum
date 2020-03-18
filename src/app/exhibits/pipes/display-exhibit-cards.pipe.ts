@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {Exhibit} from '../../exhibits/models/exhibit.model';
+import {Exhibit} from '../models/exhibit.model';
 
 @Pipe({name: 'displayExhibitCards'})
 export class DisplayExhibitCardsPipe implements PipeTransform {

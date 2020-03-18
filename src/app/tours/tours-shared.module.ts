@@ -8,7 +8,6 @@ import {TourItemComponent} from './components/tour-item/tour-item.component';
 import {ToursListPresentationComponent} from './components/tours-list-presentation/tours-list-presentation.component';
 import {TourEffects} from './store/tour.effects';
 import {TourCardComponent} from './components/tour-card/tour-card.component';
-import {DisplayExhibitCardsPipe} from './pipes/display-exhibit-cards.pipe';
 import {TourItemPresentationComponent} from './components/tour-item-presentation/tour-item-presentation.component';
 import {TourCardPresentationComponent} from './components/tour-card-presentation/tour-card-presentation.component';
 
@@ -24,7 +23,6 @@ import {TourCardPresentationComponent} from './components/tour-card-presentation
     ToursListPresentationComponent,
     TourItemComponent,
     TourCardComponent,
-    DisplayExhibitCardsPipe,
     TourItemPresentationComponent,
     TourCardPresentationComponent
   ],
@@ -32,8 +30,7 @@ import {TourCardPresentationComponent} from './components/tour-card-presentation
     ToursListComponent,
     ToursListPresentationComponent,
     TourItemComponent,
-    TourCardComponent,
-    DisplayExhibitCardsPipe
+    TourCardComponent
   ]
 })
 export class ToursSharedModule {}

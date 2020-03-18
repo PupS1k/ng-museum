@@ -15,7 +15,7 @@ import {selectExhibit} from '../../store/exhibits.selectors';
     ></app-exhibit-details-presentation>
   `
 })
-export class ExhibitDetailsComponent {
+export class ExhibitDetailsSmartComponent {
   exhibit$ = this.store.select(selectExhibit);
   isGuide$ = this.store.select(selectIsGuide);
   isVisitor$ = this.store.select(selectIsVisitor);

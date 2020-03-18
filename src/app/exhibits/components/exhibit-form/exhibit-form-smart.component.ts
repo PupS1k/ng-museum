@@ -15,7 +15,7 @@ import {selectExhibitForm} from '../../store/exhibits.selectors';
     ></app-exhibit-form-presentation>
   `
 })
-export class ExhibitFormComponent {
+export class ExhibitFormSmartComponent {
   exhibitForm$ = this.store.select(selectExhibitForm);
 
   constructor(private store: Store<AppState>) {}

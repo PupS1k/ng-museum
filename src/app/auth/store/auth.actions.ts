@@ -6,6 +6,7 @@ export const LOGIN_START = '[Auth] Login Start';
 export const SIGN_UP_START = '[Auth] Sign Up Start';
 export const LOGIN_SUCCESS = '[Auth] Login Success';
 export const SIGN_UP_SUCCESS = '[Auth] Sign Up Success';
+export const AUTO_LOGIN = '[Auth] Auto Login';
 export const UPDATE_TOKEN_EXP_DATE = '[Auth] UPDATE_TOKEN_EXP_DATE';
 export const CHANGE_USERNAME = '[Auth] Change Username';
 export const LOGOUT = '[Auth] Logout';
@@ -37,6 +38,10 @@ export class UpdateTokenExpDate implements Action {
 
 export class Logout implements Action {
   readonly type = LOGOUT;
+}
+
+export class AutoLogin implements Action {
+  readonly type = AUTO_LOGIN;
 }
 
 export class ChangeUsername implements Action {
