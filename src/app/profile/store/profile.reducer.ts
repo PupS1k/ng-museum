@@ -23,42 +23,43 @@ const initialState: State = {
   userVisitorInfo: null,
 };
 
+const setProfileMode = (state: State, profileMode: string) => ({...state, profileMode});
+
+const clearUserInfo = (state: State) => ({
+  ...state,
+  profileMode: '',
+  userGuideInfo: null,
+  userVisitorInfo: null,
+});
+
+const setUserVisitorInfo = (state: State, user: Visitor) => ({...state, userVisitorInfo: {...user}});
+
+const setUserGuideInfo = (state: State, user: Guide) => ({...state, userGuideInfo: {...user}});
+
+const deleteFavouriteTour = (state: State, tourId: Tour['tourId']) => ({
+  ...state,
+  userVisitorInfo: {
+    ...state.userVisitorInfo,
+    tourEntitySet: state.userVisitorInfo.tourEntitySet.filter((tour: Tour) => tour.tourId !== tourId)
+  }
+});
+
 export function profileReducer(state: State = initialState, action: ProfileActions) {
   switch (action.type) {
     case SET_PROFILE_MODE: {
-      return {
-        ...state,
-        profileMode: action.payload
-      };
+      return setProfileMode(state, action.payload);
     }
     case CLEAR_USER_INFO: {
-      return {
-        ...state,
-        profileMode: '',
-        userGuideInfo: null,
-        userVisitorInfo: null,
-      };
+      return clearUserInfo(state);
     }
     case FETCH_VISITOR_INFO_SUCCESS: {
-      return {
-        ...state,
-        userVisitorInfo: {...action.payload}
-      };
+      return setUserVisitorInfo(state, action.payload);
     }
     case FETCH_GUIDE_INFO_SUCCESS: {
-      return {
-        ...state,
-        userGuideInfo: {...action.payload}
-      };
+      return setUserGuideInfo(state, action.payload);
     }
     case DELETE_FAVOURITE_TOUR_SUCCESS: {
-      return {
-        ...state,
-        userVisitorInfo: {
-          ...state.userVisitorInfo,
-          tourEntitySet: state.userVisitorInfo.tourEntitySet.filter((tour: Tour) => tour.tourId !== action.payload)
-        }
-      }
+      return deleteFavouriteTour(state, action.payload);
     }
     default:
       return state;

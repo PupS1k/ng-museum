@@ -13,7 +13,7 @@ import {selectFavouriteTours, selectUserIsGuide, selectUserIsVisitor} from '../.
     ></app-profile-presentation>
   `
 })
-export class ProfileComponent {
+export class ProfileSmartComponent {
   userIsVisitor$ = this.store.select(selectUserIsVisitor);
   userIsGuide$ = this.store.select(selectUserIsGuide);
   tours$ = this.store.select(selectFavouriteTours);

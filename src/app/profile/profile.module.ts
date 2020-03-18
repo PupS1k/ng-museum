@@ -4,13 +4,16 @@ import {RouterModule} from '@angular/router';
 
 import {ProfileRouting} from './profile-routing.module';
 import {VisitorsSharedModule} from '../visitors/visitors-shared.module';
-import {ProfileComponent} from './components/profile/profile.component';
+import {ProfileSmartComponent} from './components/profile/profile-smart.component';
 import {ToursSharedModule} from '../tours/tours-shared.module';
 import {GuidesSharedModule} from '../guides/guides-shared.module';
-import {ProfilePresentationComponent} from './components/profile-presentation/profile-presentation.component';
+import {ProfilePresentationComponent} from './components/profile/profile-presentation.component';
 import {ProfileVisitorEditComponent} from './components/profile-visitor-edit/profile-visitor-edit.component';
 import {ProfileGuideEditComponent} from './components/profile-guide-edit/profile-guide-edit.component';
 import {ProfileGuard} from './services/profile-guard.service';
+import {EffectsModule} from '@ngrx/effects';
+import {ProfileEffects} from './store/profile.effects';
+import {ApiProfileService} from './services/api-profile.service';
 
 
 @NgModule({
@@ -21,14 +24,15 @@ import {ProfileGuard} from './services/profile-guard.service';
     VisitorsSharedModule,
     GuidesSharedModule,
     ToursSharedModule,
+    EffectsModule.forFeature([ProfileEffects])
   ],
   declarations: [
-    ProfileComponent,
+    ProfileSmartComponent,
     ProfilePresentationComponent,
     ProfileVisitorEditComponent,
     ProfileGuideEditComponent
   ],
-  providers: [ProfileGuard]
+  providers: [ProfileGuard, ApiProfileService]
 })
 export class ProfileModule {
 }

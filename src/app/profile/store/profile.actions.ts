@@ -1,6 +1,7 @@
 import {Action} from '@ngrx/store';
 import {Visitor} from '../../visitors/models/visitor.model';
 import {Guide} from '../../guides/models/guide.model';
+import {Tour} from '../../tours/models/tour.model';
 
 
 export const SET_PROFILE_MODE = '[Profile] Set Profile Mode';
@@ -23,7 +24,7 @@ export class ClearUserInfo implements Action {
 
 export class FetchVisitorInfoStart implements Action {
   readonly type = FETCH_VISITOR_INFO_START;
-  constructor(public payload?: string) {}
+  constructor(public payload: string) {}
 }
 
 export class FetchVisitorInfoSuccess implements Action {
@@ -33,17 +34,17 @@ export class FetchVisitorInfoSuccess implements Action {
 
 export class DeleteFavouriteTourStart implements Action {
   readonly type = DELETE_FAVOURITE_TOUR_START;
-  constructor(public payload: number) {}
+  constructor(public payload: Tour['tourId']) {}
 }
 
 export class DeleteFavouriteTourSuccess implements Action {
   readonly type = DELETE_FAVOURITE_TOUR_SUCCESS;
-  constructor(public payload: number) {}
+  constructor(public payload: Tour['tourId']) {}
 }
 
 export class FetchGuideInfoStart implements Action {
   readonly type = FETCH_GUIDE_INFO_START;
-  constructor(public payload?: string) {}
+  constructor(public payload: string) {}
 }
 
 export class FetchGuideInfoSuccess implements Action {

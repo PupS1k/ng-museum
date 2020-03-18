@@ -47,7 +47,7 @@ import {Tour} from '../models/tour.model';
 import {Exhibit} from '../../exhibits/models/exhibit.model';
 import {AppState} from '../../app.reducer';
 import {selectTourId} from './tour.selectors';
-import {selectUserVisitorId, selectVisitorInfoId} from '../../profile/store/profile.selectors';
+import {selectUserVisitorId} from '../../profile/store/profile.selectors';
 import {ShowMessage} from '../../layout/store/layout.actions';
 import {handleError, prepareErrorUrlParams} from '../../layout/utils';
 import {selectIsAdmin, selectIsGuide} from '../../auth/store/auth.selectors';
@@ -262,7 +262,7 @@ export class TourEffects {
         const headers: HttpHeaders = prepareErrorUrlParams();
         return this.http.post(
           `visitor/visitors/removeTour`,
-          {tourId: selectTourId(state), visitorId: selectVisitorInfoId(state)},
+          {tourId: selectTourId(state), visitorId: selectUserVisitorId(state)},
           {headers}
         )
           .pipe(
@@ -281,7 +281,7 @@ export class TourEffects {
         const headers: HttpHeaders = prepareErrorUrlParams();
         return this.http.post(
           `visitor/visitors/addTour`,
-          {tourId: selectTourId(state), visitorId: selectVisitorInfoId(state)},
+          {tourId: selectTourId(state), visitorId: selectUserVisitorId(state)},
           {headers}
         )
           .pipe(

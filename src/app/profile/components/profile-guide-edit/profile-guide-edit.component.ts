@@ -13,8 +13,8 @@ import {AuthService} from '../../../core/services/auth.service';
   template: `
     <app-guide-edit-presentation
       [guideForm]="userForm$ | async"
-      (update)="onSubmit($event)"
       [isUpdate]="true"
+      (update)="onSubmit($event)"
     ></app-guide-edit-presentation>
   `,
 })

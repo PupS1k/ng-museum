@@ -25,11 +25,6 @@ export const selectVisitorInfo = createSelector(
   (state) => state.userVisitorInfo
 );
 
-export const selectVisitorInfoId = createSelector(
-  selectVisitorInfo,
-  (visitor) => visitor.visitorId
-);
-
 export const selectFavouriteTours = createSelector(
   selectVisitorInfo,
   (visitor) => {

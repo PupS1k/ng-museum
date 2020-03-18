@@ -22,11 +22,9 @@ import {
 } from './visitor.actions';
 import {ShowMessage} from '../../layout/store/layout.actions';
 import {handleError} from '../../layout/utils';
-import {UpdateGuideStart} from '../../guides/store/guide.actions';
 import {AppState} from '../../app.reducer';
 import {Store} from '@ngrx/store';
-import {UpdateExhibitStart} from '../../exhibits/store/exhibit.actions';
-import {selectFavouriteTours, selectUserId, selectVisitorInfoId} from '../../profile/store/profile.selectors';
+import {selectFavouriteTours, selectUserId} from '../../profile/store/profile.selectors';
 import {selectVisitorId} from './visitor.selectors';
 
 

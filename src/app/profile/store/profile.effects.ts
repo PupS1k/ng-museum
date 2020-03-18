@@ -1,6 +1,6 @@
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {catchError, map, switchMap, withLatestFrom} from 'rxjs/operators';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {of} from 'rxjs';
 import {Store} from '@ngrx/store';
@@ -14,26 +14,25 @@ import {
   FetchVisitorInfoStart,
   FetchVisitorInfoSuccess,
 } from './profile.actions';
-import {Guide} from '../../guides/models/guide.model';
 import {Visitor} from '../../visitors/models/visitor.model';
 import {AppState} from '../../app.reducer';
 import {ShowMessage} from '../../layout/store/layout.actions';
-import {handleError, prepareErrorUrlParams} from '../../layout/utils';
+import {handleError} from '../../layout/utils';
 import {selectUsername} from '../../auth/store/auth.selectors';
-import {selectVisitorInfoId} from './profile.selectors';
+import {selectUserVisitorId} from './profile.selectors';
+import {ApiProfileService} from '../services/api-profile.service';
+import {Tour} from '../../tours/models/tour.model';
 
 
 @Injectable()
 export class ProfileEffects {
   @Effect()
-  fetchVisitorInfo = this.actions$.pipe(
-    ofType(FETCH_VISITOR_INFO_START),
-    withLatestFrom(this.store),
-    switchMap(([fetchVisitorInfo, state]: [FetchVisitorInfoStart, AppState]) => this.http.post<Visitor>(
-      'visitor/visitors/getByUsername',
-      JSON.stringify(fetchVisitorInfo.payload || selectUsername(state)),
-      {headers: {'Content-Type': 'application/json'}}
-    )
+  fetchUserVisitorInfo = this.actions$.pipe(
+    ofType<FetchVisitorInfoStart>(FETCH_VISITOR_INFO_START),
+    map(action => action.payload),
+    withLatestFrom(this.store.select(selectUsername)),
+    switchMap(([payload, username]: [string, string]) => this.apiProfileService
+      .getUserVisitorInfo(payload || username)
       .pipe(
         map(userInfo => new FetchVisitorInfoSuccess(userInfo)),
         catchError(err => of(new ShowMessage({module: 'Profile', message: handleError(err)})))
@@ -41,14 +40,12 @@ export class ProfileEffects {
   );
 
   @Effect()
-  fetchGuideInfo = this.actions$.pipe(
-    ofType(FETCH_GUIDE_INFO_START),
-    withLatestFrom(this.store),
-    switchMap(([fetchGuideInfo, state]: [FetchGuideInfoStart, AppState]) => this.http.post<Guide>(
-      'guide/guides/getByUsername',
-      JSON.stringify(fetchGuideInfo.payload || selectUsername(state)),
-      {headers: {'Content-Type': 'application/json'}}
-    )
+  fetchUserGuideInfo = this.actions$.pipe(
+    ofType<FetchGuideInfoStart>(FETCH_GUIDE_INFO_START),
+    map(action => action.payload),
+    withLatestFrom(this.store.select(selectUsername)),
+    switchMap(([payload, username]: [string, string]) => this.apiProfileService
+      .getUserGuideInfo(payload || username)
       .pipe(
         map(userInfo => new FetchGuideInfoSuccess(userInfo)),
         catchError(err => of(new ShowMessage({module: 'Profile', message: handleError(err)})))
@@ -57,26 +54,21 @@ export class ProfileEffects {
 
   @Effect()
   deleteFavouriteTour = this.actions$.pipe(
-    ofType(DELETE_FAVOURITE_TOUR_START),
-    withLatestFrom(this.store),
-    switchMap(([deleteFavouriteTour, state]: [DeleteFavouriteTourStart, AppState]) => {
-      const headers: HttpHeaders = prepareErrorUrlParams();
-      return this.http.post(
-          `visitor/visitors/removeTour`,
-          {tourId: deleteFavouriteTour.payload, visitorId: selectVisitorInfoId(state)},
-        {headers}
-        )
-          .pipe(
-            map(() => new DeleteFavouriteTourSuccess(deleteFavouriteTour.payload)),
-            catchError(err => of(new ShowMessage({module: 'Profile', message: handleError(err)})))
-          );
-      }
-    )
+    ofType<DeleteFavouriteTourStart>(DELETE_FAVOURITE_TOUR_START),
+    map(action => action.payload),
+    withLatestFrom(this.store.select(selectUserVisitorId)),
+    switchMap(([tourId, visitorId]: [Tour['tourId'], Visitor['visitorId']]) => this.apiProfileService
+      .deleteFavouriteTour({tourId, visitorId})
+      .pipe(
+        map(() => new DeleteFavouriteTourSuccess(tourId)),
+        catchError(err => of(new ShowMessage({module: 'Profile', message: handleError(err)})))
+      ))
   );
 
   constructor(
     private actions$: Actions,
     private http: HttpClient,
+    private apiProfileService: ApiProfileService,
     private store: Store<AppState>
   ) {
   }

@@ -9,12 +9,11 @@ import {GuideGuard} from './services/guide-guard.service';
 import {AuthGuard} from './services/auth-guard.service';
 import {LoaderInterceptor} from './services/loader-interceptor.service';
 import {AuthEffects} from '../auth/store/auth.effects';
-import {ProfileEffects} from '../profile/store/profile.effects';
 import {ApiAuthService} from './services/api-auth.service';
 
 
 @NgModule({
-  imports: [EffectsModule.forFeature([AuthEffects, ProfileEffects])],
+  imports: [EffectsModule.forFeature([AuthEffects])],
   providers: [
     AuthService,
     ApiAuthService,
