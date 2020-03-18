@@ -2,9 +2,9 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ReactiveFormsModule} from '@angular/forms';
 
-import {LoginComponent} from './components/login/login.component';
+import {LoginSmartComponent} from './components/login/login-smart.component';
 import {SignUpComponent} from './components/sign-up/sign-up.component';
-import {LoginPresentationComponent} from './components/login-presentation/login-presentation.component';
+import {LoginPresentationComponent} from './components/login/login-presentation.component';
 import {AuthRouting} from './auth-routing.module';
 import {VisitorsSharedModule} from '../visitors/visitors-shared.module';
 
@@ -16,7 +16,7 @@ import {VisitorsSharedModule} from '../visitors/visitors-shared.module';
     VisitorsSharedModule
   ],
   declarations: [
-    LoginComponent,
+    LoginSmartComponent,
     SignUpComponent,
     LoginPresentationComponent
   ]

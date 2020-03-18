@@ -14,7 +14,7 @@ import {AppState} from '../../../app.reducer';
     ></app-login-presentation>
   `
 })
-export class LoginComponent {
+export class LoginSmartComponent {
   loginForm = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.minLength(5)]),
     password: new FormControl('', [Validators.required, Validators.minLength(5)])

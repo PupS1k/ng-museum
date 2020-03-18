@@ -10,17 +10,19 @@ import {selectIsAdmin} from '../../auth/store/auth.selectors';
 
 @Injectable()
 export class AdminGuard implements CanActivate {
-  constructor(private store: Store<AppState>, private router: Router) {}
+  constructor(private store: Store<AppState>, private router: Router) {
+  }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.store.select(selectIsAdmin)
       .pipe(map(isAdmin => {
-      if (isAdmin) {
-        return true;
-      }
 
-      this.router.navigate(['/notFound']);
-      return false;
-    }));
+        if (isAdmin) {
+          return true;
+        }
+
+        this.router.navigate(['/notFound']);
+        return false;
+      }));
   }
 }
