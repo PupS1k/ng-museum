@@ -16,16 +16,15 @@ import {AppState} from '../../../app.reducer';
 })
 export class LoginComponent {
   loginForm = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    username: new FormControl('', [Validators.required, Validators.minLength(5)]),
     password: new FormControl('', [Validators.required, Validators.minLength(5)])
   });
 
   constructor(private store: Store<AppState>) {}
 
   onSubmit() {
-    const name = this.loginForm.value.name;
-    const password = this.loginForm.value.password;
+    const {username, password} = this.loginForm.value;
 
-    this.store.dispatch(new LoginStart({username: name, password}));
+    this.store.dispatch(new LoginStart({username, password}));
   }
 }

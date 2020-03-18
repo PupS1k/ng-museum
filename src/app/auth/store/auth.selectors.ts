@@ -5,7 +5,7 @@ export const selectAuthState = (state: AppState) => state.auth;
 
 export const selectUsername = createSelector(
   selectAuthState,
-  (state) => state.name
+  (state) => state.username
 );
 
 export const selectIsAuthenticated = createSelector(
@@ -13,15 +13,20 @@ export const selectIsAuthenticated = createSelector(
   (username) => !!username
 );
 
-export const selectIsGuide = createSelector(
+export const selectRoles = createSelector(
   selectAuthState,
-  (state) => state.isGuide
+  (state) => state.roles
+);
+
+export const selectIsGuide = createSelector(
+  selectRoles,
+  (roles) => roles.includes('ROLE_GUIDE')
 );
 export const selectIsVisitor = createSelector(
-  selectAuthState,
-  (state) => state.isVisitor
+  selectRoles,
+  (roles) => roles.includes('ROLE_VISITOR')
 );
 export const selectIsAdmin = createSelector(
-  selectAuthState,
-  (state) => state.isAdmin
+  selectRoles,
+  (roles) => roles.includes('ROLE_ADMIN')
 );

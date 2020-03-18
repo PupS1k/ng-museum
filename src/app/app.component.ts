@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AppState} from './app.reducer';
 import {Store} from '@ngrx/store';
-import {AutoLoginStart} from './auth/store/auth.actions';
+import {UpdateTokenExpDate} from './auth/store/auth.actions';
 import {selectIsLoading, selectMessage} from './layout/store/layout.selectors';
 import {HideMessage} from './layout/store/layout.actions';
 
@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.store.dispatch(new AutoLoginStart());
+    this.store.dispatch(new UpdateTokenExpDate());
   }
 
   onCloseAlert() {

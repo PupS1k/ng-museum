@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Store} from '@ngrx/store';
+
 import {AppState} from '../../../app.reducer';
 import {SignUpStart} from '../../store/auth.actions';
 import {VisitorForm} from '../../../visitors/models/visitor-form.model';

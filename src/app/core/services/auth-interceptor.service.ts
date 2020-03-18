@@ -8,7 +8,7 @@ import {
 import {Observable} from 'rxjs';
 
 import {AuthService} from './auth.service';
-import {UserData} from '../../auth/models/user-data.model';
+import {UserData} from '../models/user-data.model';
 
 
 @Injectable()

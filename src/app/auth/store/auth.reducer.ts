@@ -1,72 +1,61 @@
 import {
   AuthActions,
-  AUTO_LOGIN_SUCCESS,
+  UPDATE_TOKEN_EXP_DATE,
   CHANGE_USERNAME,
   FETCH_ROLE,
   LOGIN_SUCCESS,
   LOGOUT
 } from './auth.actions';
+import {UserData} from '../../core/models/user-data.model';
 
 
-export interface State {
-  name: string;
-  token: string;
-  isAdmin: boolean;
-  isGuide: boolean;
-  isVisitor: boolean;
-}
-
-const initialState: State =  {
-  name: '',
+const initialState: UserData = JSON.parse(localStorage.getItem('userData')) || {
+  username: '',
   token: '',
-  isAdmin: false,
-  isGuide: false,
-  isVisitor: false
+  roles: [],
+  tokenExpirationDate: null
 };
 
+const setTokenExpirationDate = (state: UserData) => ({
+  ...state,
+  tokenExpirationDate: new Date(state.tokenExpirationDate).getTime() - new Date().getTime()
+});
 
-export function authReducer(state: State = initialState, action: AuthActions) {
+const setUserData = (state: UserData, {username, token, tokenExpirationDate}) => ({
+  ...state,
+  username,
+  token,
+  tokenExpirationDate
+});
+
+const setRoles = (state: UserData, roles: string[]) => ({...state, roles});
+
+const setUsername = (state: UserData, username: string) => ({...state, username});
+
+const clearAuthState = (state: UserData) => ({
+  ...state,
+  username: '',
+  token: '',
+  roles: [],
+  tokenExpirationDate: null
+});
+
+export function authReducer(state: UserData = initialState, action: AuthActions) {
   switch (action.type) {
-    case AUTO_LOGIN_SUCCESS: {
-      return {
-        ...state,
-        name: action.payload.name,
-        token: action.payload.token,
-        isAdmin: action.payload.isAdmin,
-        isGuide: action.payload.isGuide,
-        isVisitor: action.payload.isVisitor
-      };
+    case UPDATE_TOKEN_EXP_DATE: {
+      return setTokenExpirationDate(state);
     }
     case LOGIN_SUCCESS: {
-      return {
-        ...state,
-        name: action.payload.name,
-        token: action.payload.token
-      };
+      return setUserData(state, action.payload);
     }
     case FETCH_ROLE: {
-      return {
-        ...state,
-        isAdmin: action.payload.isAdmin,
-        isGuide: action.payload.isGuide,
-        isVisitor: action.payload.isVisitor
-      };
+      return setRoles(state, action.payload);
     }
     case CHANGE_USERNAME: {
-      return {
-        ...state,
-        name: action.payload
-      };
+      return setUsername(state, action.payload);
     }
     case LOGOUT: {
-      return {
-        ...state,
-        name: '',
-        token: '',
-        isAdmin: false,
-        isGuide: false,
-        isVisitor: false
-      };
+      return clearAuthState(state);
     }
     default: {
       return state;

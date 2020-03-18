@@ -1,44 +1,38 @@
 import {Action} from '@ngrx/store';
-
+import {LoginForm} from '../models/login-form.model';
+import {VisitorForm} from '../../visitors/models/visitor-form.model';
 
 export const LOGIN_START = '[Auth] Login Start';
 export const SIGN_UP_START = '[Auth] Sign Up Start';
 export const LOGIN_SUCCESS = '[Auth] Login Success';
 export const SIGN_UP_SUCCESS = '[Auth] Sign Up Success';
-export const AUTO_LOGIN_START = '[Auth] Auto Login Start';
-export const AUTO_LOGIN_SUCCESS = '[Auth] Auto Login Success';
+export const UPDATE_TOKEN_EXP_DATE = '[Auth] UPDATE_TOKEN_EXP_DATE';
 export const CHANGE_USERNAME = '[Auth] Change Username';
 export const LOGOUT = '[Auth] Logout';
 export const FETCH_ROLE = '[Auth] Fetch Role';
 
 export class LoginStart implements Action {
   readonly type = LOGIN_START;
-  constructor(public payload: {username: string, password: string}) {}
+  constructor(public payload: LoginForm) {}
 }
 
 export class LoginSuccess implements Action {
   readonly type = LOGIN_SUCCESS;
-  constructor(public payload: {name: string, token: string}) {}
+  constructor(public payload: {username: string, token: string, tokenExpirationDate: Date}) {}
 }
 
 export class SignUpStart implements Action {
   readonly type = SIGN_UP_START;
-  constructor(public payload: {username: string, password: string, age: number, fio: string, email: string}) {}
+  constructor(public payload: VisitorForm) {}
 }
 
 export class SignUpSuccess implements Action {
   readonly type = SIGN_UP_SUCCESS;
-  constructor(public payload: {username: string, password: string}) {}
+  constructor(public payload: LoginForm) {}
 }
 
-export class AutoLoginStart implements Action {
-  readonly type = AUTO_LOGIN_START;
-}
-
-export class AutoLoginSuccess implements Action {
-  readonly type = AUTO_LOGIN_SUCCESS;
-  constructor(public payload: {name: string, token: string, isAdmin: boolean, isGuide: boolean, isVisitor: boolean}) {
-  }
+export class UpdateTokenExpDate implements Action {
+  readonly type = UPDATE_TOKEN_EXP_DATE;
 }
 
 export class Logout implements Action {
@@ -52,12 +46,12 @@ export class ChangeUsername implements Action {
 
 export class FetchRole implements Action {
   readonly type = FETCH_ROLE;
-  constructor(public payload: {isAdmin: boolean, isGuide: boolean, isVisitor: boolean}) {}
+  constructor(public payload: string[]) {}
 }
 
 export type AuthActions =
-  | AutoLoginSuccess
   | ChangeUsername
   | FetchRole
   | Logout
-  | LoginSuccess;
+  | LoginSuccess
+  | UpdateTokenExpDate;

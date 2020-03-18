@@ -1,16 +1,17 @@
 import {ActionReducerMap} from '@ngrx/store';
 
 import {State as ExhibitState, exhibitReducer} from './exhibits/store/exhibit.reducer';
-import {State as AuthState, authReducer} from './auth/store/auth.reducer';
+import {authReducer} from './auth/store/auth.reducer';
 import {State as GuideState, guideReducer} from './guides/store/guide.reducer';
 import {State as ProfileState, profileReducer} from './profile/store/profile.reducer';
 import {State as VisitorState, visitorReducer} from './visitors/store/visitor.reducer';
 import {State as ToursState, tourReducer} from './tours/store/tour.reducer';
 import {State as LayoutState, layoutReducer} from './layout/store/layout.reducer';
+import {UserData} from './core/models/user-data.model';
 
 export interface AppState {
   exhibits: ExhibitState;
-  auth: AuthState;
+  auth: UserData;
   guides: GuideState;
   profile: ProfileState;
   visitors: VisitorState;

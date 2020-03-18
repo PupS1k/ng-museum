@@ -1,6 +1,6 @@
 export interface UserData {
-  name: string;
+  username: string;
   token: string;
-  tokenExpirationDate: Date;
+  tokenExpirationDate: Date | number;
   roles: string[];
 }

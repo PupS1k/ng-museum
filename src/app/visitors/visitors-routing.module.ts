@@ -15,7 +15,6 @@ const visitorsRoutes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(visitorsRoutes)],
-  exports: [RouterModule]
 })
 export class VisitorsRouting {
 }

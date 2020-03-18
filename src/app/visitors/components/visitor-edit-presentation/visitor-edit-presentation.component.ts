@@ -15,7 +15,7 @@ export class VisitorEditPresentationComponent {
   @Output() update = new EventEmitter<VisitorForm>();
 
   onSubmit() {
-    const username = this.userForm.value.name;
+    const username = this.userForm.value.username;
     const password = this.userForm.value.password;
     const age = this.userForm.value.age;
     const fio = this.userForm.value.fio;

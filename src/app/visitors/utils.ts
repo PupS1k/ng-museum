@@ -4,7 +4,7 @@ import {confirmPassword} from '../auth/utils/validators';
 
 export const createFormVisitor = (visitor) => {
   return new FormGroup({
-    name: new FormControl(
+    username: new FormControl(
       visitor ? visitor.username : '',
       [Validators.required, Validators.minLength(2)]
     ),

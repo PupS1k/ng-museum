@@ -1,4 +1,4 @@
-import {SubUser} from '../../auth/models/sub-user.model';
+import {SubUser} from '../../core/models/sub-user.model';
 
 export interface GuideForm extends SubUser {
   guideId?: number;
