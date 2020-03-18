@@ -21,6 +21,8 @@ import {AppState} from '../../app.reducer';
 import {Store} from '@ngrx/store';
 import {selectGuideId} from './guide.selectors';
 import {selectUserId} from '../../profile/store/profile.selectors';
+import {GuideForm} from '../models/guide-form.model';
+import {ApiGuidesService} from '../services/api-guides.service';
 
 
 
@@ -29,7 +31,7 @@ export class GuideEffects {
   @Effect()
   fetchGuides = this.actions$.pipe(
     ofType(FETCH_GUIDES_START),
-    switchMap(() => this.http.get<Guide[]>('/guide/guides')
+    switchMap(() => this.apiGuidesService.getGuides()
       .pipe(
         map((guides: Guide[]) => new FetchGuidesSuccess(guides)),
         catchError(err => of(new ShowMessage({module: 'Guide', message: handleError(err)})))
@@ -38,9 +40,9 @@ export class GuideEffects {
 
   @Effect()
   fetchGuide = this.actions$.pipe(
-    ofType(FETCH_GUIDE_START),
-    switchMap(
-      (fetchGuideStart: FetchGuideStart) => this.http.get<Guide>(`/guide/guides/${fetchGuideStart.payload}`)
+    ofType<FetchGuideStart>(FETCH_GUIDE_START),
+    map(action => action.payload),
+    switchMap((guideId) => this.apiGuidesService.getGuide(guideId)
         .pipe(
           map((guide: Guide) => new FetchGuideSuccess(guide)),
           catchError(err => of(new ShowMessage({module: 'Guide', message: handleError(err)})))
@@ -49,32 +51,25 @@ export class GuideEffects {
 
   @Effect()
   updateGuide = this.actions$.pipe(
-    ofType(UPDATE_GUIDE_START),
+    ofType<UpdateGuideStart>(UPDATE_GUIDE_START),
+    map(action => action.payload),
     withLatestFrom(this.store),
-    switchMap(([updateGuideStart, state]: [UpdateGuideStart, AppState]) => {
-      const id = selectGuideId(state) || selectUserId(state);
-      return this.http.post<Guide>(
-          `/guide/guides/update/${id}`,
-          {
-            ...updateGuideStart.payload,
-            guideId: id
-          }
-        )
-          .pipe(
+    switchMap(([updatingGuide, state]: [GuideForm, AppState]) => this.apiGuidesService
+      .updateGuide(updatingGuide, selectGuideId(state) || selectUserId(state))
+      .pipe(
             map((guide: Guide) => new UpdateGuideSuccess(guide)),
             catchError(err => of(new ShowMessage({module: 'Guide', message: handleError(err)})))
-          );
-      }
+          )
     )
   );
 
   @Effect()
   deleteGuide = this.actions$.pipe(
-    ofType(DELETE_GUIDE_START),
-    switchMap(
-      (deleteGuideStart: DeleteGuideStart) => this.http.get<Guide>(`/guide/guides/delete/${deleteGuideStart.payload}`)
+    ofType<DeleteGuideStart>(DELETE_GUIDE_START),
+    map(action => action.payload),
+    switchMap((guideId) => this.apiGuidesService.deleteGuide(guideId)
         .pipe(
-          map(() => new DeleteGuideSuccess(deleteGuideStart.payload)),
+          map(() => new DeleteGuideSuccess(guideId)),
           catchError(err => of(new ShowMessage({module: 'Guide', message: handleError(err)})))
         )
     )
@@ -82,12 +77,8 @@ export class GuideEffects {
 
   @Effect()
   createGuide = this.actions$.pipe(
-    ofType(CREATE_GUIDE_START),
-    switchMap(
-      (createGuideStart: CreateGuideStart) => this.http.post<Guide>(
-        '/guide/guides/add',
-        {guideId: '', ...createGuideStart.payload}
-      )
+    ofType<CreateGuideStart>(CREATE_GUIDE_START),
+    switchMap((newGuide) => this.apiGuidesService.createGuide(newGuide)
         .pipe(
           map((guide: Guide) => new CreateGuideSuccess(guide)),
           catchError(err => of(new ShowMessage({module: 'Guide', message: handleError(err)})))
@@ -98,6 +89,7 @@ export class GuideEffects {
   constructor(
     private actions$: Actions,
     private http: HttpClient,
+    private apiGuidesService: ApiGuidesService,
     private store: Store<AppState>
   ) {
   }

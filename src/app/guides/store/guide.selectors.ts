@@ -20,6 +20,8 @@ export const selectGuideId = createSelector(
   guide => {
     if (guide) {
       return guide.guideId;
+    } else {
+      return null;
     }
   }
 );

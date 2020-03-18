@@ -16,18 +16,13 @@ import {GuideForm} from '../../models/guide-form.model';
       (create)="onCreate($event)"
       (update)="onUpdate($event)"
     ></app-guide-edit-presentation>
-
   `
 })
-export class GuideEditComponent implements OnDestroy {
+export class GuideEditSmartComponent implements OnDestroy {
   isUpdate$ = this.store.select(selectIsUpdateGuide);
   guideForm$ = this.store.select(selectFormGuide);
 
-  constructor(
-    private router: Router,
-    private store: Store<AppState>
-  ) {
-  }
+  constructor(private router: Router, private store: Store<AppState>) {}
 
 
   onCreate(guideFormData: GuideForm) {

@@ -18,7 +18,7 @@ import {DeleteGuideTourStart} from '../../../tours/store/tour.actions';
     ></app-guide-item-presentation>
   `
 })
-export class GuideItemComponent {
+export class GuideItemSmartComponent {
   @Input() guide: Guide;
 
   isTour$ = this.store.select(selectIsTour);

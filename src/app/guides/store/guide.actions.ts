@@ -30,12 +30,12 @@ export class ClearSelectedGuide implements Action {
 
 export class DeleteGuideSuccess implements Action {
   readonly type = DELETE_GUIDE_SUCCESS;
-  constructor(public payload: number) {}
+  constructor(public payload: Guide['guideId']) {}
 }
 
 export class DeleteGuideStart implements Action {
   readonly type = DELETE_GUIDE_START;
-  constructor(public payload: number) {}
+  constructor(public payload: Guide['guideId']) {}
 }
 
 export class CreateGuideSuccess implements Action {
@@ -55,7 +55,7 @@ export class FetchGuideSuccess implements Action {
 
 export class FetchGuideStart implements Action {
   readonly type = FETCH_GUIDE_START;
-  constructor(public payload: number) {}
+  constructor(public payload: Guide['guideId']) {}
 }
 export class UpdateGuideStart implements Action {
   readonly type = UPDATE_GUIDE_START;
@@ -73,7 +73,4 @@ export type GuideActions =
   | DeleteGuideSuccess
   | FetchGuidesSuccess
   | FetchGuideSuccess
-  | UpdateGuideStart
-  | UpdateGuideSuccess
-  | FetchGuidesStart
-  | FetchGuideStart;
+  | UpdateGuideSuccess;

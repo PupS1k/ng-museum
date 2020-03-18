@@ -11,8 +11,8 @@ import {selectVisitorForm} from '../../../visitors/store/visitor.selectors';
   template: `
     <app-visitor-edit-presentation
       [userForm]="signUpForm$ | async"
-      (create)="onSubmit($event)"
       [isUpdate]="false"
+      (create)="onSubmit($event)"
     ></app-visitor-edit-presentation>
   `
 })

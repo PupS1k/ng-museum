@@ -23,8 +23,8 @@ export class LoginSmartComponent {
   constructor(private store: Store<AppState>) {}
 
   onSubmit() {
-    const {username, password} = this.loginForm.value;
+    const loginFormData: {username, password} = this.loginForm.value;
 
-    this.store.dispatch(new LoginStart({username, password}));
+    this.store.dispatch(new LoginStart(loginFormData));
   }
 }

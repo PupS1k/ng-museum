@@ -7,6 +7,7 @@ import {
   UPDATE_EXHIBIT_SUCCESS
 } from './exhibit.actions';
 import {Tour} from '../../tours/models/tour.model';
+import {ExhibitForm} from '../models/exhibit-form.model';
 
 
 export interface State {
@@ -19,7 +20,7 @@ const initialState: State = {
   exhibits: [],
 };
 
-const deleteExhibitFromTour = (state: State, tourId) => ({
+const deleteExhibitFromTour = (state: State, tourId: Tour['tourId']) => ({
   ...state,
   selectedExhibit: {
     ...state.selectedExhibit,
@@ -27,11 +28,11 @@ const deleteExhibitFromTour = (state: State, tourId) => ({
   }
 });
 
-const setExhibits = (state: State, exhibits) => ({...state, exhibits: [...exhibits]});
+const setExhibits = (state: State, exhibits: Exhibit[]) => ({...state, exhibits: [...exhibits]});
 
-const setExhibit = (state: State, exhibit) => ({...state, selectedExhibit: {...exhibit}});
+const setExhibit = (state: State, exhibit: Exhibit) => ({...state, selectedExhibit: {...exhibit}});
 
-const updateExhibit = (state: State, updatedExhibit) => ({
+const updateExhibit = (state: State, updatedExhibit: Exhibit) => ({
   ...state,
   exhibits: state.exhibits.map(exhibit => exhibit.exhibitId === updatedExhibit.exhibitId ? updatedExhibit : exhibit)
 });

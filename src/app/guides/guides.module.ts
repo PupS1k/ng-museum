@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {RouterModule} from '@angular/router';
 
 import {GuidesRouting} from './guides-routing.module';
 import {GuidesSharedModule} from './guides-shared.module';
@@ -10,7 +9,6 @@ import {GuidesSharedModule} from './guides-shared.module';
   imports: [
     CommonModule,
     GuidesRouting,
-    RouterModule,
     GuidesSharedModule
   ]
 })

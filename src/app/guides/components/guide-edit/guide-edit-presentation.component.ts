@@ -15,17 +15,12 @@ export class GuideEditPresentationComponent {
   @Output() update = new EventEmitter<GuideForm>();
 
   onSubmit() {
-    const username = this.guideForm.value.name;
-    const password = this.guideForm.value.password;
-    const experience = this.guideForm.value.experience;
-    const age = this.guideForm.value.age;
-    const fio = this.guideForm.value.fio;
-    const languages = this.guideForm.value.languages;
+    const guideFormDate: {username, password, fio, age, experience, languages} = this.guideForm.value;
 
     if (this.isUpdate) {
-      this.update.emit({username, password, fio, age, experience, languages});
+      this.update.emit(guideFormDate);
     } else {
-      this.create.emit({username, password, fio, age, experience, languages});
+      this.create.emit(guideFormDate);
     }
   }
 }

@@ -12,7 +12,7 @@ import {selectGuides} from '../../store/guide.selectors';
     ></app-guides-list-presentation>
   `
 })
-export class GuidesListComponent {
+export class GuidesListSmartComponent {
   guides$ = this.store.select(selectGuides);
 
   constructor(private store: Store<AppState>) {}
