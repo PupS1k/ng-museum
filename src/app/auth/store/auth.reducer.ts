@@ -7,6 +7,8 @@ import {
   LOGOUT
 } from './auth.actions';
 import {UserData} from '../../core/models/user-data.model';
+import * as moment from 'moment';
+import {now} from 'moment';
 
 
 const initialState: UserData = JSON.parse(localStorage.getItem('userData')) || {
@@ -18,7 +20,7 @@ const initialState: UserData = JSON.parse(localStorage.getItem('userData')) || {
 
 const setTokenExpirationDate = (state: UserData) => ({
   ...state,
-  tokenExpirationDate: new Date(state.tokenExpirationDate).getTime() - new Date().getTime()
+  tokenExpirationDate: moment(state.tokenExpirationDate).subtract(now())
 });
 
 const setUserData = (state: UserData, {username, token, tokenExpirationDate}) => ({

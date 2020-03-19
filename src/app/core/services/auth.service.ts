@@ -1,12 +1,14 @@
 import {Injectable} from '@angular/core';
-
 import {Store} from '@ngrx/store';
+import {Router} from '@angular/router';
+
+import * as moment from 'moment';
 import {AppState} from '../../app.reducer';
 import {ChangeUsername, FetchRole, LoginSuccess, Logout, SignUpSuccess, UpdateTokenExpDate} from '../../auth/store/auth.actions';
 import {UserData} from '../models/user-data.model';
 import {LoginResponseData, Role} from './api-auth.service';
 import {ClearUserInfo, FetchGuideInfoStart, FetchVisitorInfoStart, SetProfileMode} from '../../profile/store/profile.actions';
-import {Router} from '@angular/router';
+import {now} from 'moment';
 
 @Injectable()
 export class AuthService {
@@ -16,8 +18,8 @@ export class AuthService {
   }
 
   handleLogin(responseData: LoginResponseData, username: string) {
-    this.setLogoutTimer(Number(responseData.expires_in * 1000));
-    const expirationDate = new Date(new Date().getTime() + Number(responseData.expires_in) * 1000);
+    this.setLogoutTimer(responseData.expires_in * 1000);
+    const expirationDate = moment().add(responseData.expires_in * 1000, 'ms').toDate();
 
     this.setItemLocalStorage({
       username,
@@ -54,7 +56,7 @@ export class AuthService {
     const updatedUserData: UserData = {...authState, tokenExpirationDate: new Date(authState.tokenExpirationDate)};
 
     if (!!this.checkTokenExp(updatedUserData)) {
-      const expirationDuration = new Date(updatedUserData.tokenExpirationDate).getTime() - new Date().getTime();
+      const expirationDuration = Number(moment(updatedUserData.tokenExpirationDate, 'ms').subtract(now(), 'ms'));
       this.setLogoutTimer(expirationDuration);
 
       this.setProfileMode(updatedUserData.roles, updatedUserData.username);
