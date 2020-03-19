@@ -4,7 +4,7 @@
   border-radius: 10px;
   margin: 10px 0;
 
-  .list-item_header {
+  .list-item__header {
     font-size: 16px;
     color: black;
     font-weight: bold;
@@ -12,7 +12,7 @@
     border-bottom: #b7b7b7 1px solid;
   }
 
-  .list-item_body {
+  .list-item__body {
     display: flex;
     margin: 10px;
 
@@ -27,7 +27,7 @@
     }
   }
 
-  .list-item_footer {
+  .list-item__footer {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 10px;

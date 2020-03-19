@@ -4,7 +4,7 @@
   </div>
 
   <div class="container-fluid text-center col-xs-12" *ngIf="exhibits.length">
-    <span class="heading-text">Tour Exhibits</span>
+    <span class="heading">Tour Exhibits</span>
     <app-exhibit-list-presentation
       [exhibits]="exhibits"
       [showMode]="'card'"
@@ -13,7 +13,7 @@
   </div>
 
   <div class="container-fluid text-center col-xs-12" *ngIf="guide.length">
-    <span class="heading-text">Tour Guide</span>
+    <span class="heading">Tour Guide</span>
     <app-guides-list-presentation
       [guides]="guide"
       [isTour]="isTour"
@@ -21,7 +21,7 @@
   </div>
 
   <div class="container-fluid text-center col-xs-12" *ngIf="visitors.length">
-    <span class="heading-text">Tour Visitors</span>
+    <span class="heading">Tour Visitors</span>
     <app-visitors-list-presentation
       [visitors]="visitors"
       [isTour]="isTour"

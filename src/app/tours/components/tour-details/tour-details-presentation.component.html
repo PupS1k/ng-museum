@@ -22,11 +22,11 @@
     <div class="col-xs-12 favourite-tour">
       <div>
         <ng-template [ngIf]="!isGuide">
-          <div class="favourite-tour_btn" *ngIf="isFavouriteTour">
-            <span class="heading-text">Tour already in favorites</span>
+          <div class="favourite-tour__btn" *ngIf="isFavouriteTour">
+            <span class="heading">Tour already in favorites</span>
             <button class="btn btn-danger" (click)="onDeleteFavouriteTour()">Delete from favourites</button>
           </div>
-          <div class="favourite-tour_btn" *ngIf="!isFavouriteTour">
+          <div class="favourite-tour__btn" *ngIf="!isFavouriteTour">
             <button class="btn btn-primary" (click)="onAddIntoFavourites()">Add into favourites</button>
           </div>
         </ng-template>
@@ -36,7 +36,7 @@
   </div>
 </div>
 <div class="container-fluid text-center col-xs-12" *ngIf="exhibits.length">
-  <span class="heading-text">Tours with the exhibit</span>
+  <span class="heading">Tours with the exhibit</span>
   <app-exhibit-list-presentation
     [exhibits]="exhibits"
     [showMode]="'list'"

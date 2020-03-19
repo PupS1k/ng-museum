@@ -1,7 +1,9 @@
-textarea {
-  resize: none;
-}
+:host{
+  textarea {
+    resize: none;
+  }
 
-.exhibit-img {
-  min-width: 300px;
+  .exhibit-img {
+    min-width: 300px;
+  }
 }

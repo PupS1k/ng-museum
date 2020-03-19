@@ -7,7 +7,6 @@ import {EffectsModule} from '@ngrx/effects';
 import {VisitorsListSmartComponent} from './components/visitors-list/visitors-list-smart.component';
 import {VisitorsListPresentationComponent} from './components/visitors-list/visitors-list-presentation.component';
 import {VisitorItemSmartComponent} from './components/visitor-item/visitor-item-smart.component';
-import {LayoutModule} from '../layout/layout.module';
 import {VisitorItemPresentationComponent} from './components/visitor-item/visitor-item-presentation.component';
 import {VisitorEditSmartComponent} from './components/visitor-edit/visitor-edit-smart.component';
 import {VisitorEffects} from './store/visitor.effects';

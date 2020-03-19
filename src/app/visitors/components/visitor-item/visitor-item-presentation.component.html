@@ -1,4 +1,4 @@
-<li class="list-group-item col-xs-12 visitor-item">
+<div class="list-group-item col-xs-12 visitor-item">
   <div class="col-xs-2"><span>{{ visitor.username }}</span></div>
   <div class="col-xs-2"><span>{{ visitor.password }}</span></div>
   <div class="col-xs-2"><span>{{ visitor.fio }}</span></div>
@@ -11,4 +11,4 @@
   <div *ngIf="isTour" class="col-xs-2 col-xs-offset-1 btn-group">
     <button class="btn btn-danger" (click)="onDeleteVisitorFromTour()">Exclude</button>
   </div>
-</li>
+</div>

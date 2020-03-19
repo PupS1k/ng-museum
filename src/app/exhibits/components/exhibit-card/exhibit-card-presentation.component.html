@@ -1,5 +1,5 @@
 <div class="col-xs-4 list-group-item card-item">
-  <div class="list-group-item-heading card-item_header text-center">
+  <div class="list-group-item-heading card-item__header text-center">
     <span>{{ exhibit.title }}</span>
   </div>
   <img
@@ -8,7 +8,7 @@
     alt="{{ exhibit.title }}"
   >
   <p class="description">{{ exhibit.description }}</p>
-  <div class="btn-group card-item_btn-group text-center bottom">
+  <div class="btn-group card-item__btn-group text-center bottom">
     <a
       class="btn btn-primary"
       [routerLink]="['/exhibits', exhibit.exhibitId]"

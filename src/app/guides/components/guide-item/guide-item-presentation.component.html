@@ -1,4 +1,4 @@
-<li class="list-group-item col-xs-12 guide-item">
+<div class="list-group-item col-xs-12 guide-item">
   <div class="col-xs-2 text-center"><span>{{ guide.username }}</span></div>
   <div class="col-xs-2 text-center"><span>{{ guide.password }}</span></div>
   <div class="col-xs-2 text-center"><span>{{ guide.fio }}</span></div>
@@ -12,4 +12,4 @@
   <div *ngIf="isTour" class="col-xs-2 text-center">
     <button class="btn btn-danger" (click)="onDeleteGuideFromTour()">Exclude</button>
   </div>
-</li>
+</div>
