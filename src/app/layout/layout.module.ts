@@ -7,11 +7,13 @@ import {NavbarPresentationComponent} from './components/navbar/navbar-presentati
 import {FooterComponent} from './components/footer/footer.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {RouterModule} from '@angular/router';
+import {IconSpriteModule} from 'ng-svg-icon-sprite';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
+    IconSpriteModule
   ],
   declarations: [
     SpinnerComponent,

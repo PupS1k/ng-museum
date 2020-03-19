@@ -11,9 +11,9 @@
     background: none;
   }
 
-  img {
-    height: 40px;
-    width: 40px;
+  svg-icon-sprite {
+    height: 60px;
+    width: 60px;
   }
 
   %flex-display {
@@ -50,11 +50,6 @@
       @extend %flex-display;
       height: 100px;
       border-bottom: 1px solid black;
-
-      .museum-img {
-        height: 70px;
-        width: 70px;
-      }
     }
 
     .navbar__group-item {
@@ -64,6 +59,11 @@
       a {
         @extend %flex-display;
         font-size: 14px;
+        color: #585858;
+      }
+
+      a:hover {
+        color: black;
       }
     }
 

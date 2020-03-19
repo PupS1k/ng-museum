@@ -13,14 +13,16 @@ import {appReducer} from './app.reducer';
 import {environment} from '../environments/environment';
 import {EffectsModule} from '@ngrx/effects';
 import {LayoutModule} from './layout/layout.module';
+import {IconSpriteModule} from 'ng-svg-icon-sprite';
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
+    IconSpriteModule,
     HttpClientModule,
     AppRouting,
     ReactiveFormsModule,

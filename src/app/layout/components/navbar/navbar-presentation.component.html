@@ -1,32 +1,39 @@
 <nav class="navbar-fixed-left navbar-default navbar navbar-dropdown">
-  <img class="navbar__arrow" src="/assets/img/fast-forward.svg" alt="Arrow">
+  <svg-icon-sprite
+    class="navbar__arrow"
+    [src]="'assets/sprites/sprite.svg#arrow'"
+  ></svg-icon-sprite>
   <div class="navbar-header navbar__header">
     <a routerLink="/" routerLinkActive="active" role="link">
-      <img class="museum-img" src="/assets/img/art_gallery_museum-512.png" alt="Logo">
+      <svg-icon-sprite
+        [src]="'assets/sprites/sprite.svg#museum'"
+        [width]="'90px'"
+        [height]="'80px'"
+      ></svg-icon-sprite>
     </a>
   </div>
   <ul class="nav navbar-nav navbar__group-item">
     <li routerLinkActive="active">
       <a routerLink="/exhibits">
-        <img src="/assets/img/museum-art-512.png" alt="Exhibits">
+        <svg-icon-sprite [src]="'assets/sprites/sprite.svg#exhibits'"></svg-icon-sprite>
         <span>Exhibits</span>
       </a>
     </li>
     <li routerLinkActive="active" *ngIf="isGuide">
       <a routerLink="/visitors">
-        <img src="/assets/img/2028-512.png" alt="Visitors">
+        <svg-icon-sprite [src]="'assets/sprites/sprite.svg#visitors'"></svg-icon-sprite>
         <span>Visitors</span>
       </a>
     </li>
     <li routerLinkActive="active" *ngIf="isVisitor">
       <a routerLink="/tours">
-        <img src="/assets/img/tour.svg" alt="Tours">
+        <svg-icon-sprite [src]="'assets/sprites/sprite.svg#tours'"></svg-icon-sprite>
         <span>Tours</span>
       </a>
     </li>
     <li routerLinkActive="active" *ngIf="isAdmin">
       <a routerLink="/guides">
-        <img src="/assets/img/tour-guide.svg" alt="Guides">
+        <svg-icon-sprite [src]="'assets/sprites/sprite.svg#guides'"></svg-icon-sprite>
         <span>Guides</span>
       </a>
     </li>
@@ -37,7 +44,7 @@
         class="btn btn-default dropdown-toggle navbar__group-item"
         type="button" data-toggle="dropdown"
       >
-        <img src="/assets/img/user.svg" alt="User">
+        <svg-icon-sprite [src]="'assets/sprites/sprite.svg#user'"></svg-icon-sprite>
         <span class="username">{{ username }}</span>
       </button>
       <ul class="menu dropdown-menu">
