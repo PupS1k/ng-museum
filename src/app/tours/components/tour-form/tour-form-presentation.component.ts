@@ -14,18 +14,14 @@ export class TourFormPresentationComponent {
   @Output() edit = new EventEmitter<TourForm>();
 
   onSubmit() {
-    const theme = this.tourForm.value.theme;
-    const typeOfExhibits = this.tourForm.value.typeOfExhibits;
-    const duration = this.tourForm.value.duration;
-    const cost = this.tourForm.value.cost;
-    const imageUrl = this.tourForm.value.imageUrl;
-
-    this.edit.emit({
+    const tourFormData: {
       typeOfExhibits,
       theme,
       cost,
       imageUrl,
       duration
-    });
+    } = this.tourForm.value;
+
+    this.edit.emit(tourFormData);
   }
 }

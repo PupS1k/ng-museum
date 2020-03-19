@@ -14,7 +14,7 @@ import {AppState} from '../../../app.reducer';
     ></app-tour-edit-presentation>
   `
 })
-export class TourEditComponent {
+export class TourEditSmartComponent {
   isTour$ = this.store.select(selectIsTour);
   exhibits$ = this.store.select(selectExhibitsOfTour);
   visitors$ = this.store.select(selectVisitorsOfTour);

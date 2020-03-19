@@ -11,6 +11,7 @@ export const UPDATE_EXHIBIT_START = '[Exhibit] Update Exhibit Start';
 export const DELETE_EXHIBIT_FROM_TOUR_START = '[Exhibit] Delete Exhibit From Tour Start';
 export const UPDATE_EXHIBIT_SUCCESS = '[Exhibit] Update Exhibit Success';
 export const DELETE_EXHIBIT_FROM_TOUR_SUCCESS = '[Exhibit] Delete Exhibit From Tour Success';
+export const CLEAR_SELECTED_EXHIBIT = '[Exhibit] Clear Selected Exhibit';
 
 export class FetchExhibitsSuccess implements Action {
   readonly type = FETCH_EXHIBITS_SUCCESS;
@@ -19,6 +20,10 @@ export class FetchExhibitsSuccess implements Action {
 
 export class FetchExhibitsStart implements Action {
   readonly type = FETCH_EXHIBITS_START;
+}
+
+export class ClearSelectedExhibit implements Action {
+  readonly type = CLEAR_SELECTED_EXHIBIT;
 }
 
 export class DeleteExhibitFromTourStart implements Action {
@@ -55,4 +60,5 @@ export type ExhibitActions =
   | FetchExhibitsSuccess
   | FetchExhibitSuccess
   | UpdateExhibitSuccess
+  | ClearSelectedExhibit
   | DeleteExhibitFromTourSuccess;

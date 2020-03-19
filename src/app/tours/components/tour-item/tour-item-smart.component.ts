@@ -16,7 +16,7 @@ import {DeleteFavouriteTourStart} from '../../../profile/store/profile.actions';
     ></app-tour-item-presentation>
   `
 })
-export class TourItemComponent {
+export class TourItemSmartComponent {
   @Input() tour: Tour;
   @Input() isProfile?: boolean;
   isGuide$ = this.store.select(selectIsGuide);

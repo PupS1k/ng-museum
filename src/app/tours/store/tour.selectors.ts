@@ -47,7 +47,7 @@ export const selectExhibitsOfTour = createSelector(
   selectIsVisitor,
   (tourState, isVisitor) => {
     if (isVisitor) {
-      return tourState.exhibitsOfTour;
+      return tourState.tourExhibits;
     } else {
       return [];
     }
@@ -59,11 +59,12 @@ export const selectGuideOfTour = createSelector(
   selectToursState,
   selectIsGuide,
   (tourState, isGuide) => {
-    if (isGuide && tourState.tourGuide.username) {
-      return [tourState.tourGuide];
-    } else {
-      return [];
+    if (isGuide && tourState.tourGuide) {
+      if (tourState.tourGuide.username) {
+        return [tourState.tourGuide];
+      }
     }
+    return [];
   }
 );
 

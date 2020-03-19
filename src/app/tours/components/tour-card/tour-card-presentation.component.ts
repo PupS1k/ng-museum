@@ -13,7 +13,6 @@ export class TourCardPresentationComponent {
   @Output() deleteExhibitFormTour = new EventEmitter<number>();
 
   deleteFromTour() {
-    const tourId = this.tour.tourId;
-    this.deleteExhibitFormTour.emit(tourId);
+    this.deleteExhibitFormTour.emit(this.tour.tourId);
   }
 }

@@ -15,14 +15,14 @@ export class TourDetailsPresentationComponent {
   @Input() isGuide: boolean;
   @Input() isTour: boolean;
 
-  @Output() delete = new EventEmitter<void>();
-  @Output() add = new EventEmitter<void>();
+  @Output() delete = new EventEmitter<Tour['tourId']>();
+  @Output() add = new EventEmitter<Tour['tourId']>();
 
   onDeleteFavouriteTour() {
-    this.delete.emit();
+    this.delete.emit(this.tour.tourId);
   }
 
   onAddIntoFavourites() {
-    this.add.emit();
+    this.add.emit(this.tour.tourId);
   }
 }

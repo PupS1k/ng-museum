@@ -11,7 +11,7 @@ import {selectTours} from '../../store/tour.selectors';
     ></app-tours-list-presentation>
   `
 })
-export class ToursListComponent {
+export class ToursListSmartComponent {
   tours$ = this.store.select(selectTours);
 
   constructor(private store: Store<AppState>) {}

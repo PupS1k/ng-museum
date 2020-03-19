@@ -10,10 +10,6 @@ import {GuidesSharedModule} from '../guides/guides-shared.module';
 import {ProfilePresentationComponent} from './components/profile/profile-presentation.component';
 import {ProfileVisitorEditComponent} from './components/profile-visitor-edit/profile-visitor-edit.component';
 import {ProfileGuideEditComponent} from './components/profile-guide-edit/profile-guide-edit.component';
-import {ProfileGuard} from './services/profile-guard.service';
-import {EffectsModule} from '@ngrx/effects';
-import {ProfileEffects} from './store/profile.effects';
-import {ApiProfileService} from './services/api-profile.service';
 
 
 @NgModule({
@@ -23,8 +19,7 @@ import {ApiProfileService} from './services/api-profile.service';
     ProfileRouting,
     VisitorsSharedModule,
     GuidesSharedModule,
-    ToursSharedModule,
-    EffectsModule.forFeature([ProfileEffects])
+    ToursSharedModule
   ],
   declarations: [
     ProfileSmartComponent,
@@ -32,7 +27,6 @@ import {ApiProfileService} from './services/api-profile.service';
     ProfileVisitorEditComponent,
     ProfileGuideEditComponent
   ],
-  providers: [ProfileGuard, ApiProfileService]
 })
 export class ProfileModule {
 }

@@ -3,13 +3,14 @@ import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {EffectsModule} from '@ngrx/effects';
 
-import {ToursListComponent} from './components/tours-list/tours-list.component';
-import {TourItemComponent} from './components/tour-item/tour-item.component';
-import {ToursListPresentationComponent} from './components/tours-list-presentation/tours-list-presentation.component';
+import {TourItemSmartComponent} from './components/tour-item/tour-item-smart.component';
+import {ToursListPresentationComponent} from './components/tours-list/tours-list-presentation.component';
 import {TourEffects} from './store/tour.effects';
-import {TourCardComponent} from './components/tour-card/tour-card.component';
-import {TourItemPresentationComponent} from './components/tour-item-presentation/tour-item-presentation.component';
-import {TourCardPresentationComponent} from './components/tour-card-presentation/tour-card-presentation.component';
+import {TourCardSmartComponent} from './components/tour-card/tour-card-smart.component';
+import {TourItemPresentationComponent} from './components/tour-item/tour-item-presentation.component';
+import {TourCardPresentationComponent} from './components/tour-card/tour-card-presentation.component';
+import {ApiToursService} from './service/api-tours.service';
+import {ToursService} from './service/tours.service';
 
 
 @NgModule({
@@ -19,18 +20,22 @@ import {TourCardPresentationComponent} from './components/tour-card-presentation
     EffectsModule.forFeature([TourEffects])
   ],
   declarations: [
-    ToursListComponent,
     ToursListPresentationComponent,
-    TourItemComponent,
-    TourCardComponent,
+    TourItemSmartComponent,
+    TourCardSmartComponent,
     TourItemPresentationComponent,
     TourCardPresentationComponent
   ],
   exports: [
-    ToursListComponent,
     ToursListPresentationComponent,
-    TourItemComponent,
-    TourCardComponent
+    TourItemSmartComponent,
+    TourCardSmartComponent,
+    TourItemPresentationComponent,
+    TourCardPresentationComponent
+  ],
+  providers: [
+    ApiToursService,
+    ToursService
   ]
 })
 export class ToursSharedModule {}

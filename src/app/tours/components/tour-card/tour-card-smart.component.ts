@@ -14,7 +14,7 @@ import {DeleteExhibitFromTourStart} from '../../../exhibits/store/exhibit.action
     ></app-tour-card-presentation>
   `
 })
-export class TourCardComponent {
+export class TourCardSmartComponent {
   @Input() tour: Tour;
 
   constructor(private store: Store<AppState>) {}

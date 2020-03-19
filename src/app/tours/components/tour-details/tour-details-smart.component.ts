@@ -5,6 +5,7 @@ import {AppState} from '../../../app.reducer';
 import {selectExhibitsOfTour, selectIsFavouriteTour, selectIsTour, selectTour} from '../../store/tour.selectors';
 import {AddFavouriteTourStart, DeleteFavouriteTourStart} from '../../store/tour.actions';
 import {selectIsGuide} from '../../../auth/store/auth.selectors';
+import {Tour} from '../../models/tour.model';
 
 @Component({
   selector: 'app-tour-details',
@@ -14,13 +15,13 @@ import {selectIsGuide} from '../../../auth/store/auth.selectors';
       [exhibits]="exhibits$ | async"
       [isFavouriteTour]="isFavouriteTour$ | async"
       [isGuide]="isGuide$ | async"
-      (delete)="onDeleteTourFromFavourites()"
-      (add)="onAddTourIntoFavourites()"
       [isTour]="isTour$ | async"
+      (add)="onAddTourIntoFavourites($event)"
+      (delete)="onDeleteTourFromFavourites($event)"
     ></app-tour-details-presentation>
   `
 })
-export class TourDetailsComponent {
+export class TourDetailsSmartComponent {
   tour$ = this.store.select(selectTour);
   exhibits$ = this.store.select(selectExhibitsOfTour);
   isFavouriteTour$ = this.store.select(selectIsFavouriteTour);
@@ -29,11 +30,11 @@ export class TourDetailsComponent {
 
   constructor(private store: Store<AppState>) {}
 
-  onDeleteTourFromFavourites() {
-    this.store.dispatch(new DeleteFavouriteTourStart());
+  onDeleteTourFromFavourites(tourId: Tour['tourId']) {
+    this.store.dispatch(new DeleteFavouriteTourStart(tourId));
   }
 
-  onAddTourIntoFavourites() {
-    this.store.dispatch(new AddFavouriteTourStart());
+  onAddTourIntoFavourites(tourId: Tour['tourId']) {
+    this.store.dispatch(new AddFavouriteTourStart(tourId));
   }
 }

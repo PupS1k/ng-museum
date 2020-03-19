@@ -15,7 +15,7 @@ import {TourForm} from '../../models/tour-form.model';
   ></app-tour-form-presentation>
   `
 })
-export class TourFormComponent {
+export class TourFormSmartComponent {
   tourForm$ = this.store.select(selectTourForm);
 
   constructor(private store: Store<AppState>) {}
