@@ -1,5 +1,6 @@
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {confirmPassword} from '../auth/utils/validators';
+import {IsPositiveNumber} from '../core/utils';
 
 
 export const createFormGuide = (guide) => {
@@ -22,11 +23,11 @@ export const createFormGuide = (guide) => {
     ),
     experience: new FormControl(
       guide ? guide.experience : '',
-      [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]
+      [Validators.required, IsPositiveNumber()]
     ),
     age: new FormControl(
       guide ? guide.age : '',
-      [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]
+      [Validators.required, IsPositiveNumber()]
     ),
     languages: new FormControl(
       guide ? guide.languages : '',

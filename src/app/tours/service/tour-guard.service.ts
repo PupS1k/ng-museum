@@ -16,7 +16,7 @@ export class TourGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    const id = +route.params.id;
+    const id = Number(route.params.id);
     this.store.dispatch(new FetchTourStart(id));
     return this.actions$.pipe(
       ofType(FETCH_DATA_TOUR_SUCCESS),

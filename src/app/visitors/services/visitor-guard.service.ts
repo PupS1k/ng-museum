@@ -13,7 +13,7 @@ export class VisitorGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    const id = +route.params.id;
+    const id = Number(route.params.id);
     this.store.dispatch(new FetchVisitorStart(id));
     return this.actions$.pipe(
       ofType(FETCH_VISITOR_SUCCESS),

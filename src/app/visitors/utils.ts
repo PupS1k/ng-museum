@@ -1,5 +1,6 @@
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {confirmPassword} from '../auth/utils/validators';
+import {IsPositiveNumber} from '../core/utils';
 
 
 export const createFormVisitor = (visitor) => {
@@ -22,7 +23,7 @@ export const createFormVisitor = (visitor) => {
     ),
     age: new FormControl(
       visitor ? visitor.age : '',
-      [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]
+      [Validators.required, IsPositiveNumber()]
     ),
     email: new FormControl(
       visitor ? visitor.email : '',
