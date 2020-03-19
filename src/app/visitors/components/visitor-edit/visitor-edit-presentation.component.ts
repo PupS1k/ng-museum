@@ -15,12 +15,12 @@ export class VisitorEditPresentationComponent {
   @Output() update = new EventEmitter<VisitorForm>();
 
   onSubmit() {
-    const visitorFormData: {username, password, age, fio, email} = this.userForm.value;
+    const {username, password, age, fio, email} = this.userForm.value;
 
     if (this.isUpdate) {
-      this.update.emit(visitorFormData);
+      this.update.emit({username, password, age, fio, email});
     } else {
-      this.create.emit(visitorFormData);
+      this.create.emit({username, password, age, fio, email});
     }
   }
 
