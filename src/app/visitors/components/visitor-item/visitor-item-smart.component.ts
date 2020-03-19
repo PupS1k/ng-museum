@@ -18,7 +18,7 @@ import {DeleteVisitorTourStart} from '../../../tours/store/tour.actions';
     ></app-visitor-item-presentation>
   `
 })
-export class VisitorItemComponent {
+export class VisitorItemSmartComponent {
   @Input() visitor: Visitor;
 
   isTour$ = this.store.select(selectIsTour);

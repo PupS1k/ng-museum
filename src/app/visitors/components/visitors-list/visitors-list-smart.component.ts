@@ -11,7 +11,7 @@ import {selectVisitors} from '../../store/visitor.selectors';
     ></app-visitors-list-presentation>
   `
 })
-export class VisitorsListComponent {
+export class VisitorsListSmartComponent {
   visitors$ = this.store.select(selectVisitors);
 
   constructor(private store: Store<AppState>) {}

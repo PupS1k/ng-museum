@@ -19,7 +19,7 @@ import {VisitorForm} from '../../models/visitor-form.model';
 
   `
 })
-export class VisitorEditComponent implements OnDestroy {
+export class VisitorEditSmartComponent implements OnDestroy {
   isUpdate$ = this.store.select(selectIsUpdateVisitor);
   visitorForm$ = this.store.select(selectVisitorForm);
 

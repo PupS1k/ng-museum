@@ -4,47 +4,46 @@ import {RouterModule} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
 import {EffectsModule} from '@ngrx/effects';
 
-import {VisitorsListComponent} from './components/visitors-list/visitors-list.component';
-import {VisitorsListPresentationComponent} from './components/visitors-list-presentation/visitors-list-presentation.component';
-import {VisitorItemComponent} from './components/visitor-item/visitor-item.component';
+import {VisitorsListSmartComponent} from './components/visitors-list/visitors-list-smart.component';
+import {VisitorsListPresentationComponent} from './components/visitors-list/visitors-list-presentation.component';
+import {VisitorItemSmartComponent} from './components/visitor-item/visitor-item-smart.component';
 import {LayoutModule} from '../layout/layout.module';
-import {VisitorItemPresentationComponent} from './components/visitor-item-presentation/visitor-item-presentation.component';
-import {ToursSharedModule} from '../tours/tours-shared.module';
-import {VisitorEditComponent} from './components/visitor-edit/visitor-edit.component';
+import {VisitorItemPresentationComponent} from './components/visitor-item/visitor-item-presentation.component';
+import {VisitorEditSmartComponent} from './components/visitor-edit/visitor-edit-smart.component';
 import {VisitorEffects} from './store/visitor.effects';
 import {VisitorsGuard} from './services/visitors-guard.service';
 import {VisitorGuard} from './services/visitor-guard.service';
-import {VisitorEditPresentationComponent} from './components/visitor-edit-presentation/visitor-edit-presentation.component';
+import {VisitorEditPresentationComponent} from './components/visitor-edit/visitor-edit-presentation.component';
+import {ApiVisitorsService} from './services/api-visitors.service';
 
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    LayoutModule,
-    ToursSharedModule,
     ReactiveFormsModule,
     EffectsModule.forFeature([VisitorEffects])
   ],
   declarations: [
-    VisitorsListComponent,
+    VisitorsListSmartComponent,
     VisitorsListPresentationComponent,
     VisitorItemPresentationComponent,
-    VisitorItemComponent,
-    VisitorEditComponent,
+    VisitorItemSmartComponent,
+    VisitorEditSmartComponent,
     VisitorEditPresentationComponent
   ],
   exports: [
-    VisitorsListComponent,
+    VisitorsListSmartComponent,
     VisitorsListPresentationComponent,
     VisitorItemPresentationComponent,
-    VisitorItemComponent,
-    VisitorEditComponent,
+    VisitorItemSmartComponent,
+    VisitorEditSmartComponent,
     VisitorEditPresentationComponent
   ],
   providers: [
     VisitorsGuard,
-    VisitorGuard
+    VisitorGuard,
+    ApiVisitorsService
   ]
 })
 export class VisitorsSharedModule {}

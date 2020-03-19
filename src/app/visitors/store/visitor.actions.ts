@@ -30,7 +30,7 @@ export class ClearSelectedVisitor implements Action {
 
 export class DeleteVisitorSuccess implements Action {
   readonly type = DELETE_VISITOR_SUCCESS;
-  constructor(public payload: number) {}
+  constructor(public payload: Visitor['visitorId']) {}
 }
 
 export class DeleteVisitorStart implements Action {
@@ -45,7 +45,7 @@ export class CreateVisitorSuccess implements Action {
 
 export class CreateVisitorStart implements Action {
   readonly type = CREATE_VISITOR_START;
-  constructor(public payload: Omit<Visitor, 'visitorId'>) {}
+  constructor(public payload: VisitorForm) {}
 }
 
 export class FetchVisitorSuccess implements Action {
@@ -55,7 +55,7 @@ export class FetchVisitorSuccess implements Action {
 
 export class FetchVisitorStart implements Action {
   readonly type = FETCH_VISITOR_START;
-  constructor(public payload: number) {}
+  constructor(public payload: Visitor['visitorId']) {}
 }
 
 export class UpdateVisitorStart implements Action {
