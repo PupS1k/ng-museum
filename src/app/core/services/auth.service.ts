@@ -4,15 +4,16 @@ import {Router} from '@angular/router';
 
 import * as moment from 'moment';
 import {AppState} from '../../app.reducer';
-import {ChangeUsername, FetchRole, LoginSuccess, Logout, SignUpSuccess, UpdateTokenExpDate} from '../../auth/store/auth.actions';
+import {ChangeUsername, SetRole, LoginSuccess, Logout, SignUpSuccess, UpdateTokenExpDate} from '../../auth/store/auth.actions';
 import {UserData} from '../models/user-data.model';
 import {LoginResponseData, Role} from './api-auth.service';
 import {ClearUserInfo, FetchGuideInfoStart, FetchVisitorInfoStart, SetProfileMode} from '../../profile/store/profile.actions';
 import {now} from 'moment';
+import {VisitorForm} from '../../visitors/models/visitor-form.model';
 
 @Injectable()
 export class AuthService {
-  private tokenExpirationTimer: any;
+  tokenExpirationTimer: any;
 
   constructor(private store: Store<AppState>, private router: Router) {
   }
@@ -34,7 +35,7 @@ export class AuthService {
     localStorage.setItem('userData', JSON.stringify(userData));
   }
 
-  handleSignUp(signUpFormData) {
+  handleSignUp(signUpFormData: VisitorForm) {
     return new SignUpSuccess(signUpFormData);
   }
 
@@ -45,7 +46,7 @@ export class AuthService {
 
     this.setItemLocalStorage({username, token, tokenExpirationDate, roles});
 
-    return new FetchRole(roles);
+    return new SetRole(roles);
   }
 
   updateLogoutTimer(authState) {
@@ -56,7 +57,7 @@ export class AuthService {
     const updatedUserData: UserData = {...authState, tokenExpirationDate: new Date(authState.tokenExpirationDate)};
 
     if (!!this.checkTokenExp(updatedUserData)) {
-      const expirationDuration = Number(moment(updatedUserData.tokenExpirationDate, 'ms').subtract(now(), 'ms'));
+      const expirationDuration = Number(moment(updatedUserData.tokenExpirationDate, 'ms').subtract(now()));
       this.setLogoutTimer(expirationDuration);
 
       this.setProfileMode(updatedUserData.roles, updatedUserData.username);
@@ -89,8 +90,8 @@ export class AuthService {
 
   updateUserInfo(userInfo) {
     const userData: UserData = JSON.parse(localStorage.getItem('userData'));
-    if (userData.username !== userInfo.username) {
-      localStorage.setItem('userData', JSON.stringify({...userData, username: userInfo.username}));
+    if (!userData || userData.username !== userInfo.username) {
+      this.setItemLocalStorage({...userData, username: userInfo.username});
       this.store.dispatch(new ChangeUsername(userInfo.username));
     }
   }

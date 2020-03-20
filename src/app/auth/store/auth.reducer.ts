@@ -2,7 +2,7 @@ import {
   AuthActions,
   UPDATE_TOKEN_EXP_DATE,
   CHANGE_USERNAME,
-  FETCH_ROLE,
+  SET_ROLE,
   LOGIN_SUCCESS,
   LOGOUT
 } from './auth.actions';
@@ -50,7 +50,7 @@ export function authReducer(state: UserData = initialState, action: AuthActions)
     case LOGIN_SUCCESS: {
       return setUserData(state, action.payload);
     }
-    case FETCH_ROLE: {
+    case SET_ROLE: {
       return setRoles(state, action.payload);
     }
     case CHANGE_USERNAME: {

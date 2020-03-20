@@ -10,7 +10,7 @@ export const AUTO_LOGIN = '[Auth] Auto Login';
 export const UPDATE_TOKEN_EXP_DATE = '[Auth] Update Token Expiration Date';
 export const CHANGE_USERNAME = '[Auth] Change Username';
 export const LOGOUT = '[Auth] Logout';
-export const FETCH_ROLE = '[Auth] Fetch Role';
+export const SET_ROLE = '[Auth] Set Role';
 
 export class LoginStart implements Action {
   readonly type = LOGIN_START;
@@ -49,14 +49,14 @@ export class ChangeUsername implements Action {
   constructor(public payload: string) {}
 }
 
-export class FetchRole implements Action {
-  readonly type = FETCH_ROLE;
+export class SetRole implements Action {
+  readonly type = SET_ROLE;
   constructor(public payload: string[]) {}
 }
 
 export type AuthActions =
   | ChangeUsername
-  | FetchRole
+  | SetRole
   | Logout
   | LoginSuccess
   | UpdateTokenExpDate;

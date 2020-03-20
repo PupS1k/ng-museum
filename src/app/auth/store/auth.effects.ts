@@ -7,7 +7,7 @@ import {Action, Store} from '@ngrx/store';
 
 import {
   AUTO_LOGIN,
-  FETCH_ROLE,
+  SET_ROLE,
   LOGIN_START, LOGIN_SUCCESS,
   LoginStart,
   LOGOUT,
@@ -93,7 +93,7 @@ export class AuthEffects {
 
   @Effect({dispatch: false})
   authLoginRedirect = this.actions$.pipe(
-    ofType(FETCH_ROLE),
+    ofType(SET_ROLE),
     tap(() => this.router.navigate(['/']))
   );
 
